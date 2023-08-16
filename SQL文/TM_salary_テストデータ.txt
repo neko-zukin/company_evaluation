@@ -1,0 +1,2 @@
+INSERT INTO TM_salary (rank, class, pt, Expt, salary, del_flg)
+VALUES ("01", "有休"),("02", "体調不良");
