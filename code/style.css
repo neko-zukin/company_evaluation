@@ -1,3 +1,6 @@
+span{
+	color: red;
+}
 
 .pop{
 	position: fixed;
@@ -7,7 +10,7 @@
 	width: 600;
 	height: 400;
 	border: double 5px #1E90FF;
-	background-color: red;
+	background-color: white;
 }
 
 #pop_back{
@@ -36,6 +39,14 @@
 	font-size: 45;
 	margin: 80 auto 10 auto;
 }
+
+.pop_title{
+	width: fit-content;
+	font-size: 25;
+	margin: 80 auto 10 auto;
+	text-align: center;
+}
+
 .pop_button_alone{
 	display: block;
 	width: 200;

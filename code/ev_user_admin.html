@@ -55,19 +55,65 @@
 		<input type="checkbox">
 	</div>
 	<div>
-		<button>戻る</button>
-		<button>登録</button>
-		<button>更新</button>
+		<button id="back_button">戻る</button>
+		<button id="insert_button">登録</button>
+		<button id="update_button">更新</button>
 	</div>
 	<!--ポップアップ時のグレー処理-->
 	<div id="pop_back"></div>
-	<div class="pop">
+	<!--更新ポップアップ-->
+	<div class="pop" id="UPDATE">
 		<button class="pop_cancel" >✖</button>
-		<div class="pop_title_alone">保存しますか？</div>
+		<div class="pop_title_alone">更新しますか？</div>
+		<button class="pop_button_alone">OK</button>
+	</div>
+	<!--登録ポップアップ-->
+	<div class="pop" id="INSERT">
+		<button class="pop_cancel" >✖</button>
+		<div class="pop_title_alone">登録しますか？</div>
+		<button class="pop_button_alone">OK</button>
+	</div>
+	<!--戻るポップアップ-->
+	<div class="pop" id="BACK">
+		<button class="pop_cancel">✖</button>
+		<div class="pop_title"><span>※保存をしていないため<br>入力されたデータが消えます。</span><br>よろしいですか？</div>
 		<button class="pop_button_alone">OK</button>
 	</div>
 </body>
 <script>
+
+	//ブラウザのバックボタン押下時の警告メッセージ
+	window.addEventListener('load', function() {
+	  window.addEventListener('popstate', function(event) {
+	    alert('もう一度このボタンを押すと保存していないデータは消えてしまいます😱');
+	  });
+	  history.pushState(null, null, null);
+	});
+
+	$("#UPDATE").hide();
+	$("#INSERT").hide();
+	$("#BACK").hide();
+	$("#pop_back").hide();
+	
+	$("#back_button").on("click",function(){
+		$("#BACK").show();
+	})
+	
+	$("#insert_button").on("click",function(){
+		$("#INSERT").show();
+	})
+	
+	$("#update_button").on("click",function(){
+		$("#UPDATE").show();
+	})
+	
+	$(".pop_cancel").on("click",function(){
+		$("#UPDATE").hide();
+		$("#INSERT").hide();
+		$("#BACK").hide();
+		$("#pop_back").hide();
+	})
+	
 </script>
 </html>
 
