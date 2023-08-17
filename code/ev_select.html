@@ -6,18 +6,43 @@
 </head>
 <body>
 	<h1>画面選択</h1>
-	<div>
-		<button>社員管理</button>
-		<button>評価項目管理</button>
-		<button>給与テーブル</button>
+	<div class="center">
+		<button class="select_row1"id="staff_admin">社員管理</button>
+		<button class="select_row1"id="assess_admin">評価項目管理</button>
+		<button class="select_row1"id="money_table">給与テーブル</button>
 	</div>
-	<div>
-		<button>評価実施</button>
-		<button>評価出力</button>
+	<div class="center">
+		<button class="select_row2"id="assess_start">評価実施</button>
+		<button class="select_row2"id="assess_output">評価出力</button>
 	</div>
-	<button>戻る</button>
+	<!--<button id="back_button">戻る</button>-->
 </body>
 <script>
+	//社員管理ボタン押下時
+	$("#staff_admin").on("click",function(){
+		location.href='ev_staff_admin.html'
+	});
+	
+	$("#assess_admin").on("click",function(){
+		location.href='ev_assess_select.html'
+	});
+	
+	$("#money_table").on("click",function(){
+		location.href='ev_money_table.html'
+	});
+	
+	$("#assess_start").on("click",function(){
+		location.href='ev_assess_start.html'
+	});
+	
+	$("#assess_output").on("click",function(){
+		location.href='ev_assess_output.html'
+	});
+	
+//	$("#back_button").on("click",function(){
+//		location.href='ev_login.html'
+//	});
+
 </script>
 </html>
 

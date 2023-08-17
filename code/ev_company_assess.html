@@ -1,0 +1,29 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h1>会社評価</h1>
+	<div id="tm_kbn">技術系</div>
+	<div id="jq_kbn">実務系</div>
+	<table border="1" class="sum_table">
+		<tr>
+			<th>合計</th>
+			<th>pt</th>
+			<td></td>
+			<th>Expt</th>
+			<td></td>
+		</tr>
+	</table>
+	<div id="assess">
+	</div>
+</body>
+<script>
+	for(i=0;i<20;i++){
+		$("#assess").append('<div class="assess_check"><div class="assess_check_kbn">aaaa</div><input type="checkbox" class="assess_check_box"><div class="assess_check_note">aaaaaaa</div></div>')
+	}
+</script>
+</html>
+

@@ -51,8 +51,8 @@
 		<input>
 	</div>
 	<div>
-		<label>削除フラグ</label>
 		<input type="checkbox">
+		<label>削除フラグ</label>
 	</div>
 	<div>
 		<button id="back_button">戻る</button>
@@ -65,19 +65,19 @@
 	<div class="pop" id="UPDATE">
 		<button class="pop_cancel" >✖</button>
 		<div class="pop_title_alone">更新しますか？</div>
-		<button class="pop_button_alone">OK</button>
+		<button class="pop_button_alone" id="update_ok">OK</button>
 	</div>
 	<!--登録ポップアップ-->
 	<div class="pop" id="INSERT">
 		<button class="pop_cancel" >✖</button>
 		<div class="pop_title_alone">登録しますか？</div>
-		<button class="pop_button_alone">OK</button>
+		<button class="pop_button_alone" id="insert_ok">OK</button>
 	</div>
 	<!--戻るポップアップ-->
 	<div class="pop" id="BACK">
 		<button class="pop_cancel">✖</button>
 		<div class="pop_title"><span>※保存をしていないため<br>入力されたデータが消えます。</span><br>よろしいですか？</div>
-		<button class="pop_button_alone">OK</button>
+		<button class="pop_button_alone" id="back_ok">OK</button>
 	</div>
 </body>
 <script>
@@ -112,6 +112,28 @@
 		$("#INSERT").hide();
 		$("#BACK").hide();
 		$("#pop_back").hide();
+	})
+	
+	$("#update_ok").on("click",function(){
+		$("#UPDATE").hide();
+		$("#INSERT").hide();
+		$("#BACK").hide();
+		$("#pop_back").hide();
+	})
+	
+	$("#insert_ok").on("click",function(){
+		$("#UPDATE").hide();
+		$("#INSERT").hide();
+		$("#BACK").hide();
+		$("#pop_back").hide();
+	})
+	
+	$("#back_ok").on("click",function(){
+		$("#UPDATE").hide();
+		$("#INSERT").hide();
+		$("#BACK").hide();
+		$("#pop_back").hide();
+		location.href='ev_select.html'
 	})
 	
 </script>

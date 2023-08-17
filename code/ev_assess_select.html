@@ -7,15 +7,21 @@
 <body>
 	<h1>評価項目管理</h1>
 	<div>
-		<button>会社評価管理</button>
-		<button>自己評価管理</button>
+		<button id="company_admin">会社評価管理</button>
+		<button id="self_admin">自己評価管理</button>
 	</div>
 	<button id="back_button">戻る</button>
 </body>
 <script>
+	$("#company_admin").on("click",function(){
+		location.href='ev_company_admin.html'
+	});
+	$("#self_admin").on("click",function(){
+		location.href='ev_self_admin.html'
+	});
 	$("#back_button").on("click",function(){
-		location.href='test_select.php'
-	})
+		location.href='ev_select.html'
+	});
 </script>
 </html>
 

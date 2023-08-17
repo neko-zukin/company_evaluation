@@ -1,7 +1,48 @@
+/*ここはみんなで使うところだよ*/
 span{
 	color: red;
 }
 
+h1{
+	width: fit-content; 
+	margin: 0 auto;
+}
+
+.f{
+	display: flex;
+}
+
+.sum_table{
+	position: absolute;
+	top: 100;
+	right: 100;
+}
+
+.center{
+	width: fit-content;
+	margin: 0 auto;
+}
+
+#insert_button{
+	width: 200;
+	font-size:20;
+}
+
+#update_button{
+	width: 200;
+	font-size:20;
+}
+
+#back_button{
+	width: 200;
+	font-size:20;
+}
+
+p{
+	margin: 0 auto;
+}
+
+/*ポップアップ用*/
 .pop{
 	position: fixed;
 	top: 50%;
@@ -52,6 +93,68 @@ span{
 	width: 200;
 	height: 30;
 	margin: 80 auto;
+}
+
+/*ログイン画面*/
+#login_button{
+	display: block;
+	width: 200;
+	margin: 0 auto;
+	text-align: center;
+}
+
+/*選択画面*/
+.select_row1{
+	width:300;
+	font-size: 20;
+}
+
+.select_row2{
+	width:450;
+	font-size: 20;
+}
+
+/*会社評価*/
+#tm_kbn{
+	width: 800;
+	height: 30;
+	margin: 0 auto;
+	font-size: 20;
+	text-align: center;
+	background: #ff8ec6;
+	border: solid;
+	border-width: 1;
+}
+
+#jq_kbn{
+	width: 800;
+	height: 30;
+	margin: 0 auto;
+	font-size: 20;
+	text-align: center;
+	background: #89ff89;
+	border: solid;
+	border-width: 0 1 1 1;
+}
+
+.assess_check{
+	width: 800;
+	margin: 0 auto;
+	display: flex;
+}
+.assess_check_kbn{
+	border: solid;
+	border-width: 1;
+}
+.assess_check_note{
+	border: solid;
+	border-width: 1;
+}
+.assess_check_box{
+	width: 25;
+	margin: 0;
+	border: solid;
+	border-width: 1;
 }
 
 

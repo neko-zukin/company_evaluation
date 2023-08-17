@@ -6,18 +6,37 @@
 </head>
 <body>
 	<h1>社員評価システム</h1>
-	<div>
+	<div class="center">
 		<label>ユーザID</label>
-		<input>
+		<input id="user_id" type="text">
 	</div>
-	<div>
+	<div class="center">
 		<label>パスワード</label>
-		<input type="password">
+		<input type="password" id="password" type="text">
 	</div>
-	<button>ログイン</button>
 	<p>　</p>
+	<button id="login_button">ログイン</button>
+
 </body>
 <script>
+	//テストデータ
+	let ID = "1";
+	let PASS = "a";
+	
+	$("#login_button").on("click",function(){
+		//ユーザIDを取得
+		let user_id = $("#user_id").val();
+
+		//パスワードを取得
+		let password = $("#password").val();
+		
+		if(user_id==ID&&password==PASS){
+			location.href='ev_select.html'
+		}
+	})
+
+
+
 </script>
 </html>
 

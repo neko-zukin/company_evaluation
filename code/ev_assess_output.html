@@ -1,0 +1,43 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h1>評価出力</h1>
+	<!--<button>全選択</button>-->
+	<table border="1">
+		<tr>
+			<th>社員番号</th>
+			<th>氏名</th>
+			<th>最新日</th>
+			<th></th>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><button id="check_button">確認</button></td>
+		</tr>
+	</table>
+	<button id="back_button">戻る</button>
+	<button id="output_button">出力</button>
+</body>
+<script>
+
+	$("#back_button").on("click",function(){
+		location.href='ev_select.html'
+	})
+
+	$("#output_button").on("click",function(){
+		location.href='ev_staff_admin.html'
+	})
+	
+	$("#check_button").on("click",function(){
+		location.href='ev_check.html'
+	})
+	
+</script>
+</html>
+
