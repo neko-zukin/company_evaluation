@@ -32,13 +32,13 @@ SELECT * FROM TM_min_money;
 【給与テーブル】
 ＜作成＞
 CREATE TABLE TM_salary(
-        rank     VARCHAR(2),
+        cl_rank     VARCHAR(2),
         class     TINYINT,
         pt     SMALLINT  NOT NULL,
         Expt     SMALLINT  NOT NULL,
         salary     DECIMAL(7,0)  NOT NULL,
         del_flg     BOOLEAN  NOT NULL  DEFAULT false,
-    PRIMARY KEY (rank, class)
+    PRIMARY KEY (cl_rank, class)
 );
 ＜確認＞
 DESC TM_salary;
@@ -219,7 +219,7 @@ CREATE TABLE TE_staff_cp(
         staff_id     VARCHAR(6),
         title_cd     VARCHAR(5),
         assess_date     DATE,
-        note     VARCHAR(200);
+        note     VARCHAR(200),
     FOREIGN KEY (staff_id) REFERENCES TM_staff(staff_id),
     FOREIGN KEY (title_cd) REFERENCES TM_point(title_cd),
     PRIMARY KEY (staff_id, title_cd, assess_date)
