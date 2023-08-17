@@ -18,13 +18,13 @@ USE company_evaluation;
 【最低賃金テーブル】
 ＜作成＞
 CREATE TABLE TM_min_money(
-        min_money SMALLINT,
+        min_money     SMALLINT,
     PRIMARY KEY (min_money)
 );
 ＜確認＞
 DESC TM_min_money;
 ＜テストデータ登録＞
-INSERT INTO TM_min_money (min_money)
+INSERT INTO TM_min_money(min_money)
 VALUES (986);
 ＜テストデータ確認＞
 SELECT * FROM TM_min_money;
@@ -43,164 +43,195 @@ CREATE TABLE TM_salary(
 ＜確認＞
 DESC TM_salary;
 ＜テストデータ登録＞
-INSERT INTO TM_salary (rank, class, pt, Expt, salary, del_flg)
-VALUES ("01", "有休"),("02", "体調不良");
+TM_salary_テストデータ.txtに記載
 ＜テストデータ確認＞
 SELECT * FROM TM_salary;
 
-【契約形態テーブル】
+【職歴ポイント(IT以外)テーブル】
 ＜作成＞
-CREATE TABLE TC_Agreement(
-        agreement_id VARCHAR(4),
-        agreement_name VARCHAR(20) NOT NULL,
-    PRIMARY KEY (agreement_id)
+CREATE TABLE TM_noit_point(
+        generation     TINYINT,
+        not_it     TINYINT,
+        1th     TINYINT,
+        2th     TINYINT,
+        3th     TINYINT,
+        4th     TINYINT,
+        5th_over     TINYINT,
+    PRIMARY KEY (generation, not_it)
 );
 ＜確認＞
-DESC TC_Agreement;
+DESC TM_noit_point;
 ＜テストデータ登録＞
-INSERT INTO TC_Agreement (agreement_id, agreement_name)
-VALUES ("0001", "契約1"),("0002", "契約2");
+TM_noit_point_テストデータ.txtに記載
 ＜テストデータ確認＞
-SELECT * FROM TC_Agreement;
+SELECT * FROM TM_noit_point;
 
-【社員マスタ】
+【ユーザテーブル】
 ＜作成＞
-CREATE TABLE TM_Staff(
-        staff_id VARCHAR(6),
-        staff_name VARCHAR(30) NOT NULL,
-        y_holiday INT(2),
-        del_flg  BOOLEAN DEFAULT false,
-        create_date DATE NOT NULL,
-        update_date DATE,
+CREATE TABLE TM_user(
+        user_id     VARCHAR(10),
+        user_name     VARCHAR(20)  NOT NULL,
+        password     VARCHAR(10)  NOT NULL,
+        user_kbn     VARCHAR(10),
+    PRIMARY KEY (user_id)
+);
+＜確認＞
+DESC TM_user;
+＜テストデータ登録＞
+INSERT INTO TM_user(user_id, user_name, password)
+VALUES
+     ("iwata", "岩田有市", "password"),
+     ("ozawa", "大澤健太", "password"),
+     ("kozima", "小島衣織", "password"),
+     ("murata", "村田純一", "password");
+＜テストデータ確認＞
+SELECT * FROM TM_user;
+
+【社員テーブル】
+＜作成＞
+CREATE TABLE TM_staff(
+        staff_id     VARCHAR(6),
+        staff_name     VARCHAR(20)  NOT NULL,
+        birthday     DATE,
+        join_date     DATE,
+        pt     SMALLINT,
+        Expt     SMALLINT,
+        ac_history     VARCHAR(10),
+        society_history     TINYINT,
+        it_history     TINYINT,
+        noit_history     TINYINT,
+        del_flg     BOOLEAN  NOT NULL  DEFAULT false,
+        create_date     DATE,
+        create_id     VARCHAR(6),
+        update_date     DATE,
+        update_id     VARCHAR(6),
+    FOREIGN KEY (create_id) REFERENCES TM_user(user_id),
+    FOREIGN KEY (update_id) REFERENCES TM_user(user_id),
     PRIMARY KEY (staff_id)
 );
 ＜確認＞
-DESC TM_Staff;
+DESC TM_staff;
 ＜テストデータ登録＞
-INSERT INTO TM_Staff (staff_id, staff_name, y_holiday, create_date)
+INSERT INTO TM_staff(staff_id, staff_name, create_date, create_id)
 VALUES
- ("000001", "岩田有市", 20, "2023-08-01"),
- ("000002", "村田純一", 20, "2023-08-01"),
- ("000003", "松家もえ", 20, "2023-08-01"),
- ("000004", "加藤千瑞", 20, "2023-08-01");
+     ("190011", "大橋 奈々", "2023-08-17", "iwata"),
+     ("190012", "國枝 敏彦", "2023-08-17", "iwata"),
+     ("190013", "大岡 咲月", "2023-08-17", "iwata"),
+     ("190015", "髙山 ゆう", "2023-08-17", "iwata"),
+     ("190016", "大澤 健太", "2023-08-17", "iwata"),
+     ("190017", "田中 常勝", "2023-08-17", "iwata"),
+     ("200003", "平野 僚太", "2023-08-17", "iwata"),
+     ("210001", "小島 衣織", "2023-08-17", "iwata"),
+     ("220001", "本田 しほ麗", "2023-08-17", "iwata"),
+     ("230001", "松家 もえ", "2023-08-17", "iwata"),
+     ("230002", "伊藤 愛香", "2023-08-17", "iwata"),
+     ("230003", "加藤 千瑞", "2023-08-17", "iwata"),
+     ("230004", "韮山 蒼太", "2023-08-17", "iwata"),
+     ("230005", "佐藤 宏樹", "2023-08-17", "iwata"),
+     ("230006", "浅井 栄二", "2023-08-17", "iwata");
 ＜テストデータ確認＞
-SELECT * FROM TM_Staff;
+SELECT * FROM TM_staff;
 
-
-【勤務先マスタ】
+【自己評価テーブル】
 ＜作成＞
-CREATE TABLE TM_Location(
-        location_id VARCHAR(4),
-        location_name VARCHAR(30),
-        create_date DATE,
-        update_date DATE,
-    PRIMARY KEY (location_id)
+CREATE TABLE TM_self_check(
+        sc_cd     VARCHAR(5),
+        self_check     VARCHAR(200)  NOT NULL,
+        pt     SMALLINT  NOT NULL,
+        Expt     SMALLINT  NOT NULL,
+        explanation     VARCHAR(200),
+        del_flg     BOOLEAN  NOT NULL  DEFAULT false,
+        create_date     DATE,
+        create_id     VARCHAR(6),
+        update_date     DATE,
+        update_id     VARCHAR(6),
+    FOREIGN KEY (create_id) REFERENCES TM_user(user_id),
+    FOREIGN KEY (update_id) REFERENCES TM_user(user_id),
+    PRIMARY KEY (sc_cd)
 );
 ＜確認＞
-DESC TM_Location;
+DESC TM_self_check;
 ＜テストデータ登録＞
-INSERT INTO TM_Location (location_id, location_name, create_date)
-VALUES ("0001", "名古屋駅", "2023-08-01"),("0002", "東京駅", "2023-08-01");
+INSERT INTO TM_self_check(sc_cd, self_check, pt, Expt, create_date, create_id)
+VALUES
+     ("SC001", "基本ポイント", 1, 0, "2023-08-17", "iwata"),
+     ("SC002", "スキルアップor自己啓発", 1, 0, "2023-08-17", "iwata"),
+     ("SC003", "業務連絡を受けた時に素早く応答できた。", 1, 0, "2023-08-17", "iwata"),
+     ("SC004", "速やかに上司に報告できた。", 1, 0, "2023-08-17", "iwata"),
+     ("SC005", "社内イベント(勉強会等)の企画・運営できた。", 1, 0, "2023-08-17", "iwata"),
+     ("SC997", "勤怠就業態度のクレームが有った", -2, 0, "2023-08-17", "iwata"),
+     ("SC998", "スキル不足のクレームがあった", -1, 0, "2023-08-17", "iwata"),
+     ("SC999", "7.8.で懲戒処分を受けた", -2, 0, "2023-08-17", "iwata");
 ＜テストデータ確認＞
-SELECT * FROM TM_Location;
+SELECT * FROM TM_self_check;
 
-【社員勤務先テーブル】
+【ポイントテーブル】
 ＜作成＞
-CREATE TABLE TE_Staff_Location(
-        staff_id VARCHAR(6),
-        location_id VARCHAR(4),
-        agreement_id VARCHAR(4),
-        road_money INT,
-        start_time TIME NOT NULL  DEFAULT "0:00",
-        end_time TIME NOT NULL  DEFAULT "0:00",
-        work_time TIME NOT NULL  DEFAULT "0:00",
-        overtime_start TIME NOT NULL  DEFAULT "0:00",
-        del_flg  BOOLEAN DEFAULT false,
-        note  VARCHAR(300),
-    FOREIGN KEY (staff_id) REFERENCES TM_Staff(staff_id),
-    FOREIGN KEY (location_id) REFERENCES TM_Location(location_id),
-    FOREIGN KEY (agreement_id) REFERENCES TC_Agreement(agreement_id),
-    PRIMARY KEY (staff_id, location_id, agreement_id)
+CREATE TABLE TM_point(
+        title_cd     VARCHAR(5),
+        tm_kbn     VARCHAR(1)  NOT NULL,
+        jq_kbn     VARCHAR(1)  NOT NULL,
+        detail     VARCHAR(200)  NOT NULL,
+        pt     SMALLINT,
+        Expt     SMALLINT,
+        note     VARCHAR(200),
+        del_flg     BOOLEAN  NOT NULL  DEFAULT false,
+        create_date     DATE,
+        create_id     VARCHAR(6),
+        update_date     DATE,
+        update_id     VARCHAR(6),
+    FOREIGN KEY (create_id) REFERENCES TM_user(user_id),
+    FOREIGN KEY (update_id) REFERENCES TM_user(user_id),
+    PRIMARY KEY (title_cd)
 );
 ＜確認＞
-DESC TE_Staff_Location;
+DESC TM_point;
 ＜テストデータ登録＞
-INSERT INTO TE_Staff_Location (staff_id, location_id, agreement_id, start_time, end_time, work_time, overtime_start)
-VALUES
- ("000001", "0001", "0001", "9:00", "18:00", "8:00", "18:00"),
- ("000002", "0001", "0001", "9:00", "18:00", "8:00", "18:00"),
- ("000003", "0001", "0001", "9:00", "18:00", "8:00", "18:00"),
- ("000004", "0002", "0001", "9:00", "18:00", "8:00", "18:00");
+TM_point_テストデータ.txtに記載
 ＜テストデータ確認＞
-SELECT * FROM TE_Staff_Location;
+SELECT * FROM TM_point;
 
-【勤務時間テーブル】
+【社員自己評価テーブル】
 ＜作成＞
-CREATE TABLE TE_Time(
-        staff_id  VARCHAR(6),
-        date   DATE,
-        work_content  VARCHAR(100),
-        start_time  TIME  DEFAULT "0:00",
-        end_time  TIME  DEFAULT "0:00",
-        break_time  TIME  DEFAULT "0:00",
-        overtime_normal  TIME  DEFAULT "0:00",
-        overtime_night  TIME  DEFAULT "0:00",
-        overtime_nosat  TIME  DEFAULT "0:00",
-        overtime_nosat_night TIME  DEFAULT "0:00",
-        private_time  TIME  DEFAULT "0:00",
-        customer_time  TIME  DEFAULT "0:00",
-        break_time_any  TIME  DEFAULT "0:00",
-        holiday_time  TIME  DEFAULT "0:00",
-        holiday_type  VARCHAR(2),
-        slow   TIME  DEFAULT "0:00",
-        early   TIME  DEFAULT "0:00",
-    FOREIGN KEY (staff_id) REFERENCES TM_Staff(staff_id),
-    FOREIGN KEY (date)  REFERENCES TP_Calendar(date),
-    FOREIGN KEY (holiday_type) REFERENCES TC_HolidayType(holiday_type),
-    PRIMARY KEY (staff_id, date)
+CREATE TABLE TE_staff_sc(
+        staff_id     VARCHAR(6),
+        sc_cd     VARCHAR(5),
+        assess_date     DATE,
+        result     BOOLEAN  NOT NULL,
+        note     VARCHAR(200),
+    FOREIGN KEY (staff_id) REFERENCES TM_staff(staff_id),
+    FOREIGN KEY (sc_cd) REFERENCES TM_self_check(sc_cd),
+    PRIMARY KEY (staff_id, sc_cd, assess_date)
 );
 ＜確認＞
-DESC TE_Time;
+DESC TE_staff_sc;
 ＜テストデータ登録＞
-INSERT INTO TE_Time (staff_id, date, work_content, start_time, end_time, break_time, overtime_normal, overtime_night, overtime_nosat, overtime_nosat_night, private_time, customer_time)
+INSERT INTO TE_staff_sc(staff_id, sc_cd, assess_date, result)
 VALUES
- ("000003", "2023-07-01", "寝てた", "9:00", "18:00", "1:00", "0:00", "0:00", "0:00", "0:00", "8:00", "0:00"),
- ("000003", "2023-07-02", "起きてた", "9:00", "19:00", "1:00", "1:00", "0:00", "0:00", "0:00", "8:00", "0:00");
+     ("230001", "SC001", "2023-08-17", true),
+     ("230001", "SC002", "2023-08-17", false);
 ＜テストデータ確認＞
-SELECT * FROM TE_Time;
+SELECT * FROM TE_staff_sc;
 
-【一時勤務時間テーブル】
+【社員会社評価テーブル】
 ＜作成＞
-CREATE TABLE TT_Time(
-        staff_id  VARCHAR(6),
-        date   DATE,
-        work_content  VARCHAR(100),
-        start_time  TIME  DEFAULT "0:00",
-        end_time  TIME  DEFAULT "0:00",
-        break_time  TIME  DEFAULT "0:00",
-        overtime_normal  TIME  DEFAULT "0:00",
-        overtime_night  TIME  DEFAULT "0:00",
-        overtime_nosat  TIME  DEFAULT "0:00",
-        overtime_nosat_night TIME  DEFAULT "0:00",
-        private_time  TIME  DEFAULT "0:00",
-        customer_time  TIME  DEFAULT "0:00",
-        break_time_any  TIME  DEFAULT "0:00",
-        holiday_time  TIME  DEFAULT "0:00",
-        holiday_type  VARCHAR(2),
-        slow   TIME  DEFAULT "0:00",
-        early   TIME  DEFAULT "0:00",
-    FOREIGN KEY (staff_id) REFERENCES TM_Staff(staff_id),
-    FOREIGN KEY (date)  REFERENCES TP_Calendar(date),
-    FOREIGN KEY (holiday_type) REFERENCES TC_HolidayType(holiday_type),
-    PRIMARY KEY (staff_id, date)
+CREATE TABLE TE_staff_cp(
+        staff_id     VARCHAR(6),
+        title_cd     VARCHAR(5),
+        assess_date     DATE,
+        note     VARCHAR(200);
+    FOREIGN KEY (staff_id) REFERENCES TM_staff(staff_id),
+    FOREIGN KEY (title_cd) REFERENCES TM_point(title_cd),
+    PRIMARY KEY (staff_id, title_cd, assess_date)
 );
 ＜確認＞
-DESC TT_Time;
+DESC TE_staff_cp;
 ＜テストデータ登録＞
-INSERT INTO TT_Time (staff_id, date, work_content, start_time, end_time, break_time, private_time, customer_time, holiday_type)
+INSERT INTO TE_staff_cp(staff_id, title_cd, assess_date)
 VALUES
- ("000003", "2023-07-03", "はよ帰る", "9:00", "15:00", "1:00", "5:00", "0:00", "01"),
- ("000003", "2023-07-04", "寝坊", "11:00", "19:00", "1:00", "7:00", "0:00", "02");
+     ("230001", "TQ003", "2023-08-17");
 ＜テストデータ確認＞
-SELECT * FROM TT_Time;
+SELECT * FROM TE_staff_cp;
+
+
 
