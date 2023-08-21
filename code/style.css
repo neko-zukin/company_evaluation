@@ -114,6 +114,65 @@ p{
 	font-size: 20;
 }
 
+/* 社員管理 */
+.staff_admin{
+	width: fit-content;
+	margin: 10px auto;
+	display: flex;
+}
+#staff_tb{
+	display: block;
+	background-color: white;
+	min-width: 680px;
+	height: 480px;
+	/* white-space: nowrap; */
+	overflow: scroll;
+}
+#staff_tb th{
+	/* letter-spacing: normal;
+	white-space: normal; */
+	position: sticky;
+	/* top: 2; */
+	top: 0;
+	background-color: white; 
+}
+/* .staff_th_id{
+	width: 70px;
+}
+.staff_th_name{
+	min-width: 100px;
+}
+.staff_th_date{
+	min-width: 100px;
+}
+#staff_tb .staff_th_pt{
+	width: 45px;
+}
+.staff_th_ac{
+	width: 70px;
+}
+.staff_th_y{
+	width: 100px;
+} */
+.tb_null{
+	text-align: center;
+}
+.staff_input label{
+	margin: 0 0 20px 30px;
+	width: 112px;
+	display: inline-block;
+}
+.staff_input input[type="date"]{
+	width: 177px;
+	display: inline-block;
+}
+.staff_input select{
+	width: 177px;
+}
+.del_flg label{
+	width: auto;
+}
+
 /*会社評価*/
 
 
