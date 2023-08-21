@@ -115,8 +115,41 @@ p{
 }
 
 /*会社評価*/
-#tm_kbn{
-	width: 800;
+
+
+/*ここから*/
+
+.assess_check_detail{
+	width: 510;
+	height: 50;
+}
+.assess_check_note{
+	width: 420;
+	height: 50;
+}
+
+.assess_check_box{
+	width: 25;
+	height: 25;
+	margin: auto 10;
+}
+
+.assess_check_n{
+	width: 40;
+	height: 50;
+}
+
+.assess_check{
+	width: 1000;
+	margin: 0 auto;
+	display: flex;
+	border-bottom: dashed;
+	border-width: 1;
+
+}
+
+#t_kbn{
+	width: 1000;
 	height: 30;
 	margin: 0 auto;
 	font-size: 20;
@@ -124,10 +157,25 @@ p{
 	background: #ff8ec6;
 	border: solid;
 	border-width: 1;
+	color: white;
+	border-color: black;
 }
 
-#jq_kbn{
-	width: 800;
+#j_kbn{
+	width: 1000;
+	height: 30;
+	margin: 0 auto;
+	font-size: 20;
+	text-align: center;
+	background: #ffff7f;
+	border: solid;
+	border-width: 0 1 1 1;
+	color: white;
+	border-color: black;
+}
+
+#q_kbn{
+	width: 1000;
 	height: 30;
 	margin: 0 auto;
 	font-size: 20;
@@ -135,26 +183,37 @@ p{
 	background: #89ff89;
 	border: solid;
 	border-width: 0 1 1 1;
+	color: white;
+	border-color: black;
 }
 
-.assess_check{
-	width: 800;
+#m_kbn{
+	width: 1000;
+	height: 30;
 	margin: 0 auto;
-	display: flex;
-}
-.assess_check_kbn{
+	font-size: 20;
+	text-align: center;
+	background: #7fffff;
 	border: solid;
-	border-width: 1;
-}
-.assess_check_note{
-	border: solid;
-	border-width: 1;
-}
-.assess_check_box{
-	width: 25;
-	margin: 0;
-	border: solid;
-	border-width: 1;
+	border-width: 0 1 1 1;
+	color: white;
+	border-color: black;
 }
 
+#c_kbn{
+	width: 1000;
+	height: 30;
+	margin: 0 auto;
+	font-size: 20;
+	text-align: center;
+	background: #ffbf7f;
+	border: solid;
+	border-width: 0 1 1 1;
+	color: white;
+	border-color: black;
+}
+
+#company_assess_table{
+	margin: 0 auto 0 -200;
+}
 

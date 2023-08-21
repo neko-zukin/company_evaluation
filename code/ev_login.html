@@ -14,24 +14,33 @@
 		<label>パスワード</label>
 		<input type="password" id="password" type="text">
 	</div>
-	<p>　</p>
+	<p id="error">　</p>
 	<button id="login_button">ログイン</button>
 
 </body>
 <script>
-	//テストデータ
-	let ID = "1";
-	let PASS = "a";
 	
 	$("#login_button").on("click",function(){
+		let error=false;
 		//ユーザIDを取得
 		let user_id = $("#user_id").val();
-
 		//パスワードを取得
 		let password = $("#password").val();
-		
-		if(user_id==ID&&password==PASS){
-			location.href='ev_select.html'
+		if(user_id==""||password==""){
+			error=true;
+		}
+		if(error==false){
+			let DB_user = DB.sql("SELECT * FROM tm_user;")
+			
+			for(i=0;i<DB_user.length;i++){
+				if(user_id==DB_user[i]["user_id"]&&password==DB_user[i]["password"]){
+					location.href='ev_select.html'
+				}
+			}
+		}
+		error=true;
+		if(error){
+			$(error).text("ユーザIDかパスワードが違います");
 		}
 	})
 

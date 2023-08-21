@@ -3,27 +3,117 @@
 	<meta charset="UTF-8">
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<link rel="stylesheet" href="style.css">
+	<script src="DB_sql.js"></script>
 </head>
 <body>
 	<h1>会社評価</h1>
-	<div id="tm_kbn">技術系</div>
-	<div id="jq_kbn">実務系</div>
-	<table border="1" class="sum_table">
-		<tr>
-			<th>合計</th>
-			<th>pt</th>
-			<td></td>
-			<th>Expt</th>
-			<td></td>
-		</tr>
-	</table>
-	<div id="assess">
+	<div id="company_assess_table">
+		<div id="t_kbn">技術系</div>
+		<div id="j_kbn">実務系</div>
+		<table border="1" class="sum_table">
+			<tr>
+				<th>合計</th>
+				<th>pt</th>
+				<td></td>
+				<th>Expt</th>
+				<td></td>
+			</tr>
+		</table>
+		<div id="assess_TJ">
+		</div>
+		<div id="t_kbn">技術系</div>
+		<div id="q_kbn">資格系</div>
+		<div id="assess_TQ">
+		</div>
+		<div id="m_kbn">管理系</div>
+		<div id="j_kbn">実務系</div>
+		<div id="assess_MJ">
+		</div>
+		<div id="m_kbn">管理系</div>
+		<div id="q_kbn">資格系</div>
+		<div id="assess_MQ">
+		</div>
+		<div id="c_kbn">会社貢献系</div>
+		<div id="assess_CC">
+		</div>
+	</div>
+	<label>※保存されます</label>
+	<div>
+		<button>社員を選びなおす</button>
+		<button>自己評価</button>
 	</div>
 </body>
 <script>
-	for(i=0;i<20;i++){
-		$("#assess").append('<div class="assess_check"><div class="assess_check_kbn">aaaa</div><input type="checkbox" class="assess_check_box"><div class="assess_check_note">aaaaaaa</div></div>')
+	//画面読み込み時
+	let staff = localStorage.getItem("ev_staff_id_assess");
+	let DB_company_assess_staff = DB.sql('SELECT * FROM TE_staff_cp where staff_id="'+staff+'";')
+	let DB_company_assess_TJ = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "T" and jq_kbn = "J";');
+	let DB_company_assess_TQ = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "T" and jq_kbn = "Q";');
+	let DB_company_assess_MJ = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "M" and jq_kbn = "J";');
+	let DB_company_assess_MQ = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "M" and jq_kbn = "Q";');
+	let DB_company_assess_CC = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "C" and jq_kbn = "C";');
+	let DB_company_check = DB.sql('SELECT * FROM TM_point;');
+	let company_check = new Array(DB_company_check.length);
+	for(i=0;i<company_check.length;i++){
+		company_check[i] = new Array(2);
+		company_check[i][0] = false;
+		for(j=0;j<DB_company_assess_staff.length;j++){
+			if(DB_company_check[i]["title_cd"]==DB_company_assess_staff[j]["title_cd"]){
+				company_check[i][0] = true;
+			}
+		}
+		company_check[i][1] = DB_company_check[i]["title_cd"];
 	}
+	for(i=0;i<DB_company_assess_TJ.length;i++){
+		$("#assess_TJ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_TJ[i]["detail"]+'</div><div id="check'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_TJ[i]["note"]+'</div></div>');
+	}
+	
+	for(i=0;i<DB_company_assess_TQ.length;i++){
+		$("#assess_TQ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_TQ[i]["detail"]+'</div><div id="check'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_TQ[i]["note"]+'</div></div>');
+	}
+
+	for(i=0;i<DB_company_assess_MJ.length;i++){
+		$("#assess_MJ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_MJ[i]["detail"]+'</div><div id="check'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_MJ[i]["note"]+'</div></div>');
+	}
+	
+	for(i=0;i<DB_company_assess_MQ.length;i++){
+		$("#assess_MQ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_MQ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_MQ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_MQ[i]["detail"]+'</div><div id="check'+DB_company_assess_MQ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_MQ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_MQ[i]["note"]+'</div></div>');
+	}
+	
+	for(i=0;i<DB_company_assess_CC.length;i++){
+		$("#assess_CC").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_CC[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_CC[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_CC[i]["detail"]+'</div><div id="check'+DB_company_assess_CC[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_CC[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_CC[i]["note"]+'</div></div>');
+	}
+	
+	//すでに取得しているタイトルに色を付ける
+	for(i=0;i<DB_company_assess_staff.length;i++){
+		let check = $("#"+DB_company_assess_staff[i]["title_cd"]);
+		check.prop("checked", true);
+		$("#detail"+DB_company_assess_staff[i]["title_cd"]).css('background-color','yellow');
+		$("#check"+DB_company_assess_staff[i]["title_cd"]).css('background-color','yellow');
+		$("#note"+DB_company_assess_staff[i]["title_cd"]).css('background-color','yellow');
+	}
+	
+	//チェックボックス押下時
+	$("input").click(function(){
+		let check_id = $(this).attr("id");
+		for(i=0;i<company_check.length;i++){
+			if(company_check[i][1]==check_id){
+				if(company_check[i][0]==false){
+					$("#detail"+company_check[i][1]).css('background-color','#00ff00');
+					$("#check"+company_check[i][1]).css('background-color','#00ff00');
+					$("#note"+company_check[i][1]).css('background-color','#00ff00');
+					company_check[i][0]=true;
+				}else if(company_check[i][0]==true){
+					$("#detail"+company_check[i][1]).css('background-color','white');
+					$("#check"+company_check[i][1]).css('background-color','white');
+					$("#note"+company_check[i][1]).css('background-color','white');
+					company_check[i][0]=false;
+				}
+			}
+		}
+	})
+	
+	
 </script>
 </html>
 
