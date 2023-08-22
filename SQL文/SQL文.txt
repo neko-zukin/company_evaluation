@@ -5,6 +5,7 @@ DROP DATABASE company_evaluation;
 DROP TABLE TM_salary;
 
 【テーブルデータ削除】
+SET SQL_SAFE_UPDATES = 0;
 DELETE FROM TM_salary;
 
 ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
