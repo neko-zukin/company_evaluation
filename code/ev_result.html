@@ -138,18 +138,31 @@
 			<td id="allsum_Expt" colspan="2">Expt</td>
 		</tr>
 	</table>
-	<button id="back">戻る</button>
+	<button id="back">終了</button>
+	<button id="selfcheck_button">自己評価</button>
+	<button id="company_button">会社評価</button>
 	<button id="csv_button">出力</button>
 </body>
 <script>
 	let DB_generation_point="-"
 	let generation="-";
+	let staff_sum_pt=0;
+	let staff_sum_Expt=0;
 	let birthday = "-";
 	let job_history="-";
 	let staff_old="-";
 	let staff_society_history="-";
 	let DB_staff = DB.sql("select * from TM_staff");
-	let staff_id_check = localStorage.getItem("ev_staff_id_check");
+	let staff_id_check = localStorage.getItem("ev_staff_id_assess");
+	let DB_sumall = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and result=1;');
+	let DB_staff_cp_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_cp join tm_point on te_staff_cp.title_cd=tm_point.title_cd where staff_id="'+staff_id_check+'";')
+	if(DB_sumall[0]["pt"]!=null&&DB_staff_cp_point[0]["pt"]!=null&&DB_sumall[0]["Expt"]!=null&&DB_staff_cp_point[0]["Expt"]!=null){
+		staff_sum_pt = parseInt(DB_sumall[0]["pt"]) + parseInt(DB_staff_cp_point[0]["pt"]);
+		staff_sum_Expt = parseInt(DB_sumall[0]["Expt"]) + parseInt(DB_staff_cp_point[0]["Expt"]);
+	}
+	DB.sql('update tm_staff set pt='+staff_sum_pt+',Expt='+staff_sum_Expt+' where staff_id="'+staff_id_check+'"');
+	DB_staff = DB.sql("select * from TM_staff");
+	let salary_cp = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_cp join tm_point on te_staff_cp.title_cd=tm_point.title_cd where staff_id="'+staff_id_check+'";');
 	let date = new Date();
 	let date_yyyymm = date.toISOString();
 	let ev_date = date_yyyymm.slice(0,7);
@@ -160,17 +173,13 @@
 	}else{
 		month="03";
 	}
-	
-	//テスト
-//	year="2023";
-//	month="03"
-	
 	let staff_check = "";
 	for(i=0;i<DB_staff.length;i++){
 		if(DB_staff[i]["staff_id"]==staff_id_check){
 			staff_check = i;
 		}
 	}
+	console.log('select salary from TM_salary where pt<='+DB_staff[staff_check]["pt"]+' and Expt<='+DB_staff[staff_check]["Expt"]+' order by salary desc;')
 	let DB_salary = DB.sql('select salary from TM_salary where pt<='+DB_staff[staff_check]["pt"]+' and Expt<='+DB_staff[staff_check]["Expt"]+' order by salary desc;');
 	if(DB_staff[staff_check]["birthday"]!=null){
 		birthday = DB_staff[staff_check]["birthday"].slice(0,4);
@@ -183,7 +192,8 @@
 	}
 	if(DB_staff[staff_check]["join_date"]!=null){
 		staff_society_history = parseInt(year)-parseInt(job_history);
-	}	
+	}
+	
 	//一番上のテーブルにデータを入れる
 	$("#staff_id").text(DB_staff[staff_check]["staff_id"]);
 	$("#staff_name").text(DB_staff[staff_check]["staff_name"]);
@@ -287,15 +297,21 @@
 	}
 	let DB_old3 = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date<"'+two_year+'-09-01" and result=1;');
 	//総合計
-	let DB_sumall = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and result=1;');
 	$("#allsum_pt").text(DB_sumall[0]["pt"]);
 	$("#allsum_Expt").text(DB_sumall[0]["Expt"]);
 	
 	//戻るボタン押下時
 	$("#back").on("click",function(){
-		location.href='ev_assess_output.html'
+		location.href='ev_assess_start.html'
 	})
 	
+	$("#selfcheck_button").on("click",function(){
+		location.href='ev_self_assess.html'
+	})
+	
+	$("#company_button").on("click",function(){
+		location.href='ev_company_assess.html'
+	})
 
 	$("#csv_button").on("click",function(){
 		//配列の作成
@@ -376,7 +392,7 @@
 		csv_click.click();
 
 	})
-	
+
 </script>
 </html>
 

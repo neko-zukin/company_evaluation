@@ -216,7 +216,6 @@ p{
 	background: #ff8ec6;
 	border: solid;
 	border-width: 1;
-	color: white;
 	border-color: black;
 }
 
@@ -229,7 +228,6 @@ p{
 	background: #ffff7f;
 	border: solid;
 	border-width: 0 1 1 1;
-	color: white;
 	border-color: black;
 }
 
@@ -242,7 +240,6 @@ p{
 	background: #89ff89;
 	border: solid;
 	border-width: 0 1 1 1;
-	color: white;
 	border-color: black;
 }
 
@@ -252,10 +249,9 @@ p{
 	margin: 0 auto;
 	font-size: 20;
 	text-align: center;
-	background: #7fffff;
+	background: #7fbfff;
 	border: solid;
 	border-width: 0 1 1 1;
-	color: white;
 	border-color: black;
 }
 
@@ -268,7 +264,6 @@ p{
 	background: #ffbf7f;
 	border: solid;
 	border-width: 0 1 1 1;
-	color: white;
 	border-color: black;
 }
 

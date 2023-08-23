@@ -14,9 +14,9 @@
 			<tr>
 				<th>合計</th>
 				<th>pt</th>
-				<td></td>
+				<td id="sum_pt"></td>
 				<th>Expt</th>
-				<td></td>
+				<td id="sum_Expt"></td>
 			</tr>
 		</table>
 		<div id="assess_TJ">
@@ -39,12 +39,24 @@
 	</div>
 	<label>※保存されます</label>
 	<div>
-		<button>社員を選びなおす</button>
-		<button>自己評価</button>
+		<button id="back_button">社員を選びなおす</button>
+		<button id="sc_button">自己評価</button>
 	</div>
 </body>
 <script>
 	//画面読み込み時
+	let date = new Date();
+	let date_yyyymm = date.toISOString();
+	let ev_date = date_yyyymm.slice(0,7);
+	let year = ev_date.slice(0,4);
+	let month = ev_date.slice(5,7);
+	if(parseInt(month)<=9&&parseInt(month)>3){
+		month="09";
+	}else{
+		month="03";
+	}
+	let pt=0;
+	let Expt=0;
 	let staff = localStorage.getItem("ev_staff_id_assess");
 	let DB_company_assess_staff = DB.sql('SELECT * FROM TE_staff_cp where staff_id="'+staff+'";')
 	let DB_company_assess_TJ = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "T" and jq_kbn = "J";');
@@ -54,6 +66,9 @@
 	let DB_company_assess_CC = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "C" and jq_kbn = "C";');
 	let DB_company_check = DB.sql('SELECT * FROM TM_point;');
 	let company_check = new Array(DB_company_check.length);
+	for(i=0;i<DB_company_check;i++){
+		
+	}
 	for(i=0;i<company_check.length;i++){
 		company_check[i] = new Array(2);
 		company_check[i][0] = false;
@@ -93,8 +108,20 @@
 		$("#note"+DB_company_assess_staff[i]["title_cd"]).css('background-color','yellow');
 	}
 	
+	//ポイントの計算
+	for(i=0;i<company_check.length;i++){
+		if(company_check[i][0]==true){
+			pt += DB_company_check[i]["pt"];
+			Expt += DB_company_check[i]["Expt"];
+		}
+	}
+	$("#sum_pt").text(pt);
+	$("#sum_Expt").text(Expt);
+	
 	//チェックボックス押下時
 	$("input").click(function(){
+		pt=0;
+		Expt=0;
 		let check_id = $(this).attr("id");
 		for(i=0;i<company_check.length;i++){
 			if(company_check[i][1]==check_id){
@@ -102,17 +129,99 @@
 					$("#detail"+company_check[i][1]).css('background-color','#00ff00');
 					$("#check"+company_check[i][1]).css('background-color','#00ff00');
 					$("#note"+company_check[i][1]).css('background-color','#00ff00');
+//					if(check_id=="TJ006"||check_id=="TJ005"){
+//						$("#detailTJ006").css('background-color','#00ff00');
+//						$("#noteTJ006").css('background-color','#00ff00');
+//						$("#checkTJ006").css('background-color','#00ff00');
+//						$("#detailTJ005").css('background-color','#00ff00');
+//						$("#noteTJ005").css('background-color','#00ff00');
+//						$("#checkTJ005").css('background-color','#00ff00');
+//						let check_TJ006 = $("#TJ006");
+//						let check_TJ005 = $("#TJ005");
+//						check_TJ006.prop("checked", true);
+//						check_TJ005.prop("checked", true);
+//						for(j=0;j<company_check.length;j++){
+//							if(company_check[j][1]=="TJ005"||company_check[j][1]=="TJ006"){
+//								company_check[j][0]=true;
+//							}
+//						}
+//					}
 					company_check[i][0]=true;
 				}else if(company_check[i][0]==true){
 					$("#detail"+company_check[i][1]).css('background-color','white');
 					$("#check"+company_check[i][1]).css('background-color','white');
 					$("#note"+company_check[i][1]).css('background-color','white');
+//					if(check_id=="TJ006"||check_id=="TJ005"){
+//						$("#detailTJ006").css('background-color','white');
+//						$("#noteTJ006").css('background-color','white');
+//						$("#checkTJ006").css('background-color','white');
+//						$("#detailTJ005").css('background-color','white');
+//						$("#noteTJ005").css('background-color','white');
+//						$("#checkTJ005").css('background-color','white');
+//						let check_TJ006 = $("#TJ006");
+//						let check_TJ005 = $("#TJ005");
+//						check_TJ006.prop("checked", false);
+//						check_TJ005.prop("checked", false);
+//						for(j=0;j<company_check.length;j++){
+//							if(company_check[j][1]=="TJ005"||company_check[j][1]=="TJ006"){
+//								company_check[j][0]=false;
+//							}
+//						}
+//					}
 					company_check[i][0]=false;
 				}
 			}
 		}
+		//ポイントの計算
+		for(i=0;i<company_check.length;i++){
+			if(company_check[i][0]==true){
+				pt += DB_company_check[i]["pt"];
+				Expt += DB_company_check[i]["Expt"];
+			}
+		}
+		$("#sum_pt").text(pt);
+		$("#sum_Expt").text(Expt);
 	})
 	
+	//自己評価ボタン押下時
+	$("#sc_button").on("click",function(){
+		DB_company_assess_staff = DB.sql('SELECT * FROM TE_staff_cp where staff_id="'+staff+'";');
+		for(i=0;i<company_check.length;i++){
+			let distinct_insert_check = true;
+			let distinct_delete_check = false;
+			if(company_check[i][0]==true){
+				if(DB_company_assess_staff.length>0){
+					for(j=0;j<DB_company_assess_staff.length;j++){
+						if(DB_company_assess_staff[j]["title_cd"]==company_check[i][1]){
+							distinct_insert_check = false;
+						}
+					}
+					if(distinct_insert_check){
+						console.log('insert into te_staff_cp value ("'+staff+'","'+company_check[i][1]+'","'+year+'-'+month+'-01","");');
+						DB.sql('insert into te_staff_cp value ("'+staff+'","'+company_check[i][1]+'","'+year+'-'+month+'-01","");');
+					}
+				}else{
+					console.log('insert into te_staff_sc value ("'+staff+'","'+company_check[i][1]+'","'+year+'-'+month+'-01","");');
+					DB.sql('insert into te_staff_cp value ("'+staff+'","'+company_check[i][1]+'","'+year+'-'+month+'-01","");');
+				}
+			}else{
+				for(j=0;j<DB_company_assess_staff.length;j++){
+					if(DB_company_assess_staff[j]["title_cd"]==company_check[i][1]){
+						distinct_delete_check=true;
+					}
+				}
+				if(distinct_delete_check){
+					console.log('delete from te_staff_cp where staff_id="'+staff+'" and title_cd="'+company_check[i][1]+'"');
+					DB.sql('delete from te_staff_cp where staff_id="'+staff+'" and title_cd="'+company_check[i][1]+'"');
+				}
+			}
+		}
+		location.href='ev_self_assess.html';
+	})
+	
+	$("#back_button").on("click",function(){
+		location.href='ev_assess_start.html';
+	})
 	
 </script>
 </html>
