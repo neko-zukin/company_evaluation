@@ -2,58 +2,86 @@
 <head>
 	<meta charset="UTF-8">
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="DB_sql.js"></script>
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<h1>社員管理</h1>
-	<table border="1">
-		<tr><th>社員番号</th>
-			<th>氏名</th>
-			<th>生年月日</th>
-			<th>入社日</th>
-			<th>pt</th>
-			<th>Expt</th>
-			<th>学歴</th>
-			<th>勤続年数</th>
-			<th>IT経歴</th>
-			<th>IT以外経歴</th>
-		</tr>
-		<!--ここにデータを挿入-->
-	</table>
-	<div>
-		<label>社員番号</label>
-		<input>
-		<label>氏名</label>
-		<input>
+	<div class="staff_admin">
+		<table border="1" id="staff_tb">
+			<tr>
+				<th class="staff_th_id">社員番号</th>
+				<th class="staff_th_name">氏名</th>
+				<th class="staff_th_date">生年月日</th>
+				<th class="staff_th_date">入社日</th>
+				<th class="staff_th_pt">pt</th>
+				<th class="staff_th_pt">Expt</th>
+				<th class="staff_th_ac">学歴</th>
+				<th class="staff_th_y">勤続年数</th>
+				<th class="staff_th_y">IT経歴</th>
+				<th class="staff_th_y">IT以外<br>経歴</th>
+			</tr>
+			<!--ここにデータを挿入-->
+		</table>
+
+		<div class="staff_input">
+			<div>
+				<label>社員番号</label>
+				<input type="text" id="staff_id_inp">
+				<label>氏名</label>
+				<input type="text" id="staff_name_inp">
+			</div>
+			<div>
+				<label>生年月日</label>
+				<input type="date" id="birthday_inp">
+				<label>入社日</label>
+				<input type="date" id="join_date_inp">
+			</div>
+			<div>
+				<label>pt</label>
+				<input type="number" id="pt_inp">
+				<label>Expt</label>
+				<input type="number" id="Expt_inp">
+			</div>
+			<div>
+				<label>学歴</label>
+				<select id="ac_history_inp">
+					<option value="null" style="text-align: center;">―</option>
+					<option value="高卒">高卒</option>
+					<option value="専門卒">専門卒</option>
+					<option value="大卒(文系)">大卒(文系)</option>
+					<option value="大卒(理系)">大卒(理系)</option>
+				</select>
+				<label>勤続年数(年)</label>
+				<input type="number" id="society_history_inp">
+			</div>
+			<div>
+				<label>IT経験(年)</label>
+				<input type="number" id="it_history_inp">
+				<label>IT以外経験(年)</label>
+				<input type="number" id="noit_history_inp">
+			</div>
+			<div class="del_flg">
+				<input type="checkbox" id="del_flg_inp">
+				<label>削除フラグ</label>
+			</div>
+			
+			<!-- エラーメッセージ -->
+			<div class="admin_error">
+				<p id="error_1">社員番号を入力してください。</p>
+				<p id="error_2">氏名を入力してください。</p>
+				<p id="error_3">その社員番号は既に存在しています。</p>
+				<p id="error_4">社員番号は6桁で入力してください。</p>
+				<p id="error_5">氏名は20文字以内で入力してください。</p>
+				<p id="error_6">ptの上限値を超えています。</p>
+				<p id="error_6">Exptの上限値を超えています。</p>
+				<p id="error_6">勤続年数の上限値を超えています。</p>
+				<p id="error_6">IT経験(年)の上限値を超えています。</p>
+				<p id="error_6">IT以外経験(年)の上限値を超えています。</p>
+			</div>
+		</div>	
 	</div>
-	<div>
-		<label>生年月日</label>
-		<input>
-		<label>入社日</label>
-		<input>
-	</div>
-	<div>
-		<label>pt</label>
-		<input>
-		<label>Expt</label>
-		<input>
-	</div>
-	<div>
-		<label>学歴</label>
-		<input>
-		<label>勤続年数(年)</label>
-		<input>
-	</div>
-	<div>
-		<label>IT経験(年)</label>
-		<input>
-		<label>IT以外経験(年)</label>
-		<input>
-	</div>
-	<div>
-		<input type="checkbox">
-		<label>削除フラグ</label>
-	</div>
+
 	<div>
 		<button id="back_button">戻る</button>
 		<button id="insert_button">登録</button>
@@ -81,15 +109,172 @@
 	</div>
 </body>
 <script>
-
 	//ブラウザのバックボタン押下時の警告メッセージ
 	window.addEventListener('load', function() {
-	  window.addEventListener('popstate', function(event) {
-	    alert('もう一度このボタンを押すと保存していないデータは消えてしまいます😱');
-	  });
-	  history.pushState(null, null, null);
+		window.addEventListener('popstate', function(event) {
+			alert('もう一度このボタンを押すと保存していないデータは消えてしまいます😱');
+		});
+		history.pushState(null, null, null);
 	});
 
+	// DBに登録されている社員を表示
+	let staff = DB.sql("SELECT * FROM TM_staff;");
+
+	// 勤続年数の計算
+	let date = new Date();
+	let date_yyyymm = date.toISOString()
+	let ev_date = date_yyyymm.slice(0,7);
+	let year = ev_date.slice(0,4);
+	let month = ev_date.slice(5,7);
+	let birthday = staff[9]["birthday"].slice(0,4);
+	let job_history = staff[9]["join_date"].slice(0,4);
+	let staff_old = parseInt(year)-parseInt(birthday);
+	let staff_society_history = parseInt(year)-parseInt(job_history);
+
+	console.log(staff);
+	for(let i=0; i<staff.length; i++){
+		$("#staff_tb").append('<tr id="tr'+i+'"></tr>');
+		$("#tr"+i).append('<td id="staff_id_'+i+'">'+staff[i]["staff_id"]+'</td>');
+		$("#tr"+i).append('<td id="staff_name_'+i+'">'+staff[i]["staff_name"]+'</td>');
+		tb_null(i, "birthday", staff[i]["birthday"]);
+		tb_null(i, "join_date", staff[i]["join_date"]);
+		tb_null(i, "pt", staff[i]["pt"]);
+		tb_null(i, "Expt", staff[i]["Expt"]);
+		tb_null(i, "ac_history", staff[i]["ac_history"]);
+		tb_null(i, "society_history", staff[i]["society_history"]);
+		tb_null(i, "it_history", staff[i]["it_history"]);
+		tb_null(i, "noit_history", staff[i]["noit_history"]);
+	}
+	
+	// nullの場合、-(ハイフン)を返す(table用)
+	function tb_null(i, col, data){
+		if(data==null){
+			// nullの場合
+			$("#tr"+i).append('<td id="'+col+i+'" class="tb_null">-</td>');
+		}else{
+			// nullでない場合
+			$("#tr"+i).append('<td id="'+col+i+'">'+data+'</td>');
+		}
+	}
+
+	// クリックされた列のデータをテキストボックスに代入する
+	for(let i=0; i<staff.length; i++){
+		$("#tr"+i).on("click",function(){
+			console.log();
+			$("#staff_id_inp").val(staff[i]["staff_id"]);
+			$("#staff_name_inp").val(staff[i]["staff_name"]);
+			inp_null(i, "birthday", staff[i]["birthday"]);
+			inp_null(i, "join_date", staff[i]["join_date"]);
+			inp_null(i, "pt", staff[i]["pt"]);
+			inp_null(i, "Expt", staff[i]["Expt"]);
+			// inp_null(i, "ac_history", staff[i]["ac_history"]);
+			if(staff[i]["ac_history"]==null){
+				// nullの場合
+				$("#ac_history_inp").val("null");
+			}else{
+				// nullでない場合
+				$("#ac_history_inp").val(staff[i]["ac_history"]);
+			}
+			inp_null(i, "society_history", staff[i]["society_history"]);
+			inp_null(i, "it_history", staff[i]["it_history"]);
+			inp_null(i, "noit_history", staff[i]["noit_history"]);
+			if(staff[i]["del_flg"]){
+				// 削除フラグがtrueの場合
+				$("#del_flg_inp").prop('checked', true);
+			}else{
+				// 削除フラグがfalseの場合
+				$("#del_flg_inp").prop('checked', false);
+			}
+		});
+	}
+
+	// input用nullチェック
+	function inp_null(i, col, data){
+		if(data!=null){
+			// nullの場合
+			$("#"+col+"_inp").val(data);
+		}else{
+			// nullでない場合
+			$("#"+col+"_inp").val("");
+		}
+	}
+
+	// 現在日時
+	let now = year+'-'+month+'-'+("00" + (date.getDate())).slice(-2);
+	// console.log("now:"+now);
+
+	// 登録確認ポップアップのOKボタンが押下されたとき
+	$("#insert_ok").on("click",function(){
+		// 社員番号の自動割り当て
+		// let yy = year.slice(2);
+		// let db_id = DB.sql('SELECT MAX(staff_id) as staff_id FROM tm_staff WHERE staff_id LIKE "'+yy+'%";');
+		// // let db_id2 = DB.sql('SELECT MAX(staff_id) as staff_id FROM tm_staff WHERE staff_id LIKE "24%";');
+		// console.log(db_id);
+		// let max_id = Number(db_id[0]["staff_id"].slice(2))+1;
+		// let new_id = yy.toString()+("000"+max_id).slice(-3);
+		// console.log(new_id);
+
+		// 社員情報登録用のSQL文
+		let sql = "INSERT INTO TM_staff(staff_id, staff_name, birthday, join_date, pt, Expt, ac_history, society_history, it_history, noit_history, del_flg, create_date, create_id) ";
+		sql += 'VALUES("'+$("#staff_id_inp").val()+'", ';
+		sql += '"'+$("#staff_name_inp").val()+'", ';
+		sql += sql_null("birthday_inp", "d")+', ';
+		sql += sql_null("join_date_inp", "d")+', ';
+		sql += sql_null("pt_inp", "i")+', ';
+		sql += sql_null("Expt_inp", "i")+', ';
+		sql += sql_null("ac_history_inp", "v")+', ';
+		sql += sql_null("society_history_inp", "i")+', ';
+		sql += sql_null("it_history_inp", "i")+', ';
+		sql += sql_null("noit_history_inp", "i")+', ';
+		sql += $("#del_flg_inp").prop('checked')+', ';
+		sql += '"'+now+'", ';
+		sql += '"'+'iwata'+'");';// ログインID（あとで書き換える）
+		console.log(sql);
+		DB.sql(sql);
+		window.location.reload();
+	});
+
+	// 更新確認ポップアップのOKボタンが押下されたとき
+	$("#update_ok").on("click",function(){
+		// 社員情報更新用のSQL文
+		let sql = 'UPDATE TM_staff ';
+		sql += 'SET staff_name="'+$("#staff_name_inp").val()+'", ';
+		sql += 'birthday='+sql_null("birthday_inp", "d")+', ';
+		sql += 'join_date='+sql_null("join_date_inp", "d")+', ';
+		sql += 'pt='+sql_null("pt_inp", "i")+', ';
+		sql += 'Expt='+sql_null("Expt_inp", "i")+', ';
+		sql += 'ac_history='+sql_null("ac_history_inp", "v")+', ';
+		sql += 'society_history='+sql_null("society_history_inp", "i")+', ';
+		sql += 'it_history='+sql_null("it_history_inp", "i")+', ';
+		sql += 'noit_history='+sql_null("noit_history_inp", "i")+', ';
+		sql += 'del_flg='+$("#del_flg_inp").prop('checked')+', ';
+		sql += 'update_date="'+now+'", ';
+		sql += 'update_id="'+'iwata'+'" ';// ログインID（あとで書き換える）
+		sql += 'WHERE staff_id="'+$("#staff_id_inp").val()+'";';
+		console.log(sql);
+		DB.sql(sql);
+		window.location.reload();
+	});
+
+	// sql用nullチェック
+	function sql_null(inp, type){
+		let inp_str = $("#"+inp).val();
+		if(inp_str==null || inp_str=="" || inp_str=="null"){
+			// inputの値がnullの場合
+			return 'null';
+		}else{
+			// inputの値がnullではないの場合
+			if(type=="i"){
+				// データ型が数値型の場合
+				return inp_str;
+			}else{
+				// データ型が文字型,日付型の場合
+				return '"'+inp_str+'"';
+			}
+		}
+	}
+
+	// ポップアップの処理
 	$("#UPDATE").hide();
 	$("#INSERT").hide();
 	$("#BACK").hide();

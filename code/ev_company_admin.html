@@ -2,47 +2,55 @@
 <head>
 	<meta charset="UTF-8">
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="DB_sql.js"></script>
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<h1>社員管理</h1>
-	<table border="1">
-		<tr><th>会社評価コード</th>
-			<th>技官区分</th>
-			<th>業資区分</th>
-			<th>pt</th>
-			<th>Expt</th>
-			<th>概要</th>
-			<th>備考</th>
-		</tr>
-		<!--ここにデータを挿入-->
-	</table>
-	<div>
-		<label>会社評価コード</label>
-		<input>
+	<h1>会社評価管理</h1>
+	<div class="com_p_admin">
+		<table border="1" id="com_p_tb">
+			<tr>
+				<th>会社評価<br>コード</th>
+				<th>技官<br>区分</th>
+				<th>業資<br>区分</th>
+				<th>pt</th>
+				<th>Expt</th>
+				<th>内容</th>
+				<th>備考</th>
+			</tr>
+			<!--ここにデータを挿入-->
+		</table>
+
+		<div class="com_p_input">
+			<div>
+				<label>会社評価コード</label>
+				<input type="text" id="title_cd_inp">
+			</div>
+			<div>
+				<label>技官区分</label>
+				<input type="text" id="tm_kbn_inp">
+				<label>業資分</label>
+				<input type="text" id="jq_kbn_inp">
+			</div>
+			<div>
+				<label>pt</label>
+				<input type="number" id="pt_inp">
+				<label>Expt</label>
+				<input type="number" id="Expt_inp">
+			</div>
+			<div>
+				<label>内容</label>
+				<textarea id="detail_inp"></textarea>
+				<label>備考</label>
+				<textarea id="note_inp"></textarea>
+			</div>
+			<div class="del_flg">
+				<input type="checkbox" id="del_flg_inp">
+				<label>削除フラグ</label>
+			</div>
+		</div>
 	</div>
-	<div>
-		<label>技官区分</label>
-		<input>
-		<label>業資区分</label>
-		<input>
-	</div>
-	<div>
-		<label>pt</label>
-		<input>
-		<label>Expt</label>
-		<input>
-	</div>
-	<div>
-		<label>概要</label>
-		<input>
-		<label>備考</label>
-		<input>
-	</div>
-	<div>
-		<input type="checkbox">
-		<label>削除フラグ</label>
-	</div>
+
 	<div>
 		<button id="back_button">戻る</button>
 		<button id="insert_button">登録</button>
@@ -79,6 +87,130 @@
 	  history.pushState(null, null, null);
 	});
 
+	// 現在日時
+	let date = new Date();
+	let date_yyyymm = date.toISOString()
+	let ev_date = date_yyyymm.slice(0,7);
+	let year = ev_date.slice(0,4);
+	let month = ev_date.slice(5,7);
+	let now = year+'-'+month+'-'+("00" + (date.getDate())).slice(-2);
+	// console.log("now:"+now);
+
+	// DBに登録されている会社評価テーブルを表示
+	let com_p = DB.sql("SELECT * FROM TM_point ORDER BY tm_kbn desc, jq_kbn asc, title_cd asc;");
+	console.log(com_p);
+
+	for(let i=0; i<com_p.length; i++){
+		$("#com_p_tb").append('<tr id="tr'+i+'"></tr>');
+		$("#tr"+i).append('<td id="title_cd_'+i+'">'+com_p[i]["title_cd"]+'</td>');
+		$("#tr"+i).append('<td id="tm_kbn_'+i+'">'+com_p[i]["tm_kbn"]+'</td>');
+		$("#tr"+i).append('<td id="jq_kbn_'+i+'">'+com_p[i]["jq_kbn"]+'</td>');
+		tb_null(i, "pt", com_p[i]["pt"]);
+		tb_null(i, "Expt", com_p[i]["Expt"]);
+		$("#tr"+i).append('<td id="detail_'+i+'">'+com_p[i]["detail"]+'</td>');
+		tb_null(i, "note", com_p[i]["note"]);
+	}
+	
+	// nullの場合、-(ハイフン)を返す(table用)
+	function tb_null(i, col, data){
+		if(data==null){
+			// nullの場合
+			$("#tr"+i).append('<td id="'+col+i+'" class="tb_null">-</td>');
+		}else{
+			// nullでない場合
+			$("#tr"+i).append('<td id="'+col+i+'">'+data+'</td>');
+		}
+	}
+
+	// クリックされた列のデータをテキストボックスに代入する
+	for(let i=0; i<com_p.length; i++){
+		$("#tr"+i).on("click",function(){
+			console.log();
+			$("#title_cd_inp").val(com_p[i]["title_cd"]);
+			$("#tm_kbn_inp").val(com_p[i]["tm_kbn"]);
+			$("#jq_kbn_inp").val(com_p[i]["jq_kbn"]);
+			inp_null(i, "pt", com_p[i]["pt"]);
+			inp_null(i, "Expt", com_p[i]["Expt"]);
+			$("#detail_inp").val(com_p[i]["detail"]);
+			inp_null(i, "note", com_p[i]["note"]);
+			if(com_p[i]["del_flg"]){
+				// 削除フラグがtrueの場合
+				$("#del_flg_inp").prop('checked', true);
+			}else{
+				// 削除フラグがfalseの場合
+				$("#del_flg_inp").prop('checked', false);
+			}
+		});
+	}
+	
+	// input用nullチェック
+	function inp_null(i, col, data){
+		if(data!=null){
+			// nullの場合
+			$("#"+col+"_inp").val(data);
+		}else{
+			// nullでない場合
+			$("#"+col+"_inp").val("");
+		}
+	}
+
+	// 登録確認ポップアップのOKボタンが押下されたとき
+	$("#insert_ok").on("click",function(){
+		// 社員情報登録用のSQL文
+		let sql = "INSERT INTO TM_point(title_cd, tm_kbn, jq_kbn, pt, Expt , detail, note, del_flg, create_date, create_id) ";
+		sql += 'VALUES("'+$("#title_cd_inp").val()+'", ';
+		sql += '"'+$("#tm_kbn_inp").val()+'", ';
+		sql += '"'+$("#jq_kbn_inp").val()+'", ';
+		sql += sql_null("pt_inp", "i")+', ';
+		sql += sql_null("Expt_inp", "i")+', ';
+		sql += '"'+$("#detail_inp").val()+'", ';
+		sql += sql_null("note_inp", "v")+', ';
+		sql += $("#del_flg_inp").prop('checked')+', ';
+		sql += '"'+now+'", ';
+		sql += '"'+'iwata'+'");';// ログインID（あとで書き換える）
+		console.log(sql);
+		DB.sql(sql);
+		window.location.reload();
+	});
+
+	// 更新確認ポップアップのOKボタンが押下されたとき
+	$("#update_ok").on("click",function(){
+		// 社員情報更新用のSQL文
+		let sql = 'UPDATE TM_point ';
+		sql += 'SET tm_kbn="'+$("#tm_kbn_inp").val()+'", ';
+		sql += 'jq_kbn="'+$("#jq_kbn_inp").val()+'", ';
+		sql += 'pt='+sql_null("pt_inp", "i")+', ';
+		sql += 'Expt='+sql_null("Expt_inp", "i")+', ';
+		sql += 'detail="'+$("#detail_inp").val()+'", ';
+		sql += 'note='+sql_null("note_inp", "v")+', ';
+		sql += 'del_flg='+$("#del_flg_inp").prop('checked')+', ';
+		sql += 'update_date="'+now+'", ';
+		sql += 'update_id="'+'iwata'+'" ';// ログインID（あとで書き換える）
+		sql += 'WHERE title_cd="'+$("#title_cd_inp").val()+'";';
+		console.log(sql);
+		DB.sql(sql);
+		window.location.reload();
+	});
+
+	// sql用nullチェック
+	function sql_null(inp, type){
+		let inp_str = $("#"+inp).val();
+		if(inp_str==null || inp_str=="" || inp_str=="null"){
+			// inputの値がnullの場合
+			return 'null';
+		}else{
+			// inputの値がnullではないの場合
+			if(type=="i"){
+				// データ型が数値型の場合
+				return inp_str;
+			}else{
+				// データ型が文字型,日付型の場合
+				return '"'+inp_str+'"';
+			}
+		}
+	}
+
+	// ポップアップの処理
 	$("#UPDATE").hide();
 	$("#INSERT").hide();
 	$("#BACK").hide();

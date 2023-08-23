@@ -114,16 +114,36 @@ p{
 	font-size: 20;
 }
 
-/* 社員管理 */
-.staff_admin{
+/* 管理画面共通機能 */
+.staff_admin, .com_p_admin, .self_c_admin{
 	width: fit-content;
 	margin: 10px auto;
 	display: flex;
 }
+.tb_null{
+	text-align: center;
+}
+.staff_input div, .com_p_input div, .self_c_input div{
+	margin: 0 0 20px 0;
+}
+.staff_input label, .com_p_input label, .self_c_input label{
+	margin: auto 0 auto 30px;
+	width: 112px;
+	display: inline-block;
+}
+.del_flg{
+	margin-left: 30px;
+}
+.del_flg label{
+	margin: 0;
+	width: auto;
+}
+
+/* 社員管理 */
 #staff_tb{
 	display: block;
 	background-color: white;
-	min-width: 680px;
+	width: 500px;
 	height: 480px;
 	/* white-space: nowrap; */
 	overflow: scroll;
@@ -154,14 +174,6 @@ p{
 .staff_th_y{
 	width: 100px;
 } */
-.tb_null{
-	text-align: center;
-}
-.staff_input label{
-	margin: 0 0 20px 30px;
-	width: 112px;
-	display: inline-block;
-}
 .staff_input input[type="date"]{
 	width: 177px;
 	display: inline-block;
@@ -169,8 +181,25 @@ p{
 .staff_input select{
 	width: 177px;
 }
-.del_flg label{
-	width: auto;
+
+/* 会社評価管理 */
+#com_p_tb{
+	width: 500px;
+}
+.com_p_input textarea{
+	resize: none;
+	width: 177px;
+	height: 100px;
+}
+
+/* 自己評価管理 */
+#self_c_tb{
+	width: 500px;
+}
+
+/* 給与テーブル */
+.min_s{
+	background-color: gray;
 }
 
 /*会社評価*/
