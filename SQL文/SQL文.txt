@@ -98,7 +98,7 @@ CREATE TABLE TM_staff(
         pt     SMALLINT,
         Expt     SMALLINT,
         ac_history     VARCHAR(10),
-        society_history     TINYINT,
+        society_history     TINYINT    いらんかも,
         it_history     TINYINT,
         noit_history     TINYINT,
         del_flg     BOOLEAN  NOT NULL  DEFAULT false,

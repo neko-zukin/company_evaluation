@@ -120,6 +120,23 @@ p{
 	margin: 10px auto;
 	display: flex;
 }
+#staff_tb, #com_p_tb, #self_c_tb{
+	/* table-layout: fixed; */
+	display: block;
+	height: 475px;
+	/* background-color: white; */
+	white-space: nowrap;
+	overflow: scroll;
+}
+#staff_tb th, #com_p_tb th, #self_c_tb th{
+	/* letter-spacing: normal;
+	white-space: normal; */
+	/* display: inline-block; */
+	position: sticky;
+	/* top: 2; */
+	top: 0;
+	background-color: white; 
+}
 .tb_null{
 	text-align: center;
 }
@@ -131,32 +148,34 @@ p{
 	width: 112px;
 	display: inline-block;
 }
-.del_flg{
-	margin-left: 30px;
+.staff_input select, .com_p_input select{
+	width: 177px;
 }
 .del_flg label{
-	margin: 0;
 	width: auto;
+}
+.del_flg input[type="checkbox"]{
+	margin-left: 10px;
+	transform: scale(1.5);
+}
+.admin_error p{
+	margin: 0 0 0 30px;
+	color: red;
+}
+.admin_btn{
+	padding: 15px 30px;
+	width: 100%;
+	background-color: #fff;
+	position: fixed;
+	bottom: 0;
+	left: 0;
 }
 
 /* 社員管理 */
 #staff_tb{
-	display: block;
-	background-color: white;
-	width: 500px;
-	height: 480px;
-	/* white-space: nowrap; */
-	overflow: scroll;
+	width: 680px;
 }
-#staff_tb th{
-	/* letter-spacing: normal;
-	white-space: normal; */
-	position: sticky;
-	/* top: 2; */
-	top: 0;
-	background-color: white; 
-}
-/* .staff_th_id{
+.staff_th_id{
 	width: 70px;
 }
 .staff_th_name{
@@ -173,13 +192,10 @@ p{
 }
 .staff_th_y{
 	width: 100px;
-} */
+}
 .staff_input input[type="date"]{
 	width: 177px;
 	display: inline-block;
-}
-.staff_input select{
-	width: 177px;
 }
 
 /* 会社評価管理 */
