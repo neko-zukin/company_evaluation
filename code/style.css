@@ -300,3 +300,158 @@ p{
 	margin: 0 auto 0 -200;
 }
 
+#staff_status_table{
+	position: absolute;
+	left:100;
+}
+
+#staff_hisotory_table{
+	position: absolute;
+	left:800;
+}
+
+#staff_point_table{
+	position: absolute;
+	left:1050;
+}
+
+#cp_table{
+	display: block;
+	position: absolute;
+	top:175;
+	left:100;
+	height:250;
+	width:600;
+	overflow-y: scroll;
+}
+#staff_sal_history_table{
+	position: absolute;
+	top: 175;
+	left:800;
+}
+
+#staff_sal_it_table{
+	position: absolute;
+	top: 175;
+	left:1050;
+}
+
+#staff_sal_noit_table{
+	position: absolute;
+	top: 375;
+	left:800;
+
+}
+
+#staff_sal_math_table{
+	position: absolute;
+	top:375;
+	left:1050;
+}
+
+#staff_sc_table{
+	position: absolute;
+	top: 435;
+	left:100;
+}
+
+#table_bar{
+	position: sticky;
+	top: 0;
+	background-color: white;
+}
+#th_title{
+	width:485;
+}
+#th_pt{
+	width:40;
+}
+#th_Expt{
+	width:40;
+}
+#right_arrow1{
+	position: absolute;
+	top: 175;
+	left:965;
+	color:#ff1414;
+	font-size:50;
+}
+
+#right_arrow2{
+	position: absolute;
+	top: 355;
+	left:950;
+	color:#00ff00;
+	font-size:50;
+}
+
+#bottom_arrow{
+	position: absolute;
+	top: 285;
+	left:810;
+	color:#00ff00;
+	font-size:50;
+}
+
+#check_back_button{
+	position: absolute;
+	bottom:10;
+	left:100;
+	width:200;
+	height:40;
+}
+
+#right_move{
+	position: absolute;
+	bottom:10;
+	left:650;
+	width:200;
+	height:40;
+	font-size:20;
+}
+
+#left_move{
+	position: absolute;
+	bottom:10;
+	left:400;
+	width:200;
+	height:40;
+	font-size:20;
+}
+
+#check_csv_button{
+	position: absolute;
+	bottom:10;
+	right:175;
+	width:200;
+	height:40;
+}
+
+#result_selfcheck_button{
+	position: absolute;
+	bottom:10;
+	left:100;
+	width:200;
+	height:40;
+}
+#result_company_button{
+	position: absolute;
+	bottom:10;
+	left:310;
+	width:200;
+	height:40;
+}
+#result_back_button{
+	position: absolute;
+	bottom:10;
+	right:175;
+	width:200;
+	height:40;
+}
+#result_csv_button{
+	position: absolute;
+	bottom:10;
+	right:390;
+	width:400;
+	height:40;
+}
