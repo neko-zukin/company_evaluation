@@ -122,7 +122,7 @@
 				
 				
 				let DB_generation_point="-";
-				let generation="-";
+				let generation=0;
 				let birthday = "-";
 				let job_history="-";
 				let staff_old="-";
@@ -196,7 +196,7 @@
 				}else{
 					csv_noit_history="-";
 				}
-				if(job_history!="-"&&birthday=="-"){
+				if(job_history!="-"&&birthday!="-"){
 					generation = parseInt(job_history)-parseInt(birthday);
 					generation = (Math.floor(generation/10)) * 10;
 				}
@@ -225,6 +225,14 @@
 				let last_year = parseInt(year) - 1;
 				let two_year = parseInt(year) - 2;
 				let three_year = parseInt(year) - 3;
+				
+				let csv_year_one="-";
+				let csv_lase_year_one="-";
+				let csv_second_yesr_one="-";
+				let csv_year_two="-";
+				let csv_lase_year_two="-";
+				let csv_second_yesr_two="-";
+				
 				if(parseInt(month)==9){
 					let year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+year+'-09-01" and result=1;');
 					let last_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+last_year+'-09-01" and result=1;');
@@ -234,6 +242,7 @@
 					let two_year_two_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+two_year+'-03-01" and result=1;');
 					if(year_point[0]["pt"]!=null){
 						csv_year_point_pt=year_point[0]["pt"];
+						csv_year_one=year+"-09";
 					}else{
 						csv_year_point_pt="-";
 					}
@@ -244,6 +253,7 @@
 					}
 					if(last_year_point[0]["pt"]!=null){
 						csv_last_year_point_pt=last_year_point[0]["pt"];
+						csv_lase_year_one=last_year+"-09";
 					}else{
 						csv_last_year_point_pt="-";
 					}
@@ -254,6 +264,7 @@
 					}
 					if(two_year_point[0]["pt"]!=null){
 						csv_two_year_point_pt=two_year_point[0]["pt"];
+						csv_second_yesr_one=two_year+"-09";
 					}else{
 						csv_two_year_point_pt="-";
 					}
@@ -266,6 +277,7 @@
 					csv_year_two_point_Expt="-";
 					if(year_two_point[0]["pt"]!=null){
 						csv_last_year_two_point_pt=year_two_point[0]["pt"];
+						csv_lase_year_two=year+"-03"
 					}else{
 						csv_last_year_two_point_pt="-";
 					}
@@ -276,6 +288,7 @@
 					}
 					if(last_year_two_point[0]["pt"]!=null){
 						csv_two_year_two_point_pt=last_year_two_point[0]["pt"];
+						csv_second_yesr_two=last_year+"-03";
 					}else{
 						csv_two_year_two_point_pt="-";
 					}
@@ -294,6 +307,7 @@
 					let three_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+three_year+'-09-01" and result=1;');
 					if(last_year_point[0]["pt"]!=null){
 						csv_year_point_pt=last_year_point[0]["pt"];
+						csv_year_one=last_year+"-09";
 					}else{
 						csv_year_point_pt="-";
 					}
@@ -304,6 +318,7 @@
 					}
 					if(two_year_point[0]["pt"]!=null){
 						csv_last_year_point_pt=two_year_point[0]["pt"];
+						csv_lase_year_one=two_year+"-09";
 					}else{
 						csv_last_year_point_pt="-";
 					}
@@ -314,6 +329,7 @@
 					}
 					if(three_year_point[0]["pt"]!=null){
 						csv_two_year_point_pt=three_year_point[0]["pt"];
+						csv_second_yesr_one=three_year+"-09";
 					}else{
 						csv_two_year_point_pt="-";
 					}
@@ -324,6 +340,7 @@
 					}
 					if(year_two_point[0]["pt"]!=null){
 						csv_year_two_point_pt=year_two_point[0]["pt"];
+						csv_year_two=year+"-03";
 					}else{
 						csv_year_two_point_pt="-";
 					}
@@ -334,6 +351,7 @@
 					}
 					if(last_year_two_point[0]["pt"]!=null){
 						csv_last_year_two_point_pt=last_year_two_point[0]["pt"];
+						csv_lase_year_two=last_year+"-03";
 					}else{
 						csv_last_year_two_point_pt="-";
 					}
@@ -344,6 +362,7 @@
 					}
 					if(two_year_two_point[0]["pt"]!=null){
 						csv_two_year_two_point_pt=two_year_two_point[0]["pt"];
+						csv_second_yesr_two=two_year+"-03";
 					}else{
 						csv_two_year_two_point_pt="-";
 					}
@@ -397,8 +416,10 @@
 
 				
 				csv_output+=csv_staff_id+","+csv_staff_name+","+csv_birthday+","+csv_staff_old+","+csv_join_date+","+csv_staff_society_history+","+csv_ac_history+","+csv_salary+","+csv_staff_pt+","+csv_staff_Expt+","+csv_it_history+","+csv_noit_history+","+csv_generation_point+","+csv_year_point_pt+","+csv_year_point_Expt+","+csv_year_two_point_pt+","+csv_year_two_point_Expt+","+csv_last_year_point_pt+","+csv_last_year_point_Expt+","+csv_last_year_two_point_pt+","+csv_last_year_two_point_Expt+","+csv_two_year_point_pt+","+csv_two_year_point_Expt+","+csv_two_year_two_point_pt+","+csv_two_year_two_point_Expt+","+csv_old3_pt+","+csv_old3_Expt+","+csv_allsum_pt+","+csv_allsum_Expt;
+				csv_output+=","+staff_society_history+"年目,"+generation+"代";
+				csv_output+=","+csv_year_one+","+csv_year_two+","+csv_lase_year_one+","+csv_lase_year_two+","+csv_second_yesr_one+","+csv_second_yesr_two;
 				for(j=0;j<DB_cp.length;j++){
-					csv_output+=","+DB_cp[j]["detail"];
+					csv_output+=","+DB_cp[j]["title_cd"];
 				}
 				csv_output+="\n";
 			}

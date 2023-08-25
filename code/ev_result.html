@@ -161,7 +161,7 @@
 </body>
 <script>
 	let DB_generation_point="-"
-	let generation="-";
+	let generation=0;
 	let staff_sum_pt=0;
 	let staff_sum_Expt=0;
 	let birthday = "-";
@@ -254,7 +254,7 @@
 	$("#staff_itpoint").text(DB_staff[staff_check]["it_history"]*4);
 	$("#staff_noitpoint").text(DB_staff[staff_check]["noit_history"]*2);
 	$("#n_day").text(staff_society_history+"年目");
-	if(job_history!="-"&&birthday=="-"){
+	if(job_history!="-"&&birthday!="-"){
 		generation = parseInt(job_history)-parseInt(birthday);
 		generation = (Math.floor(generation/10)) * 10;
 	}
@@ -503,14 +503,14 @@
 		
 		//取得した資格のデータを挿入
 		for(i=0;i<DB_cp.length;i++){
-			csv_fail[10][i] = DB_cp[i]["detail"];
+			csv_fail[10][i] = DB_cp[i]["title_cd"];
 			csv_fail[11][i] = DB_cp[i]["pt"];
 			csv_fail[12][i] = DB_cp[i]["Expt"];
 		}
 		
 		csv_fail[13] = DB_staff[staff_check]["it_history"];
 		csv_fail[14] = DB_staff[staff_check]["noit_history"];
-		csv_fail[15] = DB_generation_point[0][sql_selectitem];
+		csv_fail[15] = $("#noit_point").text();
 		csv_fail[16] = $("#two_year_pt").text();
 		csv_fail[17] = $("#two_year_Expt").text();
 		csv_fail[18] = $("#two_year_two_pt").text();
@@ -519,15 +519,14 @@
 		csv_fail[21] = $("#last_year_Expt").text();
 		csv_fail[22] = $("#last_year_two_pt").text();
 		csv_fail[23] = $("#last_year_two_Expt").text();
-		csv_fail[24] = $("#last_year_Expt").text();
-		csv_fail[25] = $("#year_pt").text();
-		csv_fail[26] = $("#year_Expt").text();
-		csv_fail[27] = $("#year_two_pt").text();
-		csv_fail[28] = $("#year_two_Expt").text();
-		csv_fail[29] = $("#old3_pt").text();
-		csv_fail[30] = $("#old3_Expt").text();
-		csv_fail[31] = $("#allsum_pt").text();
-		csv_fail[32] = $("#allsum_Expt").text();
+		csv_fail[24] = $("#year_pt").text();
+		csv_fail[25] = $("#year_Expt").text();
+		csv_fail[26] = $("#year_two_pt").text();
+		csv_fail[27] = $("#year_two_Expt").text();
+		csv_fail[28] = $("#old3_pt").text();
+		csv_fail[29] = $("#old3_Expt").text();
+		csv_fail[30] = $("#allsum_pt").text();
+		csv_fail[31] = $("#allsum_Expt").text();
 		
 		//配列を文字列に変換
 		let csv_fail_change = csv_fail[0]+",";
@@ -536,11 +535,14 @@
 			csv_fail_change += csv_fail[i]+",";
 		}
 		
-		for (i=13;i<32;i++) {
+		for (i=13;i<31;i++) {
 			csv_fail_change += csv_fail[i]+",";
 		}
 		
-		csv_fail_change += csv_fail[32];
+		csv_fail_change += csv_fail[31];
+		csv_fail_change += ","+$("#n_day").text()+","+$("#n_old").text();
+		csv_fail_change += ","+$("#year_date").text()+","+$("#year_two_date").text()+","+$("#last_year_date").text()+","+$("#last_year_two_date").text()+","+$("#two_year_date").text()+","+$("#two_year_two_date").text();
+
 		
 		for(i=1;i<DB_cp.length;i++){
 			csv_fail_change += ","+csv_fail[10][i]+','+csv_fail[11][i]+','+csv_fail[12][i];
