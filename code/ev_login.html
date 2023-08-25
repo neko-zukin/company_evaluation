@@ -7,15 +7,15 @@
 </head>
 <body>
 	<h1>社員評価システム</h1>
-	<div class="center">
+	<div class="center login_inp">
 		<label>ユーザID</label>
 		<input id="user_id" type="text">
 	</div>
-	<div class="center">
+	<div class="center login_inp">
 		<label>パスワード</label>
 		<input type="password" id="password" type="text">
 	</div>
-	<p id="error">　</p>
+	<p id="error" class="login_e">　</p>
 	<button id="login_button">ログイン</button>
 
 </body>
@@ -45,7 +45,7 @@
 		}
 		error=true;
 		if(error){
-			$("#error").text("ユーザIDかパスワードが違います");
+			$("#error").text("※ユーザIDかパスワードが違います");
 		}
 	})
 

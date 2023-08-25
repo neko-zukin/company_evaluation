@@ -10,8 +10,8 @@
 	<div class="staff_admin">
 		<table border="1" id="staff_tb">
 			<tr>
-				<th class="staff_th_id">社員番号</th>
-				<th class="staff_th_name">氏名</th>
+				<th class="staff_th_id pk_th0">社員番号</th>
+				<th class="staff_th_name pk_th1">氏名</th>
 				<th class="staff_th_date">生年月日</th>
 				<th class="staff_th_date">入社日</th>
 				<th class="staff_th_pt">pt</th>
@@ -62,27 +62,27 @@
 				<input type="number" id="noit_history_inp">
 			</div>
 			<div class="del_flg">
-				<input type="checkbox" id="del_flg_inp">
 				<label>削除フラグ</label>
+				<input type="checkbox" id="del_flg_inp">
 			</div>
 			
 			<!-- エラーメッセージ -->
 			<div class="admin_error">
-				<p id="error_1">社員番号を入力してください。</p>
-				<p id="error_2">氏名を入力してください。</p>
-				<p id="error_3">その社員番号は既に存在しています。</p>
-				<p id="error_4">社員番号は6桁で入力してください。</p>
-				<p id="error_5">氏名は20文字以内で入力してください。</p>
-				<p id="error_6">ptの上限値を超えています。</p>
-				<p id="error_6">Exptの上限値を超えています。</p>
-				<p id="error_6">勤続年数の上限値を超えています。</p>
-				<p id="error_6">IT経験(年)の上限値を超えています。</p>
-				<p id="error_6">IT以外経験(年)の上限値を超えています。</p>
+				<p id="error_1" hidden>※社員番号を入力してください。</p>
+				<p id="error_2" hidden>※氏名を入力してください。</p>
+				<p id="error_3" hidden>※その社員番号は既に存在しています。</p>
+				<p id="error_4" hidden>※社員番号は6桁で入力してください。</p>
+				<p id="error_5" hidden>※氏名は20文字以内で入力してください。</p>
+				<p id="error_6" hidden>※ptの上限値を超えています。</p>
+				<p id="error_7" hidden>※Exptの上限値を超えています。</p>
+				<p id="error_8" hidden>※勤続年数の上限値を超えています。</p>
+				<p id="error_9" hidden>※IT経験(年)の上限値を超えています。</p>
+				<p id="error_10" hidden>※IT以外経験(年)の上限値を超えています。</p>
 			</div>
 		</div>	
 	</div>
 
-	<div>
+	<div class="admin_btn">
 		<button id="back_button">戻る</button>
 		<button id="insert_button">登録</button>
 		<button id="update_button">更新</button>
@@ -134,8 +134,8 @@
 	console.log(staff);
 	for(let i=0; i<staff.length; i++){
 		$("#staff_tb").append('<tr id="tr'+i+'"></tr>');
-		$("#tr"+i).append('<td id="staff_id_'+i+'">'+staff[i]["staff_id"]+'</td>');
-		$("#tr"+i).append('<td id="staff_name_'+i+'">'+staff[i]["staff_name"]+'</td>');
+		$("#tr"+i).append('<td id="staff_id_'+i+'" class="pk_td0">'+staff[i]["staff_id"]+'</td>');
+		$("#tr"+i).append('<td id="staff_name_'+i+'" class="pk_td1">'+staff[i]["staff_name"]+'</td>');
 		tb_null(i, "birthday", staff[i]["birthday"]);
 		tb_null(i, "join_date", staff[i]["join_date"]);
 		tb_null(i, "pt", staff[i]["pt"]);
@@ -214,46 +214,50 @@
 		// let new_id = yy.toString()+("000"+max_id).slice(-3);
 		// console.log(new_id);
 
-		// 社員情報登録用のSQL文
-		let sql = "INSERT INTO TM_staff(staff_id, staff_name, birthday, join_date, pt, Expt, ac_history, society_history, it_history, noit_history, del_flg, create_date, create_id) ";
-		sql += 'VALUES("'+$("#staff_id_inp").val()+'", ';
-		sql += '"'+$("#staff_name_inp").val()+'", ';
-		sql += sql_null("birthday_inp", "d")+', ';
-		sql += sql_null("join_date_inp", "d")+', ';
-		sql += sql_null("pt_inp", "i")+', ';
-		sql += sql_null("Expt_inp", "i")+', ';
-		sql += sql_null("ac_history_inp", "v")+', ';
-		sql += sql_null("society_history_inp", "i")+', ';
-		sql += sql_null("it_history_inp", "i")+', ';
-		sql += sql_null("noit_history_inp", "i")+', ';
-		sql += $("#del_flg_inp").prop('checked')+', ';
-		sql += '"'+now+'", ';
-		sql += '"'+'iwata'+'");';// ログインID（あとで書き換える）
-		console.log(sql);
-		DB.sql(sql);
-		window.location.reload();
+		if(error()){
+			// 社員情報登録用のSQL文
+			let sql = "INSERT INTO TM_staff(staff_id, staff_name, birthday, join_date, pt, Expt, ac_history, society_history, it_history, noit_history, del_flg, create_date, create_id) ";
+			sql += 'VALUES("'+$("#staff_id_inp").val()+'", ';
+			sql += '"'+$("#staff_name_inp").val()+'", ';
+			sql += sql_null("birthday_inp", "d")+', ';
+			sql += sql_null("join_date_inp", "d")+', ';
+			sql += sql_null("pt_inp", "i")+', ';
+			sql += sql_null("Expt_inp", "i")+', ';
+			sql += sql_null("ac_history_inp", "v")+', ';
+			sql += sql_null("society_history_inp", "i")+', ';
+			sql += sql_null("it_history_inp", "i")+', ';
+			sql += sql_null("noit_history_inp", "i")+', ';
+			sql += $("#del_flg_inp").prop('checked')+', ';
+			sql += '"'+now+'", ';
+			sql += '"'+'iwata'+'");';// ログインID（あとで書き換える）
+			console.log(sql);
+			DB.sql(sql);
+			window.location.reload();
+		}
 	});
 
 	// 更新確認ポップアップのOKボタンが押下されたとき
 	$("#update_ok").on("click",function(){
-		// 社員情報更新用のSQL文
-		let sql = 'UPDATE TM_staff ';
-		sql += 'SET staff_name="'+$("#staff_name_inp").val()+'", ';
-		sql += 'birthday='+sql_null("birthday_inp", "d")+', ';
-		sql += 'join_date='+sql_null("join_date_inp", "d")+', ';
-		sql += 'pt='+sql_null("pt_inp", "i")+', ';
-		sql += 'Expt='+sql_null("Expt_inp", "i")+', ';
-		sql += 'ac_history='+sql_null("ac_history_inp", "v")+', ';
-		sql += 'society_history='+sql_null("society_history_inp", "i")+', ';
-		sql += 'it_history='+sql_null("it_history_inp", "i")+', ';
-		sql += 'noit_history='+sql_null("noit_history_inp", "i")+', ';
-		sql += 'del_flg='+$("#del_flg_inp").prop('checked')+', ';
-		sql += 'update_date="'+now+'", ';
-		sql += 'update_id="'+'iwata'+'" ';// ログインID（あとで書き換える）
-		sql += 'WHERE staff_id="'+$("#staff_id_inp").val()+'";';
-		console.log(sql);
-		DB.sql(sql);
-		window.location.reload();
+		if(error()){
+			// 社員情報更新用のSQL文
+			let sql = 'UPDATE TM_staff ';
+			sql += 'SET staff_name="'+$("#staff_name_inp").val()+'", ';
+			sql += 'birthday='+sql_null("birthday_inp", "d")+', ';
+			sql += 'join_date='+sql_null("join_date_inp", "d")+', ';
+			sql += 'pt='+sql_null("pt_inp", "i")+', ';
+			sql += 'Expt='+sql_null("Expt_inp", "i")+', ';
+			sql += 'ac_history='+sql_null("ac_history_inp", "v")+', ';
+			sql += 'society_history='+sql_null("society_history_inp", "i")+', ';
+			sql += 'it_history='+sql_null("it_history_inp", "i")+', ';
+			sql += 'noit_history='+sql_null("noit_history_inp", "i")+', ';
+			sql += 'del_flg='+$("#del_flg_inp").prop('checked')+', ';
+			sql += 'update_date="'+now+'", ';
+			sql += 'update_id="'+'iwata'+'" ';// ログインID（あとで書き換える）
+			sql += 'WHERE staff_id="'+$("#staff_id_inp").val()+'";';
+			console.log(sql);
+			DB.sql(sql);
+			window.location.reload();
+		}
 	});
 
 	// sql用nullチェック
@@ -273,6 +277,77 @@
 			}
 		}
 	}
+
+	// エラーメッセージの表示
+	function error(){
+		let error_check = true;
+
+		document.getElementById("error_1").hidden = true;
+		document.getElementById("error_2").hidden = true;
+		document.getElementById("error_3").hidden = true;
+		document.getElementById("error_4").hidden = true;
+		document.getElementById("error_5").hidden = true;
+		document.getElementById("error_6").hidden = true;
+		document.getElementById("error_7").hidden = true;
+		document.getElementById("error_8").hidden = true;
+		document.getElementById("error_9").hidden = true;
+		document.getElementById("error_10").hidden = true;
+
+		// 社員番号が入力されていない場合
+		if($("#staff_id_inp").val() == ""){
+			document.getElementById("error_1").hidden = false;
+			error_check = false;
+		}
+		// 氏名が入力されていない場合
+		if($("#staff_name_inp").val() == ""){
+			document.getElementById("error_2").hidden = false;
+			error_check = false;
+		}
+		// DBに既に存在している社員番号を登録した場合
+		for(let i=0; i<staff.length; i++){
+			if(staff[i]["staff_id"] == $("#staff_id_inp").val()){
+				document.getElementById("error_3").hidden = false;
+				error_check = false;
+			}
+		}
+		// 社員番号が6桁でない場合
+		if($("#staff_id_inp").val().length != 6){
+			document.getElementById("error_4").hidden = false;
+			error_check = false;
+		}
+		// 氏名が20文字以内でない場合
+		if($("#staff_name_inp").val().length > 20){
+			document.getElementById("error_5").hidden = false;
+			error_check = false;
+		}
+		// ptの値が-32768～32767でない場合
+		if(-32768 > $("#pt_inp").val() || $("#pt_inp").val() > 32767){
+			document.getElementById("error_6").hidden = false;
+			error_check = false;
+		}
+		// Exptの値が-32768～32767でない場合
+		if(-32768 > $("#Expt_inp").val() || $("#Expt_inp").val() > 32767){
+			document.getElementById("error_7").hidden = false;
+			error_check = false;
+		}
+		// 勤続年数の値が-128～127でない場合
+		if(-128 > $("#society_history_inp").val() || $("#society_history_inp").val() > 127){
+			document.getElementById("error_8").hidden = false;
+			error_check = false;
+		}
+		// IT経験(年)の値が-128～127でない場合
+		if(-128 > $("#it_history_inp").val() || $("#it_history_inp").val() > 127){
+			document.getElementById("error_9").hidden = false;
+			error_check = false;
+		}
+		// IT以外経験(年)の値が-128～127でない場合
+		if(-128 > $("#noit_history_inp").val() || $("#noit_history_inp").val() > 127){
+			document.getElementById("error_10").hidden = false;
+			error_check = false;
+		}
+		return error_check;
+	}
+
 
 	// ポップアップの処理
 	$("#UPDATE").hide();

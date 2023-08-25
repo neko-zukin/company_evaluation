@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h1>評価実施</h1>
-	<table border="1" id="table">
+	<table border="1" id="table" class="ass_start_tb">
 		<tr>
 			<th>社員番号</th>
 			<th>氏名</th>
@@ -16,7 +16,7 @@
 			<th></th>
 		</tr>
 	</table>
-	<button id="back">戻る</button>
+	<button id="back_button">戻る</button>
 </body>
 <script>
 	let DB_staff_date = DB.sql("SELECT TM_staff.staff_id,staff_name,max(assess_date) as assess_date FROM TM_staff join TE_staff_sc on TM_staff.staff_id=te_staff_sc.staff_id Group by TM_staff.staff_id");
@@ -37,7 +37,7 @@
 		let button_id = $(this).attr("id");
 		let location_id = button_id.slice(0,2);
 		let staff_id = button_id.slice(2,8);
-		if(button_id=="back"){
+		if(button_id=="back_button"){
 			location.href='ev_select.html';
 		}
 		if(location_id=="cm"){

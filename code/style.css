@@ -24,18 +24,31 @@ h1{
 }
 
 #insert_button{
+	border: solid 1px #000;
 	width: 200;
 	font-size:20;
+	background-color: #7fff7f;
+	position: absolute;
+	right: 300;
+	bottom: 15;
 }
 
 #update_button{
+	border: solid 1px #000;
 	width: 200;
 	font-size:20;
+	background-color: #7fbfff;
+	position: absolute;
+	right: 70;
+	bottom: 15;
 }
 
 #back_button{
 	width: 200;
 	font-size:20;
+	position: absolute;
+	left: 10;
+	bottom: 15;
 }
 
 p{
@@ -102,23 +115,83 @@ p{
 	margin: 0 auto;
 	text-align: center;
 }
+.login_inp{
+	margin-top: 20px;
+}
+.login_inp label{
+	width: 80px;
+	display: inline-block;
+}
+.login_e{
+	margin: 10px auto 20px auto;
+	color: red;
+	width: fit-content;
+}
 
 /*選択画面*/
 .select_row1{
-	width:300;
+	margin: 40px 10px 0 10px;
+	width:291px;
 	font-size: 20;
 }
 
 .select_row2{
-	width:450;
+	margin: 30px 10px;
+	width:450px;
 	font-size: 20;
 }
+
+/* 評価項目管理 */
+.assess_admin{
+	margin: 20px auto;
+	width: fit-content;
+}
+.assess_admin button{
+	width: 200;
+	font-size:20;
+}
+#self_admin{
+	margin-left: 100px;
+}
+/* .assess_admin_back{
+	position: absolute;
+	bottom: 15;
+} */
 
 /* 管理画面共通機能 */
 .staff_admin, .com_p_admin, .self_c_admin{
 	width: fit-content;
 	margin: 10px auto;
 	display: flex;
+}
+#staff_tb, #com_p_tb, #self_c_tb{
+	/* table-layout: fixed; */
+	display: block;
+	height: 475px;
+	white-space: nowrap;
+	overflow: scroll;
+}
+#staff_tb th, #com_p_tb th, #self_c_tb th{
+	/* letter-spacing: normal;
+	white-space: normal; */
+	/* display: inline-block; */
+	position: sticky;
+	/* top: 2; */
+	top: 0;
+	background-color: #bcddff; 
+}
+.pk_th0, .pk_td0{
+	position: sticky;
+	left: 0;
+	background-color: white; 
+}
+.pk_th1, .pk_td1{
+	position: sticky;
+	left: 68;
+	background-color: white; 
+}
+.pk_th0, .pk_th1{
+	z-index: 1;
 }
 .tb_null{
 	text-align: center;
@@ -127,36 +200,39 @@ p{
 	margin: 0 0 20px 0;
 }
 .staff_input label, .com_p_input label, .self_c_input label{
-	margin: auto 0 auto 30px;
+	margin: 0 0 auto 30px;
 	width: 112px;
 	display: inline-block;
+	vertical-align: top;
 }
-.del_flg{
-	margin-left: 30px;
+.staff_input select, .com_p_input select{
+	width: 177px;
 }
 .del_flg label{
-	margin: 0;
 	width: auto;
+}
+.del_flg input[type="checkbox"]{
+	margin-left: 10px;
+	transform: scale(1.5);
+}
+.admin_error p{
+	margin: 0 0 0 30px;
+	color: red;
+}
+.admin_btn{
+	padding: 15px 30px 15px 10px;
+	width: 100%;
+	background-color: #fff;
+	position: fixed;
+	bottom: 0;
+	left: 0;
 }
 
 /* 社員管理 */
 #staff_tb{
-	display: block;
-	background-color: white;
-	width: 500px;
-	height: 480px;
-	/* white-space: nowrap; */
-	overflow: scroll;
+	width: 680px;
 }
-#staff_tb th{
-	/* letter-spacing: normal;
-	white-space: normal; */
-	position: sticky;
-	/* top: 2; */
-	top: 0;
-	background-color: white; 
-}
-/* .staff_th_id{
+.staff_th_id{
 	width: 70px;
 }
 .staff_th_name{
@@ -173,37 +249,87 @@ p{
 }
 .staff_th_y{
 	width: 100px;
-} */
+}
 .staff_input input[type="date"]{
 	width: 177px;
 	display: inline-block;
 }
-.staff_input select{
-	width: 177px;
-}
 
 /* 会社評価管理 */
 #com_p_tb{
-	width: 500px;
+	width: 680px;
 }
 .com_p_input textarea{
 	resize: none;
 	width: 177px;
-	height: 100px;
+	height: 140px;
 }
 
 /* 自己評価管理 */
 #self_c_tb{
-	width: 500px;
+	width: 800px;
+}
+#explanation_inp{
+	resize: none;
+	width: 350px;
+	height: 100px;
 }
 
 /* 給与テーブル */
 .min_s{
-	background-color: gray;
+	background-color: #d3d3d3;
+}
+.money{
+	width: 80px;
+}
+#salary_tb{
+	margin: 0 auto;
+	display: block;
+	width: fit-content;
+	height: 300px;
+	overflow-y: scroll;
+}
+#salary_tb th{
+	position: sticky;
+	top: 0;
+	background-color: #bcddff;
+}
+#salary_tb .tr2{
+	position: sticky;
+	top: 28;
+}
+.class{
+	background-color: #ffddbc;
+}
+.salary_bottom{
+	margin: 20px auto 0 auto;
+	width: fit-content;
+	display: flex;
+}
+.salary_bottom th{
+	background-color: #bcddff;
+}
+.level_tb{
+	margin-left: 50px;
 }
 
 /*会社評価*/
 
+/* 評価実施 */
+.ass_start_tb{
+	display: block;
+	margin: 0 auto;
+	width: fit-content;
+	height: 540px;
+	overflow-y: scroll;
+}
+.ass_start_tb th{
+	position: sticky;
+	top: 0;
+	background-color: white;
+}
+
+/* 評価出力 */
 
 /*ここから*/
 

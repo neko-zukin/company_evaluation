@@ -10,7 +10,7 @@
 	<div class="com_p_admin">
 		<table border="1" id="com_p_tb">
 			<tr>
-				<th>会社評価<br>コード</th>
+				<th class="pk_th0">会社評価<br>コード</th>
 				<th>技官<br>区分</th>
 				<th>業資<br>区分</th>
 				<th>pt</th>
@@ -24,13 +24,21 @@
 		<div class="com_p_input">
 			<div>
 				<label>会社評価コード</label>
-				<input type="text" id="title_cd_inp">
+				<input type="text" id="title_cd_inp" disabled>
 			</div>
 			<div>
 				<label>技官区分</label>
-				<input type="text" id="tm_kbn_inp">
-				<label>業資分</label>
-				<input type="text" id="jq_kbn_inp">
+				<select id="tm_kbn_inp">
+					<option value="T">技術系</option>
+					<option value="M">管理系</option>
+					<option value="C">会社貢献系</option>
+				</select>
+				<label>業資区分</label>
+				<select id="jq_kbn_inp">
+					<option value="J">実務系</option>
+					<option value="Q">資格系</option>
+					<option value="C">会社貢献系</option>
+				</select>
 			</div>
 			<div>
 				<label>pt</label>
@@ -45,13 +53,22 @@
 				<textarea id="note_inp"></textarea>
 			</div>
 			<div class="del_flg">
-				<input type="checkbox" id="del_flg_inp">
 				<label>削除フラグ</label>
+				<input type="checkbox" id="del_flg_inp">
+			</div>
+
+			<!-- エラーメッセージ -->
+			<div class="admin_error">
+				<p id="error_1" hidden>※内容を入力してください。</p>
+				<p id="error_2" hidden>※内容は200文字以内で入力してください。</p>
+				<p id="error_3" hidden>※ptの上限値を超えています。</p>
+				<p id="error_4" hidden>※Exptの上限値を超えています。</p>
+				<p id="error_5" hidden>※備考は200文字以内で入力してください。</p>
 			</div>
 		</div>
 	</div>
 
-	<div>
+	<div class="admin_btn">
 		<button id="back_button">戻る</button>
 		<button id="insert_button">登録</button>
 		<button id="update_button">更新</button>
@@ -102,7 +119,7 @@
 
 	for(let i=0; i<com_p.length; i++){
 		$("#com_p_tb").append('<tr id="tr'+i+'"></tr>');
-		$("#tr"+i).append('<td id="title_cd_'+i+'">'+com_p[i]["title_cd"]+'</td>');
+		$("#tr"+i).append('<td id="title_cd_'+i+'" class="pk_td0">'+com_p[i]["title_cd"]+'</td>');
 		$("#tr"+i).append('<td id="tm_kbn_'+i+'">'+com_p[i]["tm_kbn"]+'</td>');
 		$("#tr"+i).append('<td id="jq_kbn_'+i+'">'+com_p[i]["jq_kbn"]+'</td>');
 		tb_null(i, "pt", com_p[i]["pt"]);
@@ -156,40 +173,49 @@
 
 	// 登録確認ポップアップのOKボタンが押下されたとき
 	$("#insert_ok").on("click",function(){
-		// 社員情報登録用のSQL文
-		let sql = "INSERT INTO TM_point(title_cd, tm_kbn, jq_kbn, pt, Expt , detail, note, del_flg, create_date, create_id) ";
-		sql += 'VALUES("'+$("#title_cd_inp").val()+'", ';
-		sql += '"'+$("#tm_kbn_inp").val()+'", ';
-		sql += '"'+$("#jq_kbn_inp").val()+'", ';
-		sql += sql_null("pt_inp", "i")+', ';
-		sql += sql_null("Expt_inp", "i")+', ';
-		sql += '"'+$("#detail_inp").val()+'", ';
-		sql += sql_null("note_inp", "v")+', ';
-		sql += $("#del_flg_inp").prop('checked')+', ';
-		sql += '"'+now+'", ';
-		sql += '"'+'iwata'+'");';// ログインID（あとで書き換える）
-		console.log(sql);
-		DB.sql(sql);
-		window.location.reload();
+		if(error()){
+			// 会社評価コードの自動採番
+			let kbn_cd = $("#tm_kbn_inp").val() + $("#jq_kbn_inp").val();
+			let db_cd = DB.sql('SELECT COUNT(title_cd) as cnt FROM TM_point WHERE title_cd LIKE "'+kbn_cd+'%";');
+			let new_cd = kbn_cd + ("000"+(db_cd[0]["cnt"]+1)).slice(-3);
+
+			// 会社評価テーブル登録用のSQL文
+			let sql = "INSERT INTO TM_point(title_cd, tm_kbn, jq_kbn, pt, Expt , detail, note, del_flg, create_date, create_id) ";
+			sql += 'VALUES("'+new_cd+'", ';
+			sql += '"'+$("#tm_kbn_inp").val()+'", ';
+			sql += '"'+$("#jq_kbn_inp").val()+'", ';
+			sql += sql_null("pt_inp", "i")+', ';
+			sql += sql_null("Expt_inp", "i")+', ';
+			sql += '"'+$("#detail_inp").val()+'", ';
+			sql += sql_null("note_inp", "v")+', ';
+			sql += $("#del_flg_inp").prop('checked')+', ';
+			sql += '"'+now+'", ';
+			sql += '"'+'iwata'+'");';// ログインID（あとで書き換える）
+			console.log(sql);
+			DB.sql(sql);
+			window.location.reload();
+		}
 	});
 
 	// 更新確認ポップアップのOKボタンが押下されたとき
 	$("#update_ok").on("click",function(){
-		// 社員情報更新用のSQL文
-		let sql = 'UPDATE TM_point ';
-		sql += 'SET tm_kbn="'+$("#tm_kbn_inp").val()+'", ';
-		sql += 'jq_kbn="'+$("#jq_kbn_inp").val()+'", ';
-		sql += 'pt='+sql_null("pt_inp", "i")+', ';
-		sql += 'Expt='+sql_null("Expt_inp", "i")+', ';
-		sql += 'detail="'+$("#detail_inp").val()+'", ';
-		sql += 'note='+sql_null("note_inp", "v")+', ';
-		sql += 'del_flg='+$("#del_flg_inp").prop('checked')+', ';
-		sql += 'update_date="'+now+'", ';
-		sql += 'update_id="'+'iwata'+'" ';// ログインID（あとで書き換える）
-		sql += 'WHERE title_cd="'+$("#title_cd_inp").val()+'";';
-		console.log(sql);
-		DB.sql(sql);
-		window.location.reload();
+		if(error()){
+			// 会社評価テーブル更新用のSQL文
+			let sql = 'UPDATE TM_point ';
+			sql += 'SET tm_kbn="'+$("#tm_kbn_inp").val()+'", ';
+			sql += 'jq_kbn="'+$("#jq_kbn_inp").val()+'", ';
+			sql += 'pt='+sql_null("pt_inp", "i")+', ';
+			sql += 'Expt='+sql_null("Expt_inp", "i")+', ';
+			sql += 'detail="'+$("#detail_inp").val()+'", ';
+			sql += 'note='+sql_null("note_inp", "v")+', ';
+			sql += 'del_flg='+$("#del_flg_inp").prop('checked')+', ';
+			sql += 'update_date="'+now+'", ';
+			sql += 'update_id="'+'iwata'+'" ';// ログインID（あとで書き換える）
+			sql += 'WHERE title_cd="'+$("#title_cd_inp").val()+'";';
+			console.log(sql);
+			DB.sql(sql);
+			window.location.reload();
+		}
 	});
 
 	// sql用nullチェック
@@ -209,6 +235,45 @@
 			}
 		}
 	}
+
+	// エラーメッセージの表示
+	function error(){
+		let error_check = true;
+
+		document.getElementById("error_1").hidden = true;
+		document.getElementById("error_2").hidden = true;
+		document.getElementById("error_3").hidden = true;
+		document.getElementById("error_4").hidden = true;
+		document.getElementById("error_5").hidden = true;
+
+		// 内容が入力されていない場合
+		if($("#detail_inp").val() == ""){
+			document.getElementById("error_1").hidden = false;
+			error_check = false;
+		}
+		// 内容が200文字以内でない場合
+		if($("#detail_inp").val().length > 200){
+			document.getElementById("error_2").hidden = false;
+			error_check = false;
+		}
+		// ptの値が-32768～32767でない場合
+		if(-32768 > $("#pt_inp").val() || $("#pt_inp").val() > 32767){
+			document.getElementById("error_3").hidden = false;
+			error_check = false;
+		}
+		// Exptの値が-32768～32767でない場合
+		if(-32768 > $("#Expt_inp").val() || $("#Expt_inp").val() > 32767){
+			document.getElementById("error_4").hidden = false;
+			error_check = false;
+		}
+		// 備考が200文字以内でない場合
+		if($("#note_inp").val().length > 200){
+			document.getElementById("error_5").hidden = false;
+			error_check = false;
+		}
+		return error_check;
+	}
+
 
 	// ポップアップの処理
 	$("#UPDATE").hide();
