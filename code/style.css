@@ -13,9 +13,9 @@ h1{
 }
 
 .sum_table{
-	position: absolute;
+	position: fixed;
 	top: 100;
-	right: 100;
+	right: 50;
 }
 
 .center{
@@ -313,8 +313,6 @@ p{
 	margin-left: 50px;
 }
 
-/*会社評価*/
-
 /* 評価実施 */
 .ass_start_tb{
 	display: block;
@@ -356,8 +354,7 @@ p{
 	margin: 10px 400px 10px auto;
 }
 
-/*ここから*/
-
+/*会社評価*/
 .assess_check_detail{
 	width: 510;
 	height: 50;
@@ -366,18 +363,16 @@ p{
 	width: 420;
 	height: 50;
 }
-
 .assess_check_box{
 	width: 25;
 	height: 25;
 	margin: auto 10;
 }
-
 .assess_check_n{
+	padding-left: 10px;
 	width: 40;
 	height: 50;
 }
-
 .assess_check{
 	width: 1000;
 	margin: 0 auto;
@@ -386,7 +381,9 @@ p{
 	border-width: 1;
 
 }
-
+#assess_TJ :last-child, #assess_TQ :last-child, #assess_MJ :last-child, #assess_MQ :last-child, #assess_CC :last-child{
+	border-bottom: 0;
+}
 #t_kbn{
 	width: 1000;
 	height: 30;
@@ -398,7 +395,28 @@ p{
 	border-width: 1;
 	border-color: black;
 }
-
+#m_kbn{
+	width: 1000;
+	height: 30;
+	margin: 0 auto;
+	font-size: 20;
+	text-align: center;
+	background: #7fbfff;
+	border: solid;
+	border-width: 1;
+	border-color: black;
+}
+#c_kbn{
+	width: 1000;
+	height: 30;
+	margin: 0 auto;
+	font-size: 20;
+	text-align: center;
+	background: #ffbf7f;
+	border: solid;
+	border-width: 1;
+	border-color: black;
+}
 #j_kbn{
 	width: 1000;
 	height: 30;
@@ -410,7 +428,6 @@ p{
 	border-width: 0 1 1 1;
 	border-color: black;
 }
-
 #q_kbn{
 	width: 1000;
 	height: 30;
@@ -422,33 +439,28 @@ p{
 	border-width: 0 1 1 1;
 	border-color: black;
 }
-
-#m_kbn{
-	width: 1000;
-	height: 30;
-	margin: 0 auto;
-	font-size: 20;
-	text-align: center;
-	background: #7fbfff;
-	border: solid;
-	border-width: 0 1 1 1;
-	border-color: black;
+.com_ass_btn{
+	width: 100%;
+	height: 80px;
+	background-color: white;
+	position: fixed;
+	left: 0;
+	bottom: 0;
 }
-
-#c_kbn{
-	width: 1000;
-	height: 30;
-	margin: 0 auto;
-	font-size: 20;
-	text-align: center;
-	background: #ffbf7f;
-	border: solid;
-	border-width: 0 1 1 1;
-	border-color: black;
+.com_ass_btn div{
+	position: absolute;
+	right: 30;
+	bottom: 15;
 }
-
+.com_ass_btn label{
+	display: block;
+}
+#sc_button{
+	width: 200;
+	font-size:20;
+}
 #company_assess_table{
-	margin: 0 auto 0 -200;
+	margin: 0 auto 80px auto;
 }
 
 #staff_status_table{

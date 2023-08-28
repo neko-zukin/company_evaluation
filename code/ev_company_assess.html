@@ -8,39 +8,45 @@
 <body>
 	<h1>会社評価</h1>
 	<div id="company_assess_table">
-		<div id="t_kbn">技術系</div>
-		<div id="j_kbn">実務系</div>
 		<table border="1" class="sum_table">
 			<tr>
-				<th>合計</th>
+				<th colspan="2">合計</th>
+			</tr>
+			<tr>
 				<th>pt</th>
 				<td id="sum_pt"></td>
+			</tr>
+			<tr>
 				<th>Expt</th>
 				<td id="sum_Expt"></td>
 			</tr>
 		</table>
-		<div id="assess_TJ">
-		</div>
+
+		<div id="t_kbn">技術系</div>
+		<div id="j_kbn">実務系</div>
+		<div id="assess_TJ"></div>
+
 		<div id="t_kbn">技術系</div>
 		<div id="q_kbn">資格系</div>
-		<div id="assess_TQ">
-		</div>
+		<div id="assess_TQ"></div>
+
 		<div id="m_kbn">管理系</div>
 		<div id="j_kbn">実務系</div>
 		<div id="assess_MJ">
 		</div>
 		<div id="m_kbn">管理系</div>
 		<div id="q_kbn">資格系</div>
-		<div id="assess_MQ">
-		</div>
+		<div id="assess_MQ"></div>
+
 		<div id="c_kbn">会社貢献系</div>
-		<div id="assess_CC">
-		</div>
+		<div id="assess_CC"></div>
 	</div>
-	<label>※保存されます</label>
-	<div>
+	<div class="com_ass_btn">
 		<button id="back_button">社員を選びなおす</button>
-		<button id="sc_button">自己評価</button>
+		<div>
+			<label>※保存されます</label>
+			<button id="sc_button">自己評価</button>
+		</div>
 	</div>
 </body>
 <script>
