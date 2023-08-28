@@ -176,7 +176,6 @@
 		staff_sum_pt = parseInt(DB_sumall[0]["pt"]) + parseInt(DB_staff_cp_point[0]["pt"]);
 		staff_sum_Expt = parseInt(DB_sumall[0]["Expt"]) + parseInt(DB_staff_cp_point[0]["Expt"]);
 	}
-	DB.sql('update tm_staff set pt='+staff_sum_pt+',Expt='+staff_sum_Expt+' where staff_id="'+staff_id_check+'"');
 	DB_staff = DB.sql("select * from TM_staff");
 	let salary_cp = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_cp join tm_point on te_staff_cp.title_cd=tm_point.title_cd where staff_id="'+staff_id_check+'";');
 	let date = new Date();
@@ -231,8 +230,7 @@
 		$("#staff_ac_history").text("-");
 	}
 	$("#staff_money").text(DB_salary[0]["salary"]);
-	$(staff_pt).text(DB_staff[staff_check]["pt"]);
-	$(staff_Expt).text(DB_staff[staff_check]["Expt"]);
+
 	
 	//取得タイトル出力
 	let DB_cp = DB.sql('SELECT TE_staff_cp.title_cd,detail,pt,Expt FROM TE_staff_cp join TM_point on TE_staff_cp.title_cd=TM_point.title_cd where staff_id = "'+DB_staff[staff_check]["staff_id"]+'";');
@@ -279,6 +277,16 @@
 	}else{
 		$("#noit_point").text("-");
 	}
+	
+	
+	
+	staff_sum_pt += parseInt(DB_generation_point[0][sql_selectitem]) + (DB_staff[staff_check]["it_history"]*4);
+	
+	//ポイントのアップデート
+	DB.sql('update tm_staff set pt='+staff_sum_pt+',Expt='+staff_sum_Expt+' where staff_id="'+staff_id_check+'"');
+	DB_staff = DB.sql("select * from TM_staff");
+	$(staff_pt).text(DB_staff[staff_check]["pt"]);
+	$(staff_Expt).text(DB_staff[staff_check]["Expt"]);
 	
 	//自己評価シートの履歴
 	let last_year = parseInt(year) - 1;
