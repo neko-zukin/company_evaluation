@@ -66,6 +66,7 @@ p{
 	height: 400;
 	border: double 5px #1E90FF;
 	background-color: white;
+	z-index: 2;
 }
 
 #pop_back{
@@ -77,6 +78,7 @@ p{
 	height: 100%;
 	background-color: gray;
 	opacity: 0.5;
+	z-index: 2;
 }
 
 .pop_cancel{
@@ -86,6 +88,7 @@ p{
 	text-align: center;
 	margin: 10 10 auto auto;
 	background-color: red;
+	z-index: 2;
 }
 
 
@@ -93,6 +96,7 @@ p{
 	width: fit-content;
 	font-size: 45;
 	margin: 80 auto 10 auto;
+	z-index: 2;
 }
 
 .pop_title{
@@ -100,6 +104,7 @@ p{
 	font-size: 25;
 	margin: 80 auto 10 auto;
 	text-align: center;
+	z-index: 2;
 }
 
 .pop_button_alone{
@@ -107,6 +112,7 @@ p{
 	width: 200;
 	height: 30;
 	margin: 80 auto;
+	z-index: 2;
 }
 
 /*ログイン画面*/
