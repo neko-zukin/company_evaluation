@@ -47,7 +47,7 @@ h1{
 	width: 200;
 	font-size:20;
 	position: absolute;
-	left: 10;
+	left: 30;
 	bottom: 15;
 }
 
@@ -167,7 +167,7 @@ p{
 #staff_tb, #com_p_tb, #self_c_tb{
 	/* table-layout: fixed; */
 	display: block;
-	height: 475px;
+	max-height: 475px;
 	white-space: nowrap;
 	overflow: scroll;
 }
@@ -286,7 +286,7 @@ p{
 	margin: 0 auto;
 	display: block;
 	width: fit-content;
-	height: 300px;
+	max-height: 300px;
 	overflow-y: scroll;
 }
 #salary_tb th{
@@ -320,16 +320,41 @@ p{
 	display: block;
 	margin: 0 auto;
 	width: fit-content;
-	height: 540px;
+	max-height: 540px;
 	overflow-y: scroll;
 }
 .ass_start_tb th{
 	position: sticky;
 	top: 0;
-	background-color: white;
+	background-color: #bcddff;
 }
 
 /* 評価出力 */
+.ass_out_tb{
+	display: block;
+	margin: 0 auto;
+	width: fit-content;
+	max-height: 490px;
+	overflow-y: scroll;
+}
+.ass_out_tb th{
+	position: sticky;
+	top: 0;
+	background-color: #bcddff;
+}
+#output_button{
+	width: 200;
+	font-size:20;
+	position: absolute;
+	right: 30;
+	bottom: 15;
+}
+#all_select_button{
+	width: 100;
+	font-size:15;
+	display: block;
+	margin: 10px 400px 10px auto;
+}
 
 /*ここから*/
 

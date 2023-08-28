@@ -63,7 +63,15 @@
 	}
 	//テーブルにデータを挿入
 	for(i=0;i<DB_self.length;i++){
-		$("#sc_assess_table").append('<tr><td><input type="checkbox" id="'+DB_self[i]["sc_cd"]+'" class="assess_check_box"></td><td>'+DB_self[i]["self_check"]+'</td><td>'+DB_self[i]["explanation"]+'</td></tr>')
+		let explanation;
+		if(DB_self[i]["explanation"] == null){
+			// 備考がnullの場合
+			explanation = "-";
+		}else{
+			// 備考がnullでない場合
+			explanation = DB_self[i]["explanation"];
+		}
+		$("#sc_assess_table").append('<tr><td><input type="checkbox" id="'+DB_self[i]["sc_cd"]+'" class="assess_check_box"></td><td>'+DB_self[i]["self_check"]+'</td><td>'+explanation+'</td></tr>')
 	}
 	
 	//すでに記入したものを反映
