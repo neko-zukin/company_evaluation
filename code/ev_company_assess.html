@@ -8,20 +8,6 @@
 <body>
 	<h1>会社評価</h1>
 	<div id="company_assess_table">
-		<table border="1" class="sum_table">
-			<tr>
-				<th colspan="2">合計</th>
-			</tr>
-			<tr>
-				<th>pt</th>
-				<td id="sum_pt"></td>
-			</tr>
-			<tr>
-				<th>Expt</th>
-				<td id="sum_Expt"></td>
-			</tr>
-		</table>
-
 		<div id="t_kbn">技術系</div>
 		<div id="j_kbn">実務系</div>
 		<div id="assess_TJ"></div>
@@ -41,6 +27,21 @@
 		<div id="c_kbn">会社貢献系</div>
 		<div id="assess_CC"></div>
 	</div>
+
+	<table border="1" class="sum_table">
+		<tr>
+			<th colspan="2">合計</th>
+		</tr>
+		<tr>
+			<th>pt</th>
+			<td id="sum_pt"></td>
+		</tr>
+		<tr>
+			<th>Expt</th>
+			<td id="sum_Expt"></td>
+		</tr>
+	</table>
+
 	<div class="com_ass_btn">
 		<button id="back_button">社員を選びなおす</button>
 		<div>
@@ -65,11 +66,11 @@
 	let Expt=0;
 	let staff = localStorage.getItem("ev_staff_id_assess");
 	let DB_company_assess_staff = DB.sql('SELECT * FROM TE_staff_cp where staff_id="'+staff+'";')
-	let DB_company_assess_TJ = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "T" and jq_kbn = "J";');
-	let DB_company_assess_TQ = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "T" and jq_kbn = "Q";');
-	let DB_company_assess_MJ = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "M" and jq_kbn = "J";');
-	let DB_company_assess_MQ = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "M" and jq_kbn = "Q";');
-	let DB_company_assess_CC = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "C" and jq_kbn = "C";');
+	let DB_company_assess_TJ = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "T" and jq_kbn = "J" and del_flg=0;');
+	let DB_company_assess_TQ = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "T" and jq_kbn = "Q" and del_flg=0;');
+	let DB_company_assess_MJ = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "M" and jq_kbn = "J" and del_flg=0;');
+	let DB_company_assess_MQ = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "M" and jq_kbn = "Q" and del_flg=0;');
+	let DB_company_assess_CC = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "C" and jq_kbn = "C" and del_flg=0;');
 	let DB_company_check = DB.sql('SELECT * FROM TM_point;');
 	let company_check = new Array(DB_company_check.length);
 	for(i=0;i<DB_company_check;i++){
@@ -86,23 +87,23 @@
 		company_check[i][1] = DB_company_check[i]["title_cd"];
 	}
 	for(i=0;i<DB_company_assess_TJ.length;i++){
-		$("#assess_TJ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_TJ[i]["detail"]+'</div><div id="check'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_TJ[i]["note"]+'</div><div id="pt'+DB_company_assess_TJ[i]["title_cd"]+'">[ pt ]'+DB_company_assess_TJ[i]["pt"]+'\n[Expt]'+DB_company_assess_TJ[i]["Expt"]+'</div></div>');
+		$("#assess_TJ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_TJ[i]["detail"]+'</div><div id="check'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_TJ[i]["note"]+'</div><div id="pt'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_pt">[ pt ]'+DB_company_assess_TJ[i]["pt"]+'\n[Expt]'+DB_company_assess_TJ[i]["Expt"]+'</div></div>');
 	}
 	
 	for(i=0;i<DB_company_assess_TQ.length;i++){
-		$("#assess_TQ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_TQ[i]["detail"]+'</div><div id="check'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_TQ[i]["note"]+'</div><div id="pt'+DB_company_assess_TQ[i]["title_cd"]+'">[ pt ]'+DB_company_assess_TQ[i]["pt"]+'\n[Expt]'+DB_company_assess_TQ[i]["Expt"]+'</div></div>');
+		$("#assess_TQ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_TQ[i]["detail"]+'</div><div id="check'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_TQ[i]["note"]+'</div><div id="pt'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_pt">[ pt ]'+DB_company_assess_TQ[i]["pt"]+'\n[Expt]'+DB_company_assess_TQ[i]["Expt"]+'</div></div>');
 	}
 
 	for(i=0;i<DB_company_assess_MJ.length;i++){
-		$("#assess_MJ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_MJ[i]["detail"]+'</div><div id="check'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_MJ[i]["note"]+'</div><div id="pt'+DB_company_assess_MJ[i]["title_cd"]+'">[ pt ]'+DB_company_assess_MJ[i]["pt"]+'\n[Expt]'+DB_company_assess_MJ[i]["Expt"]+'</div></div>');
+		$("#assess_MJ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_MJ[i]["detail"]+'</div><div id="check'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_MJ[i]["note"]+'</div><div id="pt'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_pt">[ pt ]'+DB_company_assess_MJ[i]["pt"]+'\n[Expt]'+DB_company_assess_MJ[i]["Expt"]+'</div></div>');
 	}
 	
 	for(i=0;i<DB_company_assess_MQ.length;i++){
-		$("#assess_MQ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_MQ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_MQ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_MQ[i]["detail"]+'</div><div id="check'+DB_company_assess_MQ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_MQ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_MQ[i]["note"]+'</div><div id="pt'+DB_company_assess_MQ[i]["title_cd"]+'">[ pt ]'+DB_company_assess_MQ[i]["pt"]+'\n[Expt]'+DB_company_assess_MQ[i]["Expt"]+'</div></div>');
+		$("#assess_MQ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_MQ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_MQ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_MQ[i]["detail"]+'</div><div id="check'+DB_company_assess_MQ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_MQ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_MQ[i]["note"]+'</div><div id="pt'+DB_company_assess_MQ[i]["title_cd"]+'" class="assess_check_pt">[ pt ]'+DB_company_assess_MQ[i]["pt"]+'\n[Expt]'+DB_company_assess_MQ[i]["Expt"]+'</div></div>');
 	}
 	
 	for(i=0;i<DB_company_assess_CC.length;i++){
-		$("#assess_CC").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_CC[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_CC[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_CC[i]["detail"]+'</div><div id="check'+DB_company_assess_CC[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_CC[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_CC[i]["note"]+'</div><div id="pt'+DB_company_assess_CC[i]["title_cd"]+'">[ pt ]'+DB_company_assess_CC[i]["pt"]+'\n[Expt]'+DB_company_assess_CC[i]["Expt"]+'</div></div>');
+		$("#assess_CC").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_CC[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_CC[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_CC[i]["detail"]+'</div><div id="check'+DB_company_assess_CC[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_CC[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_CC[i]["note"]+'</div><div id="pt'+DB_company_assess_CC[i]["title_cd"]+'" class="assess_check_pt">[ pt ]'+DB_company_assess_CC[i]["pt"]+'\n[Expt]'+DB_company_assess_CC[i]["Expt"]+'</div></div>');
 	}
 	
 	//すでに取得しているタイトルに色を付ける

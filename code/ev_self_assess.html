@@ -10,25 +10,32 @@
 	<table border="1" id="sc_assess_table">
 		<tr>
 			<th></th>
-			<th>評価</th>
-			<th>説明</th>
-			<th></th>
+			<th class="scass_self_check_th">評価</th>
+			<th class="scass_explanation_th">説明</th>
+			<th class="scass_pt_th">pt</th>
+			<th class="scass_pt_th">Expt</th>
 		</tr>
 	</table>
 	<table border="1" class="sum_table">
 		<tr>
-			<th>合計</th>
+			<th colspan="2">合計</th>
+		</tr>
+		<tr>
 			<th>pt</th>
 			<td id="pt"></td>
+		</tr>
+		<tr>
 			<th>Expt</th>
 			<td id="Expt"></td>
 		</tr>
 	</table>
-	<label>※保存されます</label>
-	<div class="f">
+	<div class="sc_ass_btn">
 		<button id="back_button">社員を選びなおす</button>
 		<button id="company_assess_button">会社評価</button>
-		<button id="check_button">結果</button>
+		<div>
+			<label>※保存されます</label>
+			<button id="check_button">結果</button>
+		</div>
 	</div>
 </body>
 <script>
@@ -63,15 +70,16 @@
 	}
 	//テーブルにデータを挿入
 	for(i=0;i<DB_self.length;i++){
-		let explanation;
-		if(DB_self[i]["explanation"] == null){
-			// 備考がnullの場合
-			explanation = "-";
-		}else{
-			// 備考がnullでない場合
-			explanation = DB_self[i]["explanation"];
-		}
-		$("#sc_assess_table").append('<tr><td><input type="checkbox" id="'+DB_self[i]["sc_cd"]+'" class="assess_check_box"></td><td>'+DB_self[i]["self_check"]+'</td><td>'+explanation+'</td><td>[pt]'+DB_self[i]["pt"]+'\n[Expt]'+DB_self[i]["Expt"]+'</td></tr>')
+		// let explanation;
+		// if(DB_self[i]["explanation"] == null){
+		// 	// 備考がnullの場合
+		// 	explanation = "-";
+		// }else{
+		// 	// 備考がnullでない場合
+		// 	explanation = DB_self[i]["explanation"];
+		// }
+		// $("#sc_assess_table").append('<tr><td><input type="checkbox" id="'+DB_self[i]["sc_cd"]+'" class="assess_check_box"></td><td>'+DB_self[i]["self_check"]+'</td><td>'+DB_self[i]["explanation"]+'</td><td>[pt]'+DB_self[i]["pt"]+'\n[Expt]'+DB_self[i]["Expt"]+'</td></tr>')
+		$("#sc_assess_table").append('<tr><td><input type="checkbox" id="'+DB_self[i]["sc_cd"]+'" class="assess_check_box"></td><td>'+DB_self[i]["self_check"]+'</td><td>'+DB_self[i]["explanation"]+'</td><td class="scass_pt_td">'+DB_self[i]["pt"]+'</td><td class="scass_pt_td">'+DB_self[i]["Expt"]+'</td></tr>')
 	}
 	
 	//すでに記入したものを反映
