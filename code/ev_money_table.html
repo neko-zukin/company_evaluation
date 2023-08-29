@@ -95,9 +95,9 @@
 	let db_min = DB.sql("SELECT * FROM TM_min_money");
 	let min_m = db_min[0]["min_money"];
 	let mon_m = min_m * 160;
-	$("#min_money").text(min_m);
-	$("#day_money").text(min_m*8);
-	$("#month_money").text(mon_m);
+	$("#min_money").text(parseInt(min_m).toLocaleString());
+	$("#day_money").text(parseInt(min_m*8).toLocaleString());
+	$("#month_money").text(parseInt(mon_m).toLocaleString());
 
 	// DBに登録されている給与テーブルを表示
 	let L1 = DB.sql('SELECT * FROM TM_salary WHERE cl_rank="L1";');
@@ -124,11 +124,11 @@
 			if(ary["salary"] < mon_m){
 				// 給与が最低賃金以下の場合
 				$("#tr"+i).append('<td class="min_s">'+ary["pt"]+'</td>');
-				$("#tr"+i).append('<td class="min_s">'+ary["salary"]+'</td>');
+				$("#tr"+i).append('<td class="min_s">'+parseInt(ary["salary"]).toLocaleString()+'</td>');
 			}else{
 				// 給与が最低賃金以上の場合
 				$("#tr"+i).append('<td>'+ary["pt"]+'</td>');
-				$("#tr"+i).append('<td>'+ary["salary"]+'</td>');
+				$("#tr"+i).append('<td>'+parseInt(ary["salary"]).toLocaleString()+'</td>');
 			}
 		}else{
 			// レベル1以上の場合
@@ -136,15 +136,17 @@
 				// 給与が最低賃金以下の場合
 				$("#tr"+i).append('<td class="min_s">'+ary["pt"]+'</td>');
 				$("#tr"+i).append('<td class="min_s">'+ary["Expt"]+'</td>');
-				$("#tr"+i).append('<td class="min_s">'+ary["salary"]+'</td>');
+				$("#tr"+i).append('<td class="min_s">'+parseInt(ary["salary"]).toLocaleString()+'</td>');
 			}else{
 				// 給与が最低賃金以上の場合
 				$("#tr"+i).append('<td>'+ary["pt"]+'</td>');
 				$("#tr"+i).append('<td>'+ary["Expt"]+'</td>');
-				$("#tr"+i).append('<td>'+ary["salary"]+'</td>');
+				$("#tr"+i).append('<td>'+parseInt(ary["salary"]).toLocaleString()+'</td>');
 			}
 		}
 	}
+	
+
 
 
 	// 戻るボタン押下時
