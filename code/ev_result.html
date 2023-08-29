@@ -196,7 +196,6 @@
 		}
 	}
 	console.log('select salary from TM_salary where pt<='+DB_staff[staff_check]["pt"]+' and Expt<='+DB_staff[staff_check]["Expt"]+' order by salary desc;')
-	let DB_salary = DB.sql('select salary from TM_salary where pt<='+DB_staff[staff_check]["pt"]+' and Expt<='+DB_staff[staff_check]["Expt"]+' order by salary desc;');
 	if(DB_staff[staff_check]["birthday"]!=null){
 		birthday = DB_staff[staff_check]["birthday"].slice(0,4);
 	}
@@ -244,12 +243,13 @@
 		$("#staff_join_date").text("-");
 	}
 	$("#staff_society_history").text(staff_society_history);
-	if(DB_staff[staff_check]["ac_history"]!=null){
-		$("#staff_ac_history").text(DB_staff[staff_check]["ac_history"]);
+	if(DB_staff[staff_check]["ac_history_cd"]!=null){
+		let sc_name = DB.sql('select * from tc_ac_history where ac_history_cd="'+DB_staff[staff_check]["ac_history_cd"]+'"');
+		$("#staff_ac_history").text(sc_name[0]["ac_history"]);
 	}else{
 		$("#staff_ac_history").text("-");
 	}
-	$("#staff_money").text(DB_salary[0]["salary"]);
+	
 
 	
 	//取得タイトル出力
@@ -301,12 +301,18 @@
 	
 	
 	staff_sum_pt += parseInt(DB_generation_point[0][sql_selectitem]) + (DB_staff[staff_check]["it_history"]*4);
+	let ac_sum = DB.sql('select * from tc_ac_history where ac_history_cd="'+DB_staff[staff_check]["ac_history_cd"]+'"');
+	staff_sum_pt += ac_sum[0]["pt"];
+	staff_sum_Expt += ac_sum[0]["Expt"];
 	
 	//ポイントのアップデート
 	DB.sql('update tm_staff set pt='+staff_sum_pt+',Expt='+staff_sum_Expt+' where staff_id="'+staff_id_check+'"');
 	DB_staff = DB.sql("select * from TM_staff");
 	$(staff_pt).text(DB_staff[staff_check]["pt"]);
 	$(staff_Expt).text(DB_staff[staff_check]["Expt"]);
+	DB_staff = DB.sql("select * from TM_staff");
+	let DB_salary = DB.sql('select salary from TM_salary where pt<='+DB_staff[staff_check]["pt"]+' and Expt<='+DB_staff[staff_check]["Expt"]+' order by salary desc;');
+	$("#staff_money").text(DB_salary[0]["salary"]);
 	
 	//自己評価シートの履歴
 	let last_year = parseInt(year) - 1;

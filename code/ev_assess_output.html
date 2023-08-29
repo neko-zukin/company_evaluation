@@ -194,8 +194,9 @@
 					csv_join_date="-";
 				}
 				csv_staff_society_history=staff_society_history;
-				if(DB_staff[staff_check]["ac_history"]!=null){
-					csv_ac_history=DB_staff[staff_check]["ac_history"];
+				if(DB_staff[staff_check]["ac_history_cd"]!=null){
+					let sc_name = DB.sql('select * from tc_ac_history where ac_history_cd="'+DB_staff[staff_check]["ac_history_cd"]+'"');
+					csv_ac_history=sc_name[0]["ac_history"];
 				}else{
 					csv_ac_history="-";
 				}

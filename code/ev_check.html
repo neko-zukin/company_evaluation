@@ -248,8 +248,9 @@
 		$("#staff_join_date").text("-");
 	}
 	$("#staff_society_history").text(staff_society_history);
-	if(DB_staff[staff_check]["ac_history"]!=null){
-		$("#staff_ac_history").text(DB_staff[staff_check]["ac_history"]);
+	if(DB_staff[staff_check]["ac_history_cd"]!=null){
+		let sc_name = DB.sql('select * from tc_ac_history where ac_history_cd="'+DB_staff[staff_check]["ac_history_cd"]+'"');
+		$("#staff_ac_history").text(sc_name[0]["ac_history"]);
 	}else{
 		$("#staff_ac_history").text("-");
 	}
