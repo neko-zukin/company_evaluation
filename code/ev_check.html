@@ -278,10 +278,22 @@
 	$("#staff_itpoint").text(DB_staff[staff_check]["it_history"]*4);
 	$("#staff_noitpoint").text(DB_staff[staff_check]["noit_history"]*2);
 	$("#n_day").text(staff_society_history+"年目");
+	
 	if(job_history!="-"&&birthday!="-"){
-		generation = parseInt(job_history)-parseInt(birthday);
-		generation = (Math.floor(generation/10)) * 10;
+		generation = parseInt(job_history.slice(0,4))-parseInt(birthday.slice(0,4));
+		if(parseInt(job_history.slice(5,7))-parseInt(birthday.slice(5,7))<=0){
+			if(parseInt(job_history.slice(5,7))-parseInt(birthday.slice(5,7))==0){
+				if(parseInt(job_history.slice(8,10))-parseInt(birthday.slice(8,10))<0){
+					generation = generation - 1;
+				}
+			}else{
+				generation = generation - 1;
+			}
+		}
 	}
+	
+	generation = (Math.floor(generation/10)) * 10;
+
 	$("#n_old").text(generation+"代");
 	let sql_selectitem = "";
 	if(staff_society_history==0){

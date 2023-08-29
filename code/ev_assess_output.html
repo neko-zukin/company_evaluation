@@ -218,9 +218,19 @@
 					csv_noit_history="-";
 				}
 				if(job_history!="-"&&birthday!="-"){
-					generation = parseInt(job_history)-parseInt(birthday);
-					generation = (Math.floor(generation/10)) * 10;
+					generation = parseInt(job_history.slice(0,4))-parseInt(birthday.slice(0,4));
+					if(parseInt(job_history.slice(5,7))-parseInt(birthday.slice(5,7))<=0){
+						if(parseInt(job_history.slice(5,7))-parseInt(birthday.slice(5,7))==0){
+							if(parseInt(job_history.slice(8,10))-parseInt(birthday.slice(8,10))<0){
+								generation = generation - 1;
+							}
+						}else{
+							generation = generation - 1;
+						}
+					}
 				}
+				
+				generation = (Math.floor(generation/10)) * 10;
 				let sql_selectitem = "";
 				if(staff_society_history==0){
 					sql_selectitem = "1th"
@@ -440,7 +450,7 @@
 				csv_output+=","+staff_society_history+"年目,"+generation+"代";
 				csv_output+=","+csv_year_one+","+csv_year_two+","+csv_lase_year_one+","+csv_lase_year_two+","+csv_second_yesr_one+","+csv_second_yesr_two;
 				for(j=0;j<DB_cp.length;j++){
-					csv_output+=","+DB_cp[j]["title_cd"];
+					csv_output+=","+DB_cp[j]["title_cd"]+","+DB_cp[j]["pt"]+","+DB_cp[j]["Expt"];
 				}
 				csv_output+="\n";
 			}
