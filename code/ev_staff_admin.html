@@ -214,7 +214,7 @@
 		// let new_id = yy.toString()+("000"+max_id).slice(-3);
 		// console.log(new_id);
 
-		if(error()){
+		if(error("insert")){
 			// 社員情報登録用のSQL文
 			let sql = "INSERT INTO TM_staff(staff_id, staff_name, birthday, join_date, pt, Expt, ac_history, society_history, it_history, noit_history, del_flg, create_date, create_id) ";
 			sql += 'VALUES("'+$("#staff_id_inp").val()+'", ';
@@ -238,7 +238,7 @@
 
 	// 更新確認ポップアップのOKボタンが押下されたとき
 	$("#update_ok").on("click",function(){
-		if(error()){
+		if(error("update")){
 			// 社員情報更新用のSQL文
 			let sql = 'UPDATE TM_staff ';
 			sql += 'SET staff_name="'+$("#staff_name_inp").val()+'", ';
@@ -279,7 +279,7 @@
 	}
 
 	// エラーメッセージの表示
-	function error(){
+	function error(type){
 		let error_check = true;
 
 		document.getElementById("error_1").hidden = true;
@@ -304,10 +304,12 @@
 			error_check = false;
 		}
 		// DBに既に存在している社員番号を登録した場合
-		for(let i=0; i<staff.length; i++){
-			if(staff[i]["staff_id"] == $("#staff_id_inp").val()){
-				document.getElementById("error_3").hidden = false;
-				error_check = false;
+		if(type!="update"){
+			for(let i=0; i<staff.length; i++){
+				if(staff[i]["staff_id"] == $("#staff_id_inp").val()){
+					document.getElementById("error_3").hidden = false;
+					error_check = false;
+				}
 			}
 		}
 		// 社員番号が6桁でない場合
