@@ -175,7 +175,7 @@ p{
 #staff_tb, #com_p_tb, #self_c_tb{
 	/* table-layout: fixed; */
 	display: block;
-	max-height: 475px;
+	max-height: 450px;
 	white-space: nowrap;
 	overflow: scroll;
 }
@@ -258,6 +258,12 @@ p{
 }
 .staff_th_y{
 	width: 100px;
+}
+#staff_del_ch_div{
+	margin-top: 10px;
+}
+#staff_del_ch{
+	transform: scale(1.5);
 }
 .staff_input input[type="date"]{
 	width: 177px;

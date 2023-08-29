@@ -8,21 +8,27 @@
 <body>
 	<h1>社員管理</h1>
 	<div class="staff_admin">
-		<table border="1" id="staff_tb">
-			<tr>
-				<th class="staff_th_id pk_th0">社員番号</th>
-				<th class="staff_th_name pk_th1">氏名</th>
-				<th class="staff_th_date">生年月日</th>
-				<th class="staff_th_date">入社日</th>
-				<th class="staff_th_pt">pt</th>
-				<th class="staff_th_pt">Expt</th>
-				<th class="staff_th_ac">学歴</th>
-				<th class="staff_th_y">勤続年数</th>
-				<th class="staff_th_y">IT経歴</th>
-				<th class="staff_th_y">IT以外<br>経歴</th>
-			</tr>
-			<!--ここにデータを挿入-->
-		</table>
+		<div>
+			<table border="1" id="staff_tb">
+				<tr>
+					<th class="staff_th_id pk_th0">社員番号</th>
+					<th class="staff_th_name pk_th1">氏名</th>
+					<th class="staff_th_date">生年月日</th>
+					<th class="staff_th_date">入社日</th>
+					<th class="staff_th_pt">pt</th>
+					<th class="staff_th_pt">Expt</th>
+					<th class="staff_th_ac">学歴</th>
+					<th class="staff_th_y">勤続年数</th>
+					<th class="staff_th_y">IT経歴</th>
+					<th class="staff_th_y">IT以外<br>経歴</th>
+				</tr>
+				<!--ここにデータを挿入-->
+			</table>
+			<div id="staff_del_ch_div">
+				<input type="checkbox" id="staff_del_ch">
+				<label>削除済みのみ表示</label>
+			</div>
+		</div>
 
 		<div class="staff_input">
 			<div>
@@ -353,7 +359,13 @@
 		let inp_str = $("#"+inp).val();
 		if(inp_str==null || inp_str=="" || inp_str=="null"){
 			// inputの値がnullの場合
-			return 'null';
+			if(inp=="pt_inp" || inp=="Expt_inp"){
+				// pt,Exptの場合
+				return 0;
+			}else{
+				return 'null';
+			}
+			// return 'null';
 		}else{
 			// inputの値がnullではないの場合
 			if(type=="i"){

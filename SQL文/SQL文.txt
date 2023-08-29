@@ -14,6 +14,12 @@ ALTER TABLE TM_staff RENAME COLUMN ac_history TO ac_history_cd;
 【外部キー追加】
 ALTER TABLE TM_staff ADD FOREIGN KEY (ac_history_cd) REFERENCES TC_ac_history(ac_history_cd);
 
+【初期値追加】
+ALTER TABLE TM_staff ALTER pt SET DEFAULT 0, Expt SET DEFAULT 0;
+
+【NOTNULL追加】
+ALTER TABLE TM_staff MODIFY COLUMN pt SMALLINT NOT NULL;
+
 【学歴列を全てnullにする】
 update TM_staff set ac_history_cd=null
 
@@ -128,8 +134,8 @@ CREATE TABLE TM_staff(
         staff_name     VARCHAR(20)  NOT NULL,
         birthday     DATE,
         join_date     DATE,
-        pt     SMALLINT,
-        Expt     SMALLINT,
+        pt     SMALLINT  NOT NULL  DEFAULT 0,
+        Expt     SMALLINT  NOT NULL  DEFAULT 0,
         ac_history_cd     VARCHAR(5),
         society_history     TINYINT    いらんかも,
         it_history     TINYINT,
