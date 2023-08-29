@@ -215,6 +215,16 @@
 		// console.log(new_id);
 
 		if(error("insert")){
+			let date = new Date();
+			let date_yyyymm = date.toISOString();
+			let ev_date = date_yyyymm.slice(0,7);
+			let year = ev_date.slice(0,4);
+			let month = ev_date.slice(5,7);
+			if(parseInt(month)<=9&&parseInt(month)>3){
+				month="09";
+			}else{
+				month="03";
+			}
 			// 社員情報登録用のSQL文
 			let sql = "INSERT INTO TM_staff(staff_id, staff_name, birthday, join_date, pt, Expt, ac_history, society_history, it_history, noit_history, del_flg, create_date, create_id) ";
 			sql += 'VALUES("'+$("#staff_id_inp").val()+'", ';

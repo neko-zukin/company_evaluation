@@ -182,6 +182,7 @@
 	let date_yyyymm = date.toISOString();
 	let ev_date = date_yyyymm.slice(0,7);
 	let year = ev_date.slice(0,4);
+	let true_month = ev_date.slice(5,7);
 	let month = ev_date.slice(5,7);
 	if(parseInt(month)<=9&&parseInt(month)>3){
 		month="09";
@@ -204,10 +205,17 @@
 	}
 	if(DB_staff[staff_check]["birthday"]!=null){
 		staff_old = parseInt(year)-parseInt(birthday);
+		if(parseInt(true_month)-parseInt(DB_staff[staff_check]["birthday"].slice(5,7))<0){
+			staff_old = staff_old - 1;
+		}
 	}
 	if(DB_staff[staff_check]["join_date"]!=null){
 		staff_society_history = parseInt(year)-parseInt(job_history);
-	}
+		if(parseInt(true_month)-parseInt(DB_staff[staff_check]["join_date"].slice(5,7))<0){
+			staff_society_history = staff_society_history - 1;
+		}
+	}	
+
 	
 	//一番上のテーブルにデータを入れる
 	$("#staff_id").text(DB_staff[staff_check]["staff_id"]);
