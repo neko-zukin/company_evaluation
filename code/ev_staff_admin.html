@@ -218,6 +218,52 @@
 		// console.log(new_id);
 
 		if(error("insert")){
+			//日付の取得
+			let date = new Date();
+			let date_yyyymm = date.toISOString();
+			let day = date_yyyymm.slice(8,10);
+			let ev_date = date_yyyymm.slice(0,7);
+			let year = ev_date.slice(0,4);
+			let true_month = ev_date.slice(5,7);
+			let month = ev_date.slice(5,7);
+			if(parseInt(month)<=9&&parseInt(month)>3){
+				month="09";
+			}else{
+				month="03";
+			}
+			$().text();
+			if(DB_staff[staff_check]["birthday"]!=null){
+				staff_old = parseInt(year)-parseInt(birthday);
+				if(parseInt(true_month)-parseInt(DB_staff[staff_check]["birthday"].slice(5,7))<=0){
+					if(parseInt(true_month)-parseInt(DB_staff[staff_check]["birthday"].slice(5,7))==0){
+						if(parseInt(day)-parseInt(DB_staff[staff_check]["birthday"].slice(8,10))<0){
+							staff_old = staff_old - 1;
+						}
+					}else{
+						staff_old = staff_old - 1;
+					}
+				}
+			}
+			if(DB_staff[staff_check]["join_date"]!=null){
+				staff_society_history = parseInt(year)-parseInt(job_history);
+				if(parseInt(true_month)-parseInt(DB_staff[staff_check]["join_date"].slice(5,7))<=0){
+					if(parseInt(true_month)-parseInt(DB_staff[staff_check]["join_date"].slice(5,7))==0){
+						if(parseInt(day)-parseInt(DB_staff[staff_check]["join_date"].slice(8,10))<0){
+							staff_society_history = staff_society_history - 1;
+						}
+					}else{
+						staff_society_history = staff_society_history - 1;
+					}
+				}
+			}
+			
+			//学歴ポイント取得
+			let ac_name = $("#ac_history_cd_inp").children(':selected').text();
+			let DB_ac_point = ('select * from tc_ac_history where ac_history="'+ac_name+'"')
+			
+			//ITポイント取得
+			let it_point = $("#it_history_inp").text()*4;
+			
 			let date = new Date();
 			let date_yyyymm = date.toISOString();
 			let ev_date = date_yyyymm.slice(0,7);
