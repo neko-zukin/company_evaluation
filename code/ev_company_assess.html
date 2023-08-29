@@ -31,78 +31,43 @@
 	<div id="company_assess_table">
 		<table border="1" id="assess_TJ">
 			<tr>
-				<th id="t_kbn" colspan="5">技術系</th>
+				<th id="t_kbn" colspan="">技術系</th>
 			</tr>
 			<tr>
-				<th id="j_kbn" colspan="5">実務系</th>
-			</tr>
-			<tr>
-				<th></th>
-				<th>内容</th>
-				<th>備考</th>
-				<th>pt</th>
-				<th>Expt</th>
+				<th id="j_kbn">実務系</th>
 			</tr>
 		</table>
 
 		<table border="1" id="assess_TQ">
 			<tr>
-				<th id="t_kbn" colspan="5">技術系</th>
+				<th id="t_kbn">技術系</th>
 			</tr>
 			<tr>
-				<th id="q_kbn" colspan="5">資格系</th>
-			</tr>
-			<tr>
-				<th></th>
-				<th>内容</th>
-				<th>備考</th>
-				<th>pt</th>
-				<th>Expt</th>
+				<th id="q_kbn">資格系</th>
 			</tr>
 		</table>
 
 		<table border="1" id="assess_MJ">
 			<tr>
-				<th id="m_kbn" colspan="5">管理系</th>
+				<th id="m_kbn">管理系</th>
 			</tr>
 			<tr>
-				<th id="j_kbn" colspan="5">実務系</th>
-			</tr>
-			<tr>
-				<th></th>
-				<th>内容</th>
-				<th>備考</th>
-				<th>pt</th>
-				<th>Expt</th>
+				<th id="j_kbn">実務系</th>
 			</tr>
 		</table>
 
 		<table border="1" id="assess_MQ">
 			<tr>
-				<th id="m_kbn" colspan="5">管理系</th>
+				<th id="m_kbn">管理系</th>
 			</tr>
 			<tr>
-				<th id="q_kbn" colspan="5">資格系</th>
-			</tr>
-			<tr>
-				<th></th>
-				<th>内容</th>
-				<th>備考</th>
-				<th>pt</th>
-				<th>Expt</th>
+				<th id="q_kbn">資格系</th>
 			</tr>
 		</table>
 
 		<table border="1" id="assess_CC">
 			<tr>
-				<th id="c_kbn" colspan="5">会社貢献系</th>
-			</tr>
-			<tr>
-				<th></th>
-				<th>内容</th>
-				<th>備考</th>
-				<th>pt</th>
-				<th>Expt</th>
+				<th id="c_kbn">会社貢献系</th>
 			</tr>
 		</table>
 	</div>
@@ -166,16 +131,15 @@
 		company_check[i][1] = DB_company_check[i]["title_cd"];
 	}
 	for(i=0;i<DB_company_assess_TJ.length;i++){
-		// $("#assess_TJ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_TJ[i]["detail"]+'</div><div id="check'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_TJ[i]["note"]+'</div><div id="pt'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_pt">[ pt ]'+DB_company_assess_TJ[i]["pt"]+'\n[Expt]'+DB_company_assess_TJ[i]["Expt"]+'</div></div>');
-		$("#assess_TJ").append('<tr class="assess_check"><td><input type="checkbox" id="'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_box"></td><td id="detail'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_TJ[i]["detail"]+'</td><td id="note'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_TJ[i]["note"]+'</td><td id="pt'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_pt">'+DB_company_assess_TJ[i]["pt"]+'</td><td id="Expt'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_Expt">'+DB_company_assess_TJ[i]["Expt"]+'</td></tr>');
+		$("#assess_TJ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_TJ[i]["detail"]+'</div><div id="check'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_TJ[i]["note"]+'</div><div id="pt'+DB_company_assess_TJ[i]["title_cd"]+'" class="assess_check_pt">[ pt ]'+DB_company_assess_TJ[i]["pt"]+'\n[Expt]'+DB_company_assess_TJ[i]["Expt"]+'</div></div>');
 	}
 	
 	for(i=0;i<DB_company_assess_TQ.length;i++){
-		$("#assess_TQ").append('<tr class="assess_check"><td><input type="checkbox" id="'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_box"></td><td id="detail'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_TQ[i]["detail"]+'</td><td id="note'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_TQ[i]["note"]+'</td><td id="pt'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_pt">'+DB_company_assess_TQ[i]["pt"]+'</td><td id="Expt'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_Expt">'+DB_company_assess_TQ[i]["Expt"]+'</td></tr>');
+		$("#assess_TQ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_TQ[i]["detail"]+'</div><div id="check'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_TQ[i]["note"]+'</div><div id="pt'+DB_company_assess_TQ[i]["title_cd"]+'" class="assess_check_pt">[ pt ]'+DB_company_assess_TQ[i]["pt"]+'\n[Expt]'+DB_company_assess_TQ[i]["Expt"]+'</div></div>');
 	}
 
 	for(i=0;i<DB_company_assess_MJ.length;i++){
-		$("#assess_MJ").append('<tr class="assess_check"><td><input type="checkbox" id="'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_box"></td><td id="detail'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_MJ[i]["detail"]+'</div><div id="check'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_MJ[i]["note"]+'</div><div id="pt'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_pt">[ pt ]'+DB_company_assess_MJ[i]["pt"]+'\n[Expt]'+DB_company_assess_MJ[i]["Expt"]+'</div></div>');
+		$("#assess_MJ").append('<div class="assess_check"><input type="checkbox" id="'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_box"><div id="detail'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_detail">'+DB_company_assess_MJ[i]["detail"]+'</div><div id="check'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_n">備考:</div><div id="note'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_note">'+DB_company_assess_MJ[i]["note"]+'</div><div id="pt'+DB_company_assess_MJ[i]["title_cd"]+'" class="assess_check_pt">[ pt ]'+DB_company_assess_MJ[i]["pt"]+'\n[Expt]'+DB_company_assess_MJ[i]["Expt"]+'</div></div>');
 	}
 	
 	for(i=0;i<DB_company_assess_MQ.length;i++){

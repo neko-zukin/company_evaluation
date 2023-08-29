@@ -245,7 +245,7 @@
 	}
 	$("#staff_society_history").text(staff_society_history);
 	if(DB_staff[staff_check]["ac_history"]!=null){
-		$("#staff_ac_history").text(DB_staff[staff_check]["ac_history"]);
+		$("#staff_ac_history").text(DB_staff[staff_check]["ac_history_cd"]);
 	}else{
 		$("#staff_ac_history").text("-");
 	}
@@ -301,6 +301,12 @@
 	
 	
 	staff_sum_pt += parseInt(DB_generation_point[0][sql_selectitem]) + (DB_staff[staff_check]["it_history"]*4);
+	let ac_check = $("#staff_ac_history").text();
+	let ac_sum = DB.sql('select * from tc_ac_history where ac_history_cd="'+ac_check+'"');
+	if(ac_check!="-"){
+		staff_sum_pt += ac_sum[0]["pt"];
+		staff_sum_Expt += ac_sum[0]["Expt"];
+	}
 	
 	//ポイントのアップデート
 	DB.sql('update tm_staff set pt='+staff_sum_pt+',Expt='+staff_sum_Expt+' where staff_id="'+staff_id_check+'"');
