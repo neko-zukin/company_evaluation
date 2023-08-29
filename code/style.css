@@ -386,9 +386,6 @@ p{
 }
 
 /*会社評価*/
-#tm_tb{
-	width: 100%;
-}
 .assess_check_detail{
 	width: 500;
 	height: 50;
@@ -408,13 +405,13 @@ p{
 	height: 50;
 }
 .assess_check_pt{
-	width: 80px;
-	padding-left: 10px;
+	width: 40px;
+	text-align: center;
 }
 .assess_check{
 	width: 100%;
 	margin: 0 auto;
-	display: flex;
+	/* display: flex; */
 	border-bottom: dashed;
 	border-width: 1;
 
@@ -429,9 +426,9 @@ p{
 	font-size: 20;
 	text-align: center;
 	background: #ff8ec6;
-	border: solid;
+	/* border: solid;
 	border-width: 1;
-	border-color: black;
+	border-color: black; */
 }
 #m_kbn{
 	width: 100%;
@@ -440,9 +437,9 @@ p{
 	font-size: 20;
 	text-align: center;
 	background: #7fbfff;
-	border: solid;
+	/* border: solid;
 	border-width: 1;
-	border-color: black;
+	border-color: black; */
 }
 #c_kbn{
 	width: 100%;
@@ -451,9 +448,9 @@ p{
 	font-size: 20;
 	text-align: center;
 	background: #ffbf7f;
-	border: solid;
+	/* border: solid;
 	border-width: 1;
-	border-color: black;
+	border-color: black; */
 }
 #j_kbn{
 	width: 100%;
@@ -462,9 +459,9 @@ p{
 	font-size: 20;
 	text-align: center;
 	background: #ffff7f;
-	border: solid;
+	/* border: solid;
 	border-width: 0 1 1 1;
-	border-color: black;
+	border-color: black; */
 }
 #q_kbn{
 	width: 100%;
@@ -473,9 +470,9 @@ p{
 	font-size: 20;
 	text-align: center;
 	background: #89ff89;
-	border: solid;
+	/* border: solid;
 	border-width: 0 1 1 1;
-	border-color: black;
+	border-color: black; */
 }
 #company_assess_table{
 	width: 75vw;
