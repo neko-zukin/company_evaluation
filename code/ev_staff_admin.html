@@ -39,12 +39,15 @@
 			</div>
 			<div>
 				<label>学歴</label>
-				<select id="ac_history_inp">
+				<select id="ac_history_cd_inp">
 					<option value="null" style="text-align: center;">―</option>
-					<option value="高卒">高卒</option>
-					<option value="専門卒">専門卒</option>
-					<option value="大卒(文系)">大卒(文系)</option>
-					<option value="大卒(理系)">大卒(理系)</option>
+					<option value="ac_hs">高卒</option>
+					<option value="ac_v2">専門卒(2年)</option>
+					<option value="ac_v3">専門卒(3年)</option>
+					<option value="ac_v4">専門卒(4年)</option>
+					<option value="ac_uh">大卒(文系)</option>
+					<option value="ac_us">大卒(理系)</option>
+					<option value="ac_ct">高専卒</option>
 				</select>
 				<label>勤続年数(年)</label>
 				<input type="number" id="society_history_inp">
@@ -118,7 +121,8 @@
 	});
 
 	// DBに登録されている社員を表示
-	let staff = DB.sql("SELECT * FROM TM_staff;");
+	let staff = DB.sql("SELECT staff_id, staff_name, birthday, join_date, TM_staff.pt as pt, TM_staff.Expt as Expt, TM_staff.ac_history_cd as ac_history_cd, ac_history, society_history, it_history, noit_history, del_flg FROM TM_staff LEFT JOIN TC_ac_history ON TM_staff.ac_history_cd=TC_ac_history.ac_history_cd;");
+	// let staff2 = DB.sql("SELECT * FROM TM_staff JOIN TC_ac_history ON TM_staff.ac_history_cd=TC_ac_history.ac_history_cd;");
 
 	// 勤続年数の計算
 	let date = new Date();
@@ -140,7 +144,7 @@
 		tb_null(i, "join_date", staff[i]["join_date"]);
 		tb_null(i, "pt", staff[i]["pt"]);
 		tb_null(i, "Expt", staff[i]["Expt"]);
-		tb_null(i, "ac_history", staff[i]["ac_history"]);
+		tb_null(i, "ac_history_cd", staff[i]["ac_history"]);
 		tb_null(i, "society_history", staff[i]["society_history"]);
 		tb_null(i, "it_history", staff[i]["it_history"]);
 		tb_null(i, "noit_history", staff[i]["noit_history"]);
@@ -167,13 +171,12 @@
 			inp_null(i, "join_date", staff[i]["join_date"]);
 			inp_null(i, "pt", staff[i]["pt"]);
 			inp_null(i, "Expt", staff[i]["Expt"]);
-			// inp_null(i, "ac_history", staff[i]["ac_history"]);
-			if(staff[i]["ac_history"]==null){
+			if(staff[i]["ac_history_cd"]==null){
 				// nullの場合
-				$("#ac_history_inp").val("null");
+				$("#ac_history_cd_inp").val("null");
 			}else{
 				// nullでない場合
-				$("#ac_history_inp").val(staff[i]["ac_history"]);
+				$("#ac_history_cd_inp").val(staff[i]["ac_history_cd"]);
 			}
 			inp_null(i, "society_history", staff[i]["society_history"]);
 			inp_null(i, "it_history", staff[i]["it_history"]);
@@ -226,14 +229,14 @@
 				month="03";
 			}
 			// 社員情報登録用のSQL文
-			let sql = "INSERT INTO TM_staff(staff_id, staff_name, birthday, join_date, pt, Expt, ac_history, society_history, it_history, noit_history, del_flg, create_date, create_id) ";
+			let sql = "INSERT INTO TM_staff(staff_id, staff_name, birthday, join_date, pt, Expt, ac_history_cd, society_history, it_history, noit_history, del_flg, create_date, create_id) ";
 			sql += 'VALUES("'+$("#staff_id_inp").val()+'", ';
 			sql += '"'+$("#staff_name_inp").val()+'", ';
 			sql += sql_null("birthday_inp", "d")+', ';
 			sql += sql_null("join_date_inp", "d")+', ';
 			sql += sql_null("pt_inp", "i")+', ';
 			sql += sql_null("Expt_inp", "i")+', ';
-			sql += sql_null("ac_history_inp", "v")+', ';
+			sql += sql_null("ac_history_cd_inp", "v")+', ';
 			sql += sql_null("society_history_inp", "i")+', ';
 			sql += sql_null("it_history_inp", "i")+', ';
 			sql += sql_null("noit_history_inp", "i")+', ';
@@ -256,7 +259,7 @@
 			sql += 'join_date='+sql_null("join_date_inp", "d")+', ';
 			sql += 'pt='+sql_null("pt_inp", "i")+', ';
 			sql += 'Expt='+sql_null("Expt_inp", "i")+', ';
-			sql += 'ac_history='+sql_null("ac_history_inp", "v")+', ';
+			sql += 'ac_history_cd='+sql_null("ac_history_cd_inp", "v")+', ';
 			sql += 'society_history='+sql_null("society_history_inp", "i")+', ';
 			sql += 'it_history='+sql_null("it_history_inp", "i")+', ';
 			sql += 'noit_history='+sql_null("noit_history_inp", "i")+', ';
