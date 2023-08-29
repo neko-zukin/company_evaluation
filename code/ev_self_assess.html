@@ -56,7 +56,7 @@
 //	year = "2021"
 //	month = "09"
 	//自己評価の項目を取得
-	let DB_self = DB.sql('SELECT * FROM TM_self_check;');
+	let DB_self = DB.sql('SELECT * FROM TM_self_check WHERE del_flg=0;');
 	//社員のIDを取得
 	let staff = localStorage.getItem("ev_staff_id_assess");
 	//社員の自己評価データ取得

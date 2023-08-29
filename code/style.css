@@ -386,6 +386,9 @@ p{
 }
 
 /*会社評価*/
+#tm_tb{
+	width: 100%;
+}
 .assess_check_detail{
 	width: 500;
 	height: 50;
