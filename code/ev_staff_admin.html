@@ -8,42 +8,21 @@
 <body>
 	<h1>社員管理</h1>
 	<div class="staff_admin">
-		<div>
-			<table border="1" id="staff_tb" class="staff_tb">
-				<tr>
-					<th class="staff_th_id pk_th0">社員番号</th>
-					<th class="staff_th_name pk_th1">氏名</th>
-					<th class="staff_th_date">生年月日</th>
-					<th class="staff_th_date">入社日</th>
-					<th class="staff_th_pt">pt</th>
-					<th class="staff_th_pt">Expt</th>
-					<th class="staff_th_ac">学歴</th>
-					<th class="staff_th_y">勤続年数</th>
-					<th class="staff_th_y">IT経歴</th>
-					<th class="staff_th_y">IT以外<br>経歴</th>
-				</tr>
-				<!--ここにデータを挿入-->
-			</table>
-			<table border="1" id="staff_tb_del" class="staff_tb">
-				<tr>
-					<th class="staff_th_id pk_th0">社員番号</th>
-					<th class="staff_th_name pk_th1">氏名</th>
-					<th class="staff_th_date">生年月日</th>
-					<th class="staff_th_date">入社日</th>
-					<th class="staff_th_pt">pt</th>
-					<th class="staff_th_pt">Expt</th>
-					<th class="staff_th_ac">学歴</th>
-					<th class="staff_th_y">勤続年数</th>
-					<th class="staff_th_y">IT経歴</th>
-					<th class="staff_th_y">IT以外<br>経歴</th>
-				</tr>
-				<!--ここにデータを挿入-->
-			</table>
-			<div id="staff_del_ch_div">
-				<input type="checkbox" id="staff_del_ch">
-				<label id="staff_del_l">削除済みのみ表示</label>
-			</div>
-		</div>
+		<table border="1" id="staff_tb">
+			<tr>
+				<th class="staff_th_id pk_th0">社員番号</th>
+				<th class="staff_th_name pk_th1">氏名</th>
+				<th class="staff_th_date">生年月日</th>
+				<th class="staff_th_date">入社日</th>
+				<th class="staff_th_pt">pt</th>
+				<th class="staff_th_pt">Expt</th>
+				<th class="staff_th_ac">学歴</th>
+				<th class="staff_th_y">勤続年数</th>
+				<th class="staff_th_y">IT経歴</th>
+				<th class="staff_th_y">IT以外<br>経歴</th>
+			</tr>
+			<!--ここにデータを挿入-->
+		</table>
 
 		<div class="staff_input">
 			<div>
@@ -143,9 +122,8 @@
 	});
 
 	// DBに登録されている社員を表示
-	let staff_all = DB.sql("SELECT * FROM TM_staff;");
-	let staff = DB.sql("SELECT staff_id, staff_name, birthday, join_date, TM_staff.pt as pt, TM_staff.Expt as Expt, TM_staff.ac_history_cd as ac_history_cd, ac_history, society_history, it_history, noit_history, del_flg FROM TM_staff LEFT JOIN TC_ac_history ON TM_staff.ac_history_cd=TC_ac_history.ac_history_cd WHERE del_flg=0;");
-	let staff_del = DB.sql("SELECT staff_id, staff_name, birthday, join_date, TM_staff.pt as pt, TM_staff.Expt as Expt, TM_staff.ac_history_cd as ac_history_cd, ac_history, society_history, it_history, noit_history, del_flg FROM TM_staff LEFT JOIN TC_ac_history ON TM_staff.ac_history_cd=TC_ac_history.ac_history_cd WHERE del_flg=1;");
+	let staff = DB.sql("SELECT staff_id, staff_name, birthday, join_date, TM_staff.pt as pt, TM_staff.Expt as Expt, TM_staff.ac_history_cd as ac_history_cd, ac_history, society_history, it_history, noit_history, del_flg FROM TM_staff LEFT JOIN TC_ac_history ON TM_staff.ac_history_cd=TC_ac_history.ac_history_cd;");
+	// let staff2 = DB.sql("SELECT * FROM TM_staff JOIN TC_ac_history ON TM_staff.ac_history_cd=TC_ac_history.ac_history_cd;");
 
 	// 勤続年数の計算
 	let date = new Date();
@@ -163,45 +141,24 @@
 		$("#staff_tb").append('<tr id="tr'+i+'"></tr>');
 		$("#tr"+i).append('<td id="staff_id_'+i+'" class="pk_td0">'+staff[i]["staff_id"]+'</td>');
 		$("#tr"+i).append('<td id="staff_name_'+i+'" class="pk_td1">'+staff[i]["staff_name"]+'</td>');
-		tb_null(i, "birthday", staff[i]["birthday"], "");
-		tb_null(i, "join_date", staff[i]["join_date"], "");
-		tb_null(i, "pt", staff[i]["pt"], "");
-		tb_null(i, "Expt", staff[i]["Expt"], "");
-		tb_null(i, "ac_history_cd", staff[i]["ac_history"], "");
-		tb_null(i, "society_history", staff[i]["society_history"], "");
-		tb_null(i, "it_history", staff[i]["it_history"], "");
-		tb_null(i, "noit_history", staff[i]["noit_history"], "");
-	}
-	for(let i=0; i<staff_del.length; i++){
-		$("#staff_tb_del").append('<tr id="tr_del'+i+'"></tr>');
-		$("#tr_del"+i).append('<td id="staff_id_'+i+'" class="pk_td0">'+staff_del[i]["staff_id"]+'</td>');
-		$("#tr_del"+i).append('<td id="staff_name_'+i+'" class="pk_td1">'+staff_del[i]["staff_name"]+'</td>');
-		tb_null(i, "birthday", staff_del[i]["birthday"], "del");
-		tb_null(i, "join_date", staff_del[i]["join_date"], "del");
-		tb_null(i, "pt", staff_del[i]["pt"], "del");
-		tb_null(i, "Expt", staff_del[i]["Expt"], "del");
-		tb_null(i, "ac_history_cd", staff_del[i]["ac_history"], "del");
-		tb_null(i, "society_history", staff_del[i]["society_history"], "del");
-		tb_null(i, "it_history", staff_del[i]["it_history"], "del");
-		tb_null(i, "noit_history", staff_del[i]["noit_history"], "del");
+		tb_null(i, "birthday", staff[i]["birthday"]);
+		tb_null(i, "join_date", staff[i]["join_date"]);
+		tb_null(i, "pt", staff[i]["pt"]);
+		tb_null(i, "Expt", staff[i]["Expt"]);
+		tb_null(i, "ac_history_cd", staff[i]["ac_history"]);
+		tb_null(i, "society_history", staff[i]["society_history"]);
+		tb_null(i, "it_history", staff[i]["it_history"]);
+		tb_null(i, "noit_history", staff[i]["noit_history"]);
 	}
 	
 	// nullの場合、-(ハイフン)を返す(table用)
-	function tb_null(i, col, data, del){
+	function tb_null(i, col, data){
 		if(data==null){
 			// nullの場合
-			if(del=="del"){
-				$("#tr_del"+i).append('<td id="'+col+i+'" class="tb_null">-</td>');
-			}else{
-				$("#tr"+i).append('<td id="'+col+i+'" class="tb_null">-</td>');
-			}
+			$("#tr"+i).append('<td id="'+col+i+'" class="tb_null">-</td>');
 		}else{
 			// nullでない場合
-			if(del=="del"){
-				$("#tr_del"+i).append('<td id="'+col+i+'">'+data+'</td>');
-			}else{
-				$("#tr"+i).append('<td id="'+col+i+'">'+data+'</td>');
-			}
+			$("#tr"+i).append('<td id="'+col+i+'">'+data+'</td>');
 		}
 	}
 
@@ -234,33 +191,6 @@
 			}
 		});
 	}
-	for(let i=0; i<staff_del.length; i++){
-		$("#tr_del"+i).on("click",function(){
-			$("#staff_id_inp").val(staff_del[i]["staff_id"]);
-			$("#staff_name_inp").val(staff_del[i]["staff_name"]);
-			inp_null(i, "birthday", staff_del[i]["birthday"]);
-			inp_null(i, "join_date", staff_del[i]["join_date"]);
-			inp_null(i, "pt", staff_del[i]["pt"]);
-			inp_null(i, "Expt", staff_del[i]["Expt"]);
-			if(staff_del[i]["ac_history_cd"]==null){
-				// nullの場合
-				$("#ac_history_cd_inp").val("null");
-			}else{
-				// nullでない場合
-				$("#ac_history_cd_inp").val(staff_del[i]["ac_history_cd"]);
-			}
-			inp_null(i, "society_history", staff_del[i]["society_history"]);
-			inp_null(i, "it_history", staff_del[i]["it_history"]);
-			inp_null(i, "noit_history", staff_del[i]["noit_history"]);
-			if(staff_del[i]["del_flg"]){
-				// 削除フラグがtrueの場合
-				$("#del_flg_inp").prop('checked', true);
-			}else{
-				// 削除フラグがfalseの場合
-				$("#del_flg_inp").prop('checked', false);
-			}
-		});
-	}
 
 	// input用nullチェック
 	function inp_null(i, col, data){
@@ -272,20 +202,6 @@
 			$("#"+col+"_inp").val("");
 		}
 	}
-
-	// 削除済み社員のみ表示チェックボックスが押されたとき
-	$("#staff_tb_del").hide();
-	$("#staff_del_ch").change(function(){
-		if($("#staff_del_ch").prop('checked')==true){
-			// チェックボックスがチェックされている場合
-			$("#staff_tb").hide();
-			$("#staff_tb_del").show();
-		}else{
-			// チェックボックスがチェックされていない場合
-			$("#staff_tb").show();
-			$("#staff_tb_del").hide();
-		}
-	});
 
 	// 現在日時
 	let now = year+'-'+month+'-'+("00" + (date.getDate())).slice(-2);
@@ -548,7 +464,7 @@
 				pt += it_point;
 			}
 			if(generation_point.length!=0){
-				if(generation_point[0][sql_selectitem]!="-"){
+				if(generation_point[0][sql_selectitem]!="-"&&generation_point[0][sql_selectitem]!==undefined){
 					pt += generation_point[0][sql_selectitem];
 				}
 			}
@@ -632,8 +548,8 @@
 		}
 		// DBに既に存在している社員番号を登録した場合
 		if(type!="update"){
-			for(let i=0; i<staff_all.length; i++){
-				if(staff_all[i]["staff_id"] == $("#staff_id_inp").val()){
+			for(let i=0; i<staff.length; i++){
+				if(staff[i]["staff_id"] == $("#staff_id_inp").val()){
 					document.getElementById("error_3").hidden = false;
 					error_check = false;
 				}
