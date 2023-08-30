@@ -8,27 +8,21 @@
 <body>
 	<h1>社員管理</h1>
 	<div class="staff_admin">
-		<div>
-			<table border="1" id="staff_tb">
-				<tr>
-					<th class="staff_th_id pk_th0">社員番号</th>
-					<th class="staff_th_name pk_th1">氏名</th>
-					<th class="staff_th_date">生年月日</th>
-					<th class="staff_th_date">入社日</th>
-					<th class="staff_th_pt">pt</th>
-					<th class="staff_th_pt">Expt</th>
-					<th class="staff_th_ac">学歴</th>
-					<th class="staff_th_y">勤続年数</th>
-					<th class="staff_th_y">IT経歴</th>
-					<th class="staff_th_y">IT以外<br>経歴</th>
-				</tr>
-				<!--ここにデータを挿入-->
-			</table>
-			<div id="staff_del_ch_div">
-				<input type="checkbox" id="staff_del_ch">
-				<label>削除済みのみ表示</label>
-			</div>
-		</div>
+		<table border="1" id="staff_tb">
+			<tr>
+				<th class="staff_th_id pk_th0">社員番号</th>
+				<th class="staff_th_name pk_th1">氏名</th>
+				<th class="staff_th_date">生年月日</th>
+				<th class="staff_th_date">入社日</th>
+				<th class="staff_th_pt">pt</th>
+				<th class="staff_th_pt">Expt</th>
+				<th class="staff_th_ac">学歴</th>
+				<th class="staff_th_y">勤続年数</th>
+				<th class="staff_th_y">IT経歴</th>
+				<th class="staff_th_y">IT以外<br>経歴</th>
+			</tr>
+			<!--ここにデータを挿入-->
+		</table>
 
 		<div class="staff_input">
 			<div>
@@ -56,7 +50,7 @@
 					<option value="ac_ct">高専卒</option>
 				</select>
 				<label>勤続年数(年)</label>
-				<input type="number" id="society_history_inp">
+				<input type="number" id="society_history_inp" disabled>
 			</div>
 			<div>
 				<label>IT経験(年)</label>
@@ -87,6 +81,7 @@
 				<p id="error_8" hidden>※勤続年数の上限値を超えています。</p>
 				<p id="error_9" hidden>※IT経験(年)の上限値を超えています。</p>
 				<p id="error_10" hidden>※IT以外経験(年)の上限値を超えています。</p>
+				<p id="error_11" hidden>※入社日が誕生日よりも前になっています。</p>
 			</div>
 		</div>	
 	</div>
@@ -240,8 +235,8 @@
 			
 			//年齢
 			let staff_old = 0;
-			let staff_birthday = $("#birthday_inp").text();
-			if(staff_birthday!="yyyy-mm-dd"){
+			let staff_birthday = $("#birthday_inp").val();
+			if(staff_birthday!="yyyy/mm/dd"){
 				staff_old = parseInt(new_year)-parseInt(staff_birthday.slice(0,4));
 				if(parseInt(new_true_month)-parseInt(staff_birthday.slice(5,7))<=0){
 					if(parseInt(new_true_month)-parseInt(staff_birthday.slice(5,7))==0){
@@ -256,9 +251,9 @@
 			
 			//勤続年数
 			let staff_society_history = 0;
-			let staff_join_date = $("#join_date_inp").text();
+			let staff_join_date = $("#join_date_inp").val();
 			
-			if(staff_join_date!="yyyy-mm-dd"){
+			if(staff_join_date!="yyyy/mm/dd"){
 				staff_society_history = parseInt(new_year)-parseInt(staff_join_date.slice(0,4));
 				if(parseInt(new_true_month)-parseInt(staff_join_date.slice(5,7))<=0){
 					if(parseInt(new_true_month)-parseInt(staff_join_date.slice(5,7))==0){
@@ -270,25 +265,25 @@
 					}
 				}
 			}
+			$("#society_history_inp").val(staff_society_history);
+			
+			let generation = 0;
 			
 			//入った年代
-			if(staff_birthday!="yyyy-mm-dd"&&staff_join_date!="yyyy-mm-dd"){
-				generation = parseInt(job_history.slice(0,4))-parseInt(birthday.slice(0,4));
-				if(parseInt(job_history.slice(5,7))-parseInt(birthday.slice(5,7))<=0){
-					if(parseInt(job_history.slice(5,7))-parseInt(birthday.slice(5,7))==0){
-						if(parseInt(job_history.slice(8,10))-parseInt(birthday.slice(8,10))<0){
+			if(staff_birthday!="yyyy/mm/dd"&&staff_join_date!="yyyy/mm/dd"){
+				generation = parseInt(job_history.slice(0,4))-parseInt(staff_birthday.slice(0,4));
+				if(parseInt(job_history.slice(5,7))-parseInt(staff_birthday.slice(5,7))<=0){
+					if(parseInt(job_history.slice(5,7))-parseInt(staff_birthday.slice(5,7))==0){
+						if(parseInt(job_history.slice(8,10))-parseInt(staff_birthday.slice(8,10))<0){
 							generation = generation - 1;
 						}
 					}else{
 						generation = generation - 1;
 					}
 				}
+				generation = (Math.floor(generation/10)) * 10;
 			}
-			generation = (Math.floor(generation/10)) * 10;
 			
-			
-			
-			$("#n_old").text(generation+"代");
 			let sql_selectitem = "";
 			if(staff_society_history==0){
 				sql_selectitem = "1th"
@@ -302,12 +297,42 @@
 				sql_selectitem = "5th_over"
 			}
 			
-			//学歴ポイント取得
-			let ac_name = $("#ac_history_cd_inp").children(':selected').text();
-			let DB_ac_point = ('select * from tc_ac_history where ac_history="'+ac_name+'"')
+			let noit_his = $("#noit_history_inp").val();
+			let generation_point = "-";
+			if(generation!="-"&&noit_his!=null&&noit_his!=0){
+				generation_point=DB.sql('SELECT '+sql_selectitem+' FROM TM_noit_point where generation='+generation+' and not_it = '+noit_his);
+			}
+
 			
+			//学歴ポイント取得
+			let ac_name = $("#ac_history_cd_inp").children(':selected').val();
+			let DB_ac_point = "-";
+			if(ac_name!="null"){
+				DB_ac_point = DB.sql('select * from tc_ac_history where ac_history_cd="'+ac_name+'"')
+			}
+			
+			let it_point="-";
 			//ITポイント取得
-			let it_point = $("#it_history_inp").text()*4;
+			if($("#it_history_inp").val()!=""){
+				it_point = parseInt($("#it_history_inp").val())*4;
+			}
+			
+			let pt=0;
+			if(DB_ac_point!="-"){
+				pt += DB_ac_point[0]["pt"];
+			}
+			if(it_point!="-"){
+				pt += it_point;
+			}
+			if(generation_point.length!=0){
+				if(generation_point[0][sql_selectitem]!="-"){
+					pt += generation_point[0][sql_selectitem];
+				}
+			}
+			let Expt = DB_ac_point[0]["Expt"];
+			
+			$("#pt_inp").val(pt);
+			$("#Expt_inp").val(Expt);
 			
 			// 社員情報登録用のSQL文
 			let sql = "INSERT INTO TM_staff(staff_id, staff_name, birthday, join_date, pt, Expt, ac_history_cd, society_history, it_history, noit_history, del_flg, create_date, create_id) ";
@@ -325,14 +350,137 @@
 			sql += '"'+now+'", ';
 			sql += '"'+'iwata'+'");';// ログインID（あとで書き換える）
 			console.log(sql);
-			DB.sql(sql);
-			window.location.reload();
+			//DB.sql(sql);
+			//window.location.reload();
 		}
 	});
 
 	// 更新確認ポップアップのOKボタンが押下されたとき
 	$("#update_ok").on("click",function(){
 		if(error("update")){
+			//日付の取得
+			let new_date = new Date();
+			let new_date_yyyymm = date.toISOString();
+			let new_day = date_yyyymm.slice(8,10);
+			let new_ev_date = date_yyyymm.slice(0,7);
+			let new_year = ev_date.slice(0,4);
+			let new_true_month = ev_date.slice(5,7);
+			let new_month = ev_date.slice(5,7);
+			if(parseInt(new_month)<=9&&parseInt(new_month)>3){
+				new_month="09";
+			}else{
+				new_month="03";
+			}
+			
+			//年齢
+			let staff_old = 0;
+			let staff_birthday = $("#birthday_inp").val();
+			if(staff_birthday!="yyyy/mm/dd"){
+				staff_old = parseInt(new_year)-parseInt(staff_birthday.slice(0,4));
+				if(parseInt(new_true_month)-parseInt(staff_birthday.slice(5,7))<=0){
+					if(parseInt(new_true_month)-parseInt(staff_birthday.slice(5,7))==0){
+						if(parseInt(new_day)-parseInt(staff_birthday.slice(8,10))<0){
+							staff_old = staff_old - 1;
+						}
+					}else{
+						staff_old = staff_old - 1;
+					}
+				}
+			}
+			
+			//勤続年数
+			let staff_society_history = 0;
+			let staff_join_date = $("#join_date_inp").val();
+			
+			if(staff_join_date!="yyyy/mm/dd"){
+				staff_society_history = parseInt(new_year)-parseInt(staff_join_date.slice(0,4));
+				if(parseInt(new_true_month)-parseInt(staff_join_date.slice(5,7))<=0){
+					if(parseInt(new_true_month)-parseInt(staff_join_date.slice(5,7))==0){
+						if(parseInt(new_day)-parseInt(staff_join_date.slice(8,10))<0){
+							staff_society_history = staff_society_history - 1;
+						}
+					}else{
+						staff_society_history = staff_society_history - 1;
+					}
+				}
+			}
+			$("#society_history_inp").val(staff_society_history);
+			
+			let generation = 0;
+			
+			//入った年代
+			if(staff_birthday!="yyyy/mm/dd"&&staff_join_date!="yyyy/mm/dd"){
+				generation = parseInt(job_history.slice(0,4))-parseInt(staff_birthday.slice(0,4));
+				if(parseInt(job_history.slice(5,7))-parseInt(staff_birthday.slice(5,7))<=0){
+					if(parseInt(job_history.slice(5,7))-parseInt(staff_birthday.slice(5,7))==0){
+						if(parseInt(job_history.slice(8,10))-parseInt(staff_birthday.slice(8,10))<0){
+							generation = generation - 1;
+						}
+					}else{
+						generation = generation - 1;
+					}
+				}
+				generation = (Math.floor(generation/10)) * 10;
+			}
+			
+			let sql_selectitem = "";
+			if(staff_society_history==0){
+				sql_selectitem = "1th"
+			}else if(staff_society_history==1){
+				sql_selectitem = "2th"
+			}else if(staff_society_history==2){
+				sql_selectitem = "3th"
+			}else if(staff_society_history==3){
+				sql_selectitem = "4th"
+			}else if(staff_society_history>=4){
+				sql_selectitem = "5th_over"
+			}
+			
+			let noit_his = $("#noit_history_inp").val();
+			let generation_point = "-";
+			if(generation!="-"&&noit_his!=null&&noit_his!=0){
+				generation_point=DB.sql('SELECT '+sql_selectitem+' FROM TM_noit_point where generation='+generation+' and not_it = '+noit_his);
+			}
+
+			
+			//学歴ポイント取得
+			let ac_name = $("#ac_history_cd_inp").children(':selected').val();
+			let DB_ac_point = "-";
+			if(ac_name!="null"){
+				DB_ac_point = DB.sql('select * from tc_ac_history where ac_history_cd="'+ac_name+'"')
+			}
+			
+			let it_point="-";
+			//ITポイント取得
+			if($("#it_history_inp").val()!=""){
+				it_point = parseInt($("#it_history_inp").val())*4;
+			}
+			
+			let pt=0;
+			if(DB_ac_point!="-"){
+				pt += DB_ac_point[0]["pt"];
+			}
+			if(it_point!="-"){
+				pt += it_point;
+			}
+			if(generation_point.length!=0){
+				if(generation_point[0][sql_selectitem]!="-"){
+					pt += generation_point[0][sql_selectitem];
+				}
+			}
+			let Expt = DB_ac_point[0]["Expt"];
+			
+			let staff_id_check = $("#staff_id_inp").val();
+			
+			let DB_sumall = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and result=1;');
+			let DB_staff_cp_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_cp join tm_point on te_staff_cp.title_cd=tm_point.title_cd where staff_id="'+staff_id_check+'";')
+			if(DB_sumall[0]["pt"]!=null&&DB_staff_cp_point[0]["pt"]!=null&&DB_sumall[0]["Expt"]!=null&&DB_staff_cp_point[0]["Expt"]!=null){
+				pt += parseInt(DB_sumall[0]["pt"]) + parseInt(DB_staff_cp_point[0]["pt"]);
+				Expt += parseInt(DB_sumall[0]["Expt"]) + parseInt(DB_staff_cp_point[0]["Expt"]);
+			}
+			
+			$("#pt_inp").val(pt);
+			$("#Expt_inp").val(Expt);
 			// 社員情報更新用のSQL文
 			let sql = 'UPDATE TM_staff ';
 			sql += 'SET staff_name="'+$("#staff_name_inp").val()+'", ';
@@ -359,13 +507,7 @@
 		let inp_str = $("#"+inp).val();
 		if(inp_str==null || inp_str=="" || inp_str=="null"){
 			// inputの値がnullの場合
-			if(inp=="pt_inp" || inp=="Expt_inp"){
-				// pt,Exptの場合
-				return 0;
-			}else{
-				return 'null';
-			}
-			// return 'null';
+			return 'null';
 		}else{
 			// inputの値がnullではないの場合
 			if(type=="i"){
@@ -392,6 +534,7 @@
 		document.getElementById("error_8").hidden = true;
 		document.getElementById("error_9").hidden = true;
 		document.getElementById("error_10").hidden = true;
+		document.getElementById("error_11").hidden = true;
 
 		// 社員番号が入力されていない場合
 		if($("#staff_id_inp").val() == ""){
@@ -447,6 +590,15 @@
 			document.getElementById("error_10").hidden = false;
 			error_check = false;
 		}
+		let staff_birthday = $("#birthday_inp").val();
+		let staff_join_date = $("#join_date_inp").val();
+		let staff_birthday_sum = staff_birthday.slice(0,4) + staff_birthday.slice(5,7) + staff_birthday.slice(8,10);
+		let staff_join_date_sum = staff_join_date.slice(0,4) + staff_join_date.slice(5,7) + staff_join_date.slice(8,10);
+		// 入社日が誕生日よりも前の場合
+		if(staff_birthday_sum>staff_join_date_sum){
+			document.getElementById("error_11").hidden = false;
+			error_check = false;
+		}		
 		return error_check;
 	}
 
