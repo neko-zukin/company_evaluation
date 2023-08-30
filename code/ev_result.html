@@ -172,9 +172,13 @@
 	let staff_id_check = localStorage.getItem("ev_staff_id_assess");
 	let DB_sumall = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and result=1;');
 	let DB_staff_cp_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_cp join tm_point on te_staff_cp.title_cd=tm_point.title_cd where staff_id="'+staff_id_check+'";')
-	if(DB_sumall[0]["pt"]!=null&&DB_staff_cp_point[0]["pt"]!=null&&DB_sumall[0]["Expt"]!=null&&DB_staff_cp_point[0]["Expt"]!=null){
-		staff_sum_pt = parseInt(DB_sumall[0]["pt"]) + parseInt(DB_staff_cp_point[0]["pt"]);
-		staff_sum_Expt = parseInt(DB_sumall[0]["Expt"]) + parseInt(DB_staff_cp_point[0]["Expt"]);
+	if(DB_sumall[0]["pt"]!=null&&DB_sumall[0]["Expt"]!=null){
+		staff_sum_pt = parseInt(DB_sumall[0]["pt"]);
+		staff_sum_Expt = parseInt(DB_sumall[0]["Expt"]);
+	}
+	if(DB_staff_cp_point[0]["pt"]!=null&&DB_staff_cp_point[0]["Expt"]!=null){
+		staff_sum_pt += parseInt(DB_staff_cp_point[0]["pt"]);
+		staff_sum_Expt += parseInt(DB_staff_cp_point[0]["Expt"]);
 	}
 	DB_staff = DB.sql("select * from TM_staff");
 	let salary_cp = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_cp join tm_point on te_staff_cp.title_cd=tm_point.title_cd where staff_id="'+staff_id_check+'";');
