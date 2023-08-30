@@ -172,14 +172,14 @@ p{
 	margin: 10px auto;
 	display: flex;
 }
-#staff_tb, #com_p_tb, #self_c_tb{
+.staff_tb, #com_p_tb, #self_c_tb{
 	/* table-layout: fixed; */
 	display: block;
-	max-height: 475px;
+	height: 450px;
 	white-space: nowrap;
 	overflow: scroll;
 }
-#staff_tb th, #com_p_tb th, #self_c_tb th{
+.staff_tb th, #com_p_tb th, #self_c_tb th{
 	/* letter-spacing: normal;
 	white-space: normal; */
 	/* display: inline-block; */
@@ -238,7 +238,7 @@ p{
 }
 
 /* 社員管理 */
-#staff_tb{
+.staff_tb{
 	width: 680px;
 }
 .staff_th_id{
@@ -250,7 +250,7 @@ p{
 .staff_th_date{
 	min-width: 100px;
 }
-#staff_tb .staff_th_pt{
+.staff_tb .staff_th_pt{
 	width: 45px;
 }
 .staff_th_ac{
@@ -258,6 +258,12 @@ p{
 }
 .staff_th_y{
 	width: 100px;
+}
+#staff_del_ch_div{
+	margin-top: 10px;
+}
+#staff_del_ch{
+	transform: scale(1.5);
 }
 .staff_input input[type="date"]{
 	width: 177px;

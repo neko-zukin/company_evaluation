@@ -23,6 +23,9 @@ ALTER TABLE TM_staff MODIFY COLUMN pt SMALLINT NOT NULL;
 【学歴列を全てnullにする】
 update TM_staff set ac_history_cd=null
 
+update TC_ac_history set ac_history="大卒(文系)" where ac_history_cp="ac_uh";
+update TC_ac_history set ac_history="大卒(理系)" where ac_history_cd="ac_us";
+
 ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
 【データベース作成】
@@ -49,8 +52,8 @@ VALUES
      ("ac_v2", "専門卒(2年)", 9, 1),
      ("ac_v3", "専門卒(3年)", 15, 1),
      ("ac_v4", "専門卒(4年)", 17, 2),
-     ("ac_uh", "大学(文系)", 17, 2),
-     ("ac_us", "大学(理系)", 19, 2),
+     ("ac_uh", "大卒(文系)", 17, 2),
+     ("ac_us", "大卒(理系)", 19, 2),
      ("ac_ct", "高専卒", 19, 2);
 ＜テストデータ確認＞
 SELECT * FROM TC_ac_history;
