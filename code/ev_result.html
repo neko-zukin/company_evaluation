@@ -185,6 +185,7 @@
 	let date = new Date();
 	let date_yyyymm = date.toISOString();
 	let ev_date = date_yyyymm.slice(0,7);
+	let day = date_yyyymm.slice(8,10);
 	let year = ev_date.slice(0,4);
 	let true_month = ev_date.slice(5,7);
 	let month = ev_date.slice(5,7);
@@ -306,20 +307,23 @@
 	if(generation!="-"&&DB_staff[staff_check]["noit_history"]!=null&&DB_staff[staff_check]["noit_history"]!=0){
 		DB_generation_point=DB.sql('SELECT '+sql_selectitem+' FROM TM_noit_point where generation='+generation+' and not_it = '+DB_staff[staff_check]["noit_history"]*2);
 	}
-	if(DB_generation_point[0][sql_selectitem]!=null){
-		$("#noit_point").text(DB_generation_point[0][sql_selectitem]);
-	}else{
-		$("#noit_point").text("-");
+	if(DB_generation_point.length!=0){
+		if(DB_generation_point[0][sql_selectitem]!=null){
+			$("#noit_point").text(DB_generation_point[0][sql_selectitem]);
+		}else{
+			$("#noit_point").text("-");
+		}
 	}
 	
-	
-	if(DB_generation_point[0][sql_selectitem]!=""&&DB_staff[staff_check]["it_history"]!=null){
-		staff_sum_pt += parseInt(DB_generation_point[0][sql_selectitem]) + (DB_staff[staff_check]["it_history"]*4);
-	}
-	if(DB_staff[staff_check]["ac_history_cd"]!=null){
-		let ac_sum = DB.sql('select * from tc_ac_history where ac_history_cd="'+DB_staff[staff_check]["ac_history_cd"]+'"');
-		staff_sum_pt += ac_sum[0]["pt"];
-		staff_sum_Expt += ac_sum[0]["Expt"];
+	if(DB_generation_point.length!=0){
+		if(DB_generation_point[0][sql_selectitem]!=""&&DB_staff[staff_check]["it_history"]!=null){
+			staff_sum_pt += parseInt(DB_generation_point[0][sql_selectitem]) + (DB_staff[staff_check]["it_history"]*4);
+		}
+		if(DB_staff[staff_check]["ac_history_cd"]!=null){
+			let ac_sum = DB.sql('select * from tc_ac_history where ac_history_cd="'+DB_staff[staff_check]["ac_history_cd"]+'"');
+			staff_sum_pt += ac_sum[0]["pt"];
+			staff_sum_Expt += ac_sum[0]["Expt"];
+		}
 	}
 	
 	//ポイントのアップデート

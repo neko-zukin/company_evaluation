@@ -310,10 +310,12 @@
 	if(generation!="-"&&DB_staff[staff_check]["noit_history"]!=null&&DB_staff[staff_check]["noit_history"]!=0){
 		DB_generation_point=DB.sql('SELECT '+sql_selectitem+' FROM TM_noit_point where generation='+generation+' and not_it = '+DB_staff[staff_check]["noit_history"]*2);
 	}
-	if(DB_generation_point[0][sql_selectitem]!=null){
-		$("#noit_point").text(DB_generation_point[0][sql_selectitem]);
-	}else{
-		$("#noit_point").text("-");
+	if(DB_generation_point.length!=0){
+		if(DB_generation_point[0][sql_selectitem]!=null){
+			$("#noit_point").text(DB_generation_point[0][sql_selectitem]);
+		}else{
+			$("#noit_point").text("-");
+		}
 	}
 	
 	//自己評価シートの履歴
