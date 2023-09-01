@@ -247,9 +247,9 @@
 	}else{
 		$("#staff_join_date").text("-");
 	}
+	let sc_name = DB.sql('select * from tc_ac_history where ac_history_cd="'+DB_staff[staff_check]["ac_history_cd"]+'"');
 	$("#staff_society_history").text(staff_society_history);
 	if(DB_staff[staff_check]["ac_history_cd"]!=null){
-		let sc_name = DB.sql('select * from tc_ac_history where ac_history_cd="'+DB_staff[staff_check]["ac_history_cd"]+'"');
 		$("#staff_ac_history").text(sc_name[0]["ac_history"]);
 	}else{
 		$("#staff_ac_history").text("-");
@@ -556,7 +556,7 @@
 		csv_fail[3] = staff_old
 		csv_fail[4] = DB_staff[staff_check]["join_date"]
 		csv_fail[5] = staff_society_history
-		csv_fail[6] = DB_staff[staff_check]["ac_history"]
+		csv_fail[6] = sc_name[0]["ac_history"]
 		csv_fail[7] = DB_salary[0]["salary"]
 		csv_fail[8] = DB_staff[staff_check]["pt"]
 		csv_fail[9] = DB_staff[staff_check]["Expt"]
