@@ -64,6 +64,10 @@
 				<p id="error_3" hidden>※ptの上限値を超えています。</p>
 				<p id="error_4" hidden>※Exptの上限値を超えています。</p>
 				<p id="error_5" hidden>※備考は200文字以内で入力してください。</p>
+				<p id="error_6" hidden>※ptを入力してください。</p>
+				<p id="error_7" hidden>※Exptを入力してください。</p>
+				<p id="error_8" hidden>※技菅区分を会社貢献系に変更してください。</p>
+				<p id="error_9" hidden>※業資区分を会社貢献系に変更してください。</p>
 			</div>
 		</div>
 	</div>
@@ -245,6 +249,10 @@
 		document.getElementById("error_3").hidden = true;
 		document.getElementById("error_4").hidden = true;
 		document.getElementById("error_5").hidden = true;
+		document.getElementById("error_6").hidden = true;
+		document.getElementById("error_7").hidden = true;
+		document.getElementById("error_8").hidden = true;
+		document.getElementById("error_9").hidden = true;
 
 		// 内容が入力されていない場合
 		if($("#detail_inp").val() == ""){
@@ -269,6 +277,26 @@
 		// 備考が200文字以内でない場合
 		if($("#note_inp").val().length > 200){
 			document.getElementById("error_5").hidden = false;
+			error_check = false;
+		}
+		// ptが入力されていない場合
+		if($("#pt_inp").val() == ""){
+			document.getElementById("error_6").hidden = false;
+			error_check = false;
+		}
+		// Exptが入力されていない場合
+		if($("#Expt_inp").val() == ""){
+			document.getElementById("error_7").hidden = false;
+			error_check = false;
+		}
+		// 業資区分が会社貢献系の場合
+		if($("#jq_kbn_inp").val()=="C" && $("#tm_kbn_inp").val()!="C"){
+			document.getElementById("error_8").hidden = false;
+			error_check = false;
+		}
+		// 技管区分が会社貢献系の場合
+		if($("#tm_kbn_inp").val()=="C" && $("#jq_kbn_inp").val()!="C"){
+			document.getElementById("error_9").hidden = false;
 			error_check = false;
 		}
 		return error_check;
