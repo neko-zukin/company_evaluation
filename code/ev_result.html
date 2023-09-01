@@ -305,7 +305,7 @@
 		sql_selectitem = "5th_over"
 	}
 	if(generation!="-"&&DB_staff[staff_check]["noit_history"]!=null&&DB_staff[staff_check]["noit_history"]!=0){
-		DB_generation_point=DB.sql('SELECT '+sql_selectitem+' FROM TM_noit_point where generation='+generation+' and not_it = '+DB_staff[staff_check]["noit_history"]*2);
+		DB_generation_point=DB.sql('SELECT '+sql_selectitem+' FROM TM_noit_point where generation='+generation+' and not_it = '+DB_staff[staff_check]["noit_history"]);
 	}
 	if(DB_generation_point.length!=0){
 		if(DB_generation_point[0][sql_selectitem]!=null){
