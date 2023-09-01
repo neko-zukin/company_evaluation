@@ -660,7 +660,7 @@
 			error_check = false;
 		}
 		// 勤続年数の値が0～127でない場合
-		if(0 > $("#society_history_inp").val() || $("#society_history_inp").val() > 127){
+		if(-128 > $("#society_history_inp").val() || $("#society_history_inp").val() > 127){
 			document.getElementById("error_8").hidden = false;
 			error_check = false;
 		}
