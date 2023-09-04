@@ -413,7 +413,9 @@
 					pt += generation_point[0][sql_selectitem];
 				}
 			}
-			let Expt = DB_ac_point[0]["Expt"];
+			if(DB_ac_point!="-"){
+				let Expt = DB_ac_point[0]["Expt"];
+			}
 			
 			$("#pt_inp").val(pt);
 			$("#Expt_inp").val(Expt);
@@ -552,7 +554,10 @@
 					pt += generation_point[0][sql_selectitem];
 				}
 			}
-			let Expt = DB_ac_point[0]["Expt"];
+			let Expt = 0;
+			if(DB_ac_point!="-"){
+				Expt = DB_ac_point[0]["Expt"];
+			}
 			
 			let staff_id_check = $("#staff_id_inp").val();
 			
@@ -659,7 +664,7 @@
 			document.getElementById("error_7").hidden = false;
 			error_check = false;
 		}
-		// 勤続年数の値が-128～127でない場合
+		// 勤続年数の値が0～127でない場合
 		if(-128 > $("#society_history_inp").val() || $("#society_history_inp").val() > 127){
 			document.getElementById("error_8").hidden = false;
 			error_check = false;
@@ -669,7 +674,7 @@
 			document.getElementById("error_9").hidden = false;
 			error_check = false;
 		}
-		// IT以外経験(年)の値が0～127でない場合
+		// IT以外経験(年)の値が-128～127でない場合
 		if(0 > $("#noit_history_inp").val() || $("#noit_history_inp").val() > 127){
 			document.getElementById("error_10").hidden = false;
 			error_check = false;
