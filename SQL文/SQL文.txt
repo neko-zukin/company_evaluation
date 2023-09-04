@@ -48,6 +48,7 @@ DESC TC_ac_history;
 ＜テストデータ登録＞
 INSERT INTO TC_ac_history(ac_history_cd, ac_history, pt, Expt)
 VALUES
+     ("ac_n", "-", 0, 0),
      ("ac_hs", "高卒", 5, 0),
      ("ac_v2", "専門卒(2年)", 9, 1),
      ("ac_v3", "専門卒(3年)", 15, 1),
