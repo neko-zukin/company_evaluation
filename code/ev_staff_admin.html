@@ -61,7 +61,7 @@
 			<div>
 				<label>学歴</label>
 				<select id="ac_history_cd_inp">
-					<option value="null" style="text-align: center;">―</option>
+					<option value="ac_n" style="text-align: center;" selected>―</option>
 					<option value="ac_hs">高卒</option>
 					<option value="ac_v2">専門卒(2年)</option>
 					<option value="ac_v3">専門卒(3年)</option>
@@ -218,7 +218,7 @@
 			inp_null(i, "Expt", staff[i]["Expt"]);
 			if(staff[i]["ac_history_cd"]==null){
 				// nullの場合
-				$("#ac_history_cd_inp").val("null");
+				$("#ac_history_cd_inp").val("ac_n");
 			}else{
 				// nullでない場合
 				$("#ac_history_cd_inp").val(staff[i]["ac_history_cd"]);
@@ -245,7 +245,7 @@
 			inp_null(i, "Expt", staff_del[i]["Expt"]);
 			if(staff_del[i]["ac_history_cd"]==null){
 				// nullの場合
-				$("#ac_history_cd_inp").val("null");
+				$("#ac_history_cd_inp").val("ac_n");
 			}else{
 				// nullでない場合
 				$("#ac_history_cd_inp").val(staff_del[i]["ac_history_cd"]);
