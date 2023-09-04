@@ -246,12 +246,13 @@
 				if(generation!="-"&&DB_staff[staff_check]["noit_history"]!=null&&DB_staff[staff_check]["noit_history"]!=0){
 					DB_generation_point=DB.sql('SELECT '+sql_selectitem+' FROM TM_noit_point where generation='+generation+' and not_it = '+DB_staff[staff_check]["noit_history"]);
 				}
-				if(DB_generation_point[0][sql_selectitem]!=null){
-					csv_generation_point=DB_generation_point[0][sql_selectitem];
-				}else{
-					csv_generation_point="-";
+				if(DB_generation_point.length!=0){
+					if(DB_generation_point[0][sql_selectitem]!=null){
+						csv_generation_point=DB_generation_point[0][sql_selectitem];
+					}else{
+						csv_generation_point="-";
+					}
 				}
-				
 				//自己評価シートの履歴
 				let last_year = parseInt(year) - 1;
 				let two_year = parseInt(year) - 2;

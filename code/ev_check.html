@@ -192,8 +192,8 @@
 	}
 	
 	//テスト
-//	year="2024";
-//	true_month="02"
+//	year="2023";
+//	month="3"
 //	day = "23"
 	
 	let staff_check = "";
@@ -556,7 +556,11 @@
 		csv_fail[3] = staff_old
 		csv_fail[4] = DB_staff[staff_check]["join_date"]
 		csv_fail[5] = staff_society_history
-		csv_fail[6] = sc_name[0]["ac_history"]
+		if(DB_staff[staff_check]["ac_history_cd"]!=null){
+			csv_fail[6] = sc_name[0]["ac_history"]
+		}else{
+			csv_fail[6] = "-";
+		}
 		csv_fail[7] = DB_salary[0]["salary"]
 		csv_fail[8] = DB_staff[staff_check]["pt"]
 		csv_fail[9] = DB_staff[staff_check]["Expt"]
