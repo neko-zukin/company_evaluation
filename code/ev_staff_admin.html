@@ -94,7 +94,7 @@
 			<div class="admin_error">
 				<p id="error_1" hidden>※社員番号を入力してください。</p>
 				<p id="error_2" hidden>※氏名を入力してください。</p>
-				<p id="error_3" hidden>※その社員番号は既に存在しています。</p>
+				<p id="error_3" hidden>※その社員番号は既に登録されています。</p>
 				<p id="error_4" hidden>※社員番号は6桁で入力してください。</p>
 				<p id="error_5" hidden>※氏名は20文字以内で入力してください。</p>
 				<p id="error_6" hidden>※ptの上限値を超えています。</p>
@@ -103,8 +103,9 @@
 				<p id="error_9" hidden>※IT経験(年)の上限値を超えています。</p>
 				<p id="error_10" hidden>※IT以外経験(年)の上限値を超えています。</p>
 				<p id="error_11" hidden>※入社日が生年月日よりも前になっています。</p>
+				<p id="error_12" hidden>※その社員番号は登録されていません。</p>
 			</div>
-		</div>	
+		</div>
 	</div>
 
 	<div class="admin_btn">
@@ -664,7 +665,7 @@
 			document.getElementById("error_7").hidden = false;
 			error_check = false;
 		}
-		// 勤続年数の値が0～127でない場合
+		// 勤続年数の値が-128～127でない場合
 		if(-128 > $("#society_history_inp").val() || $("#society_history_inp").val() > 127){
 			document.getElementById("error_8").hidden = false;
 			error_check = false;
@@ -674,7 +675,7 @@
 			document.getElementById("error_9").hidden = false;
 			error_check = false;
 		}
-		// IT以外経験(年)の値が-128～127でない場合
+		// IT以外経験(年)の値が0～127でない場合
 		if(0 > $("#noit_history_inp").val() || $("#noit_history_inp").val() > 127){
 			document.getElementById("error_10").hidden = false;
 			error_check = false;
@@ -687,7 +688,20 @@
 		if(staff_birthday_sum>staff_join_date_sum){
 			document.getElementById("error_11").hidden = false;
 			error_check = false;
-		}		
+		}
+		// DBに登録されていない社員番号を登録した場合
+		if(type=="update"){
+			let i=0;
+			for(i=0; i<staff_all.length; i++){
+				if(staff_all[i]["staff_id"] == $("#staff_id_inp").val()){
+					break;
+				}
+			}
+			if(i==staff_all.length){
+				document.getElementById("error_12").hidden = false;
+				error_check = false;
+			}
+		}
 		return error_check;
 	}
 
