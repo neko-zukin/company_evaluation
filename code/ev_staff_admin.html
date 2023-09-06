@@ -105,6 +105,7 @@
 				<p id="error_11" hidden>※入社日が生年月日よりも前になっています。</p>
 				<p id="error_12" hidden>※その社員番号は登録されていません。</p>
 				<p id="error_13" hidden>※生年月日と入社日を入力してください</p>
+				<p id="error_14" hidden>※入社日がシステム日付よりも後のデータは入力できません</p>
 			</div>
 		</div>
 	</div>
@@ -629,6 +630,7 @@
 		document.getElementById("error_11").hidden = true;
 		document.getElementById("error_12").hidden = true;
 		document.getElementById("error_13").hidden = true;
+		document.getElementById("error_14").hidden = true;
 
 		// 社員番号が入力されていない場合
 		if($("#staff_id_inp").val() == ""){
@@ -706,10 +708,19 @@
 				error_check = false;
 			}
 		}
+		//入社日と生年月日が空の時
 		if(staff_birthday==""||staff_join_date==""){
 			document.getElementById("error_13").hidden = false;
 			error_check = false;
 		}
+		let ev_error_check = date_yyyymm.slice(0,10);
+		let staff_today_sum = ev_error_check.slice(0,4) + ev_error_check.slice(5,7) + ev_error_check.slice(8,10);
+		//入社日が未来の時
+		if(staff_today_sum<staff_join_date_sum){
+			document.getElementById("error_14").hidden = false;
+			error_check = false;
+		}
+		
 		return error_check;
 	}
 
