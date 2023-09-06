@@ -610,9 +610,10 @@
 		csv_fail_change += ","+$("#year_date").text()+","+$("#year_two_date").text()+","+$("#last_year_date").text()+","+$("#last_year_two_date").text()+","+$("#two_year_date").text()+","+$("#two_year_two_date").text();
 
 		
-		for(i=1;i<DB_cp.length;i++){
-			csv_fail_change += ","+csv_fail[10][i]+','+csv_fail[11][i]+','+csv_fail[12][i];
+		for(j=0;j<DB_cp.length;j++){
+			csv_fail_change+=","+DB_cp[j]["title_cd"]+","+DB_cp[j]["pt"]+","+DB_cp[j]["Expt"];
 		}
+		
 		// 文字列をBlobオブジェクトに変換
 		let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
 		let blob = new Blob([bom, csv_fail_change], {type: 'text/csv'});

@@ -574,6 +574,8 @@
 			csv_fail[12][i] = DB_cp[i]["Expt"];
 		}
 		
+
+		
 		csv_fail[13] = DB_staff[staff_check]["it_history"];
 		csv_fail[14] = DB_staff[staff_check]["noit_history"];
 		csv_fail[15] = $("#noit_point").text();
@@ -610,8 +612,8 @@
 		csv_fail_change += ","+$("#n_day").text()+","+$("#n_old").text();
 		csv_fail_change += ","+$("#year_date").text()+","+$("#year_two_date").text()+","+$("#last_year_date").text()+","+$("#last_year_two_date").text()+","+$("#two_year_date").text()+","+$("#two_year_two_date").text();
 			
-		for(i=1;i<DB_cp.length;i++){
-			csv_fail_change += ","+csv_fail[10][i]+','+csv_fail[11][i]+','+csv_fail[12][i];
+		for(j=0;j<DB_cp.length;j++){
+			csv_fail_change+=","+DB_cp[j]["title_cd"]+","+DB_cp[j]["pt"]+","+DB_cp[j]["Expt"];
 		}
 		// 文字列をBlobオブジェクトに変換
 		let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
