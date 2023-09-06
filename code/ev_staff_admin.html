@@ -61,7 +61,7 @@
 			<div>
 				<label>学歴</label>
 				<select id="ac_history_cd_inp">
-					<option value="null" style="text-align: center;">―</option>
+					<option value="ac_n" style="text-align: center;">―</option>
 					<option value="ac_hs">高卒</option>
 					<option value="ac_v2">専門卒(2年)</option>
 					<option value="ac_v3">専門卒(3年)</option>
@@ -218,9 +218,9 @@
 			inp_null(i, "join_date", staff[i]["join_date"]);
 			inp_null(i, "pt", staff[i]["pt"]);
 			inp_null(i, "Expt", staff[i]["Expt"]);
-			if(staff[i]["ac_history_cd"]==null){
+			if(staff[i]["ac_history_cd"]=="ac_n"){
 				// nullの場合
-				$("#ac_history_cd_inp").val("null");
+				$("#ac_history_cd_inp").val("ac_n");
 			}else{
 				// nullでない場合
 				$("#ac_history_cd_inp").val(staff[i]["ac_history_cd"]);
@@ -245,9 +245,9 @@
 			inp_null(i, "join_date", staff_del[i]["join_date"]);
 			inp_null(i, "pt", staff_del[i]["pt"]);
 			inp_null(i, "Expt", staff_del[i]["Expt"]);
-			if(staff_del[i]["ac_history_cd"]==null){
+			if(staff_del[i]["ac_history_cd"]=="ac_n"){
 				// nullの場合
-				$("#ac_history_cd_inp").val("null");
+				$("#ac_history_cd_inp").val("ac_n");
 			}else{
 				// nullでない場合
 				$("#ac_history_cd_inp").val(staff_del[i]["ac_history_cd"]);
@@ -581,7 +581,7 @@
 			sql += 'join_date='+sql_null("join_date_inp", "d")+', ';
 			sql += 'pt='+sql_null("pt_inp", "i")+', ';
 			sql += 'Expt='+sql_null("Expt_inp", "i")+', ';
-			sql += 'ac_history_cd='+sql_null("ac_history_cd_inp", "v")+', ';
+			sql += 'ac_history_cd='+sql_null("ac_history_cd_inp", "ac")+', ';
 			sql += 'society_history='+sql_null("society_history_inp", "i")+', ';
 			sql += 'it_history='+sql_null("it_history_inp", "i")+', ';
 			sql += 'noit_history='+sql_null("noit_history_inp", "i")+', ';
@@ -598,9 +598,14 @@
 	// sql用nullチェック
 	function sql_null(inp, type){
 		let inp_str = $("#"+inp).val();
-		if(inp_str==null || inp_str=="" || inp_str=="null"){
+		if(inp_str==null || inp_str=="" || inp_str=="ac_n"){
 			// inputの値がnullの場合
-			return 'null';
+			if(type=="ac"){
+				// 学歴の場合
+				return '"ac_n"';
+			}else{
+				return 'null';
+			}
 		}else{
 			// inputの値がnullではないの場合
 			if(type=="i"){
