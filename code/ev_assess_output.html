@@ -200,7 +200,11 @@
 				}else{
 					csv_ac_history="-";
 				}
-				csv_salary=DB_salary[0]["salary"];
+				if(DB_staff[staff_check]["pt"]>0||DB_staff[staff_check]["Expt"]>0){
+					csv_salary=DB_salary[0]["salary"];
+				}else{
+					csv_salary="-";
+				}
 				csv_staff_pt=DB_staff[staff_check]["pt"];
 				csv_staff_Expt=DB_staff[staff_check]["Expt"];
 				//取得タイトル出力

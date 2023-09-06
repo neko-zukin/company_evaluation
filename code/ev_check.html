@@ -254,7 +254,9 @@
 	}else{
 		$("#staff_ac_history").text("-");
 	}
-	$("#staff_money").text(DB_salary[0]["salary"]);
+	if(DB_staff[staff_check]["pt"]>0||DB_staff[staff_check]["Expt"]>0){
+		$("#staff_money").text(DB_salary[0]["salary"]);
+	}
 	$(staff_pt).text(DB_staff[staff_check]["pt"]);
 	$(staff_Expt).text(DB_staff[staff_check]["Expt"]);
 	
