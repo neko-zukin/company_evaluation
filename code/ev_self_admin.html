@@ -175,13 +175,13 @@
 			// console.log(new_cd);
 
 			// 自己評価テーブル登録用のSQL文
-			let sql = "INSERT INTO TM_self_check(sc_cd, self_check, pt, Expt, explanation, del_flg, create_date, create_id) ";
+			let sql = "INSERT INTO TM_self_check(sc_cd, self_check, pt, Expt, explanation, create_date, create_id) ";
 			sql += 'VALUES("'+new_cd+'", ';
 			sql += '"'+$("#self_check_inp").val()+'", ';
 			sql += $("#pt_inp").val()+', ';
 			sql += $("#Expt_inp").val()+', ';
 			sql += sql_null("explanation_inp", "v")+', ';
-			sql += $("#del_flg_inp").prop('checked')+', ';
+			//sql += $("#del_flg_inp").prop('checked')+', ';
 			sql += '"'+now+'", ';
 			sql += '"'+'iwata'+'");';// ログインID（あとで書き換える）
 			console.log(sql);
@@ -199,7 +199,7 @@
 			sql += 'pt='+$("#pt_inp").val()+', ';
 			sql += 'Expt='+$("#Expt_inp").val()+', ';
 			sql += 'explanation='+sql_null("explanation_inp", "v")+', ';
-			sql += 'del_flg='+$("#del_flg_inp").prop('checked')+', ';
+			//sql += 'del_flg='+$("#del_flg_inp").prop('checked')+', ';
 			sql += 'update_date="'+now+'", ';
 			sql += 'update_id="'+'iwata'+'" ';// ログインID（あとで書き換える）
 			sql += 'WHERE sc_cd="'+$("#sc_cd_inp").val()+'";';

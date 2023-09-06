@@ -184,7 +184,7 @@
 			let new_cd = kbn_cd + ("000"+(db_cd[0]["cnt"]+1)).slice(-3);
 
 			// 会社評価テーブル登録用のSQL文
-			let sql = "INSERT INTO TM_point(title_cd, tm_kbn, jq_kbn, pt, Expt , detail, note, del_flg, create_date, create_id) ";
+			let sql = "INSERT INTO TM_point(title_cd, tm_kbn, jq_kbn, pt, Expt , detail, note, create_date, create_id) ";
 			sql += 'VALUES("'+new_cd+'", ';
 			sql += '"'+$("#tm_kbn_inp").val()+'", ';
 			sql += '"'+$("#jq_kbn_inp").val()+'", ';
@@ -192,7 +192,7 @@
 			sql += sql_null("Expt_inp", "i")+', ';
 			sql += '"'+$("#detail_inp").val()+'", ';
 			sql += sql_null("note_inp", "v")+', ';
-			sql += $("#del_flg_inp").prop('checked')+', ';
+			//sql += $("#del_flg_inp").prop('checked')+', ';
 			sql += '"'+now+'", ';
 			sql += '"'+'iwata'+'");';// ログインID（あとで書き換える）
 			console.log(sql);
@@ -212,7 +212,7 @@
 			sql += 'Expt='+sql_null("Expt_inp", "i")+', ';
 			sql += 'detail="'+$("#detail_inp").val()+'", ';
 			sql += 'note='+sql_null("note_inp", "v")+', ';
-			sql += 'del_flg='+$("#del_flg_inp").prop('checked')+', ';
+			//sql += 'del_flg='+$("#del_flg_inp").prop('checked')+', ';
 			sql += 'update_date="'+now+'", ';
 			sql += 'update_id="'+'iwata'+'" ';// ログインID（あとで書き換える）
 			sql += 'WHERE title_cd="'+$("#title_cd_inp").val()+'";';
