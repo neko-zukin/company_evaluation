@@ -61,7 +61,7 @@
 			<div>
 				<label>学歴</label>
 				<select id="ac_history_cd_inp">
-					<option value="ac_n" style="text-align: center;" selected>―</option>
+					<option value="null" style="text-align: center;">―</option>
 					<option value="ac_hs">高卒</option>
 					<option value="ac_v2">専門卒(2年)</option>
 					<option value="ac_v3">専門卒(3年)</option>
@@ -104,6 +104,7 @@
 				<p id="error_10" hidden>※IT以外経験(年)の上限値を超えています。</p>
 				<p id="error_11" hidden>※入社日が生年月日よりも前になっています。</p>
 				<p id="error_12" hidden>※その社員番号は登録されていません。</p>
+				<p id="error_13" hidden>※生年月日と入社日を入力してください</p>
 			</div>
 		</div>
 	</div>
@@ -218,7 +219,7 @@
 			inp_null(i, "Expt", staff[i]["Expt"]);
 			if(staff[i]["ac_history_cd"]==null){
 				// nullの場合
-				$("#ac_history_cd_inp").val("ac_n");
+				$("#ac_history_cd_inp").val("null");
 			}else{
 				// nullでない場合
 				$("#ac_history_cd_inp").val(staff[i]["ac_history_cd"]);
@@ -245,7 +246,7 @@
 			inp_null(i, "Expt", staff_del[i]["Expt"]);
 			if(staff_del[i]["ac_history_cd"]==null){
 				// nullの場合
-				$("#ac_history_cd_inp").val("ac_n");
+				$("#ac_history_cd_inp").val("null");
 			}else{
 				// nullでない場合
 				$("#ac_history_cd_inp").val(staff_del[i]["ac_history_cd"]);
@@ -384,7 +385,7 @@
 			
 			let noit_his = $("#noit_history_inp").val();
 			let generation_point = "-";
-			if(generation!="-"&&noit_his!=null&&noit_his!=0){
+			if(generation!="-"&&noit_his!=null&&noit_his!=0&&sql_selectitem!=""){
 				generation_point=DB.sql('SELECT '+sql_selectitem+' FROM TM_noit_point where generation='+generation+' and not_it = '+noit_his);
 			}
 
@@ -526,7 +527,7 @@
 			
 			let noit_his = $("#noit_history_inp").val();
 			let generation_point = "-";
-			if(generation!="-"&&noit_his!=null&&noit_his!=0){
+			if(generation!="-"&&noit_his!=null&&noit_his!=0&&sql_selectitem!=""){
 				generation_point=DB.sql('SELECT '+sql_selectitem+' FROM TM_noit_point where generation='+generation+' and not_it = '+noit_his);
 			}
 
@@ -626,6 +627,8 @@
 		document.getElementById("error_9").hidden = true;
 		document.getElementById("error_10").hidden = true;
 		document.getElementById("error_11").hidden = true;
+		document.getElementById("error_12").hidden = true;
+		document.getElementById("error_13").hidden = true;
 
 		// 社員番号が入力されていない場合
 		if($("#staff_id_inp").val() == ""){
@@ -702,6 +705,10 @@
 				document.getElementById("error_12").hidden = false;
 				error_check = false;
 			}
+		}
+		if(staff_birthday==""||staff_join_date==""){
+			document.getElementById("error_13").hidden = false;
+			error_check = false;
 		}
 		return error_check;
 	}
