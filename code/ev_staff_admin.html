@@ -229,13 +229,7 @@
 			inp_null(i, "society_history", staff[i]["society_history"]);
 			inp_null(i, "it_history", staff[i]["it_history"]);
 			inp_null(i, "noit_history", staff[i]["noit_history"]);
-			if(staff[i]["del_flg"]){
-				// 削除フラグがtrueの場合
-				$("#del_flg_inp").prop('checked', true);
-			}else{
-				// 削除フラグがfalseの場合
-				$("#del_flg_inp").prop('checked', false);
-			}
+			$("#del_flg_inp").prop('checked', false);
 		});
 	}
 	for(let i=0; i<staff_del.length; i++){
@@ -256,13 +250,7 @@
 			inp_null(i, "society_history", staff_del[i]["society_history"]);
 			inp_null(i, "it_history", staff_del[i]["it_history"]);
 			inp_null(i, "noit_history", staff_del[i]["noit_history"]);
-			if(staff_del[i]["del_flg"]){
-				// 削除フラグがtrueの場合
-				$("#del_flg_inp").prop('checked', true);
-			}else{
-				// 削除フラグがfalseの場合
-				$("#del_flg_inp").prop('checked', false);
-			}
+			$("#del_flg_inp").prop('checked', true);
 		});
 	}
 
@@ -396,7 +384,7 @@
 			let ac_name = $("#ac_history_cd_inp").children(':selected').val();
 			let DB_ac_point = "-";
 			if(ac_name!="null"){
-				DB_ac_point = DB.sql('select * from tc_ac_history where ac_history_cd="'+ac_name+'"')
+				DB_ac_point = DB.sql('select * from TC_ac_history where ac_history_cd="'+ac_name+'"')
 			}
 			
 			let it_point="-";
@@ -538,7 +526,7 @@
 			let ac_name = $("#ac_history_cd_inp").children(':selected').val();
 			let DB_ac_point = "-";
 			if(ac_name!="null"){
-				DB_ac_point = DB.sql('select * from tc_ac_history where ac_history_cd="'+ac_name+'"')
+				DB_ac_point = DB.sql('select * from TC_ac_history where ac_history_cd="'+ac_name+'"')
 			}
 			
 			let it_point="-";
@@ -566,8 +554,8 @@
 			
 			let staff_id_check = $("#staff_id_inp").val();
 			
-			let DB_sumall = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and result=1;');
-			let DB_staff_cp_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_cp join tm_point on te_staff_cp.title_cd=tm_point.title_cd where staff_id="'+staff_id_check+'";')
+			let DB_sumall = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and result=1;');
+			let DB_staff_cp_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_cp join TM_point on TE_staff_cp.title_cd=TM_point.title_cd where staff_id="'+staff_id_check+'";')
 			if(DB_sumall[0]["pt"]!=null&&DB_staff_cp_point[0]["pt"]!=null&&DB_sumall[0]["Expt"]!=null&&DB_staff_cp_point[0]["Expt"]!=null){
 				pt += parseInt(DB_sumall[0]["pt"]) + parseInt(DB_staff_cp_point[0]["pt"]);
 				Expt += parseInt(DB_sumall[0]["Expt"]) + parseInt(DB_staff_cp_point[0]["Expt"]);
