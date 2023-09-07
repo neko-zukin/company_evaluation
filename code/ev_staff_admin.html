@@ -395,7 +395,7 @@
 			
 			let pt=0;
 			if(DB_ac_point!="-"){
-				pt += DB_ac_point[0]["pt"];
+				pt += parseInt(DB_ac_point[0]["pt"]);
 			}
 			if(it_point!="-"){
 				pt += it_point;
@@ -407,7 +407,7 @@
 			}
 			let Expt=0;
 			if(DB_ac_point!="-"){
-				Expt = DB_ac_point[0]["Expt"];
+				Expt = parseInt(DB_ac_point[0]["Expt"]);
 			}
 			
 			$("#pt_inp").val(pt);
@@ -537,19 +537,19 @@
 			
 			let pt=0;
 			if(DB_ac_point!="-"){
-				pt += DB_ac_point[0]["pt"];
+				pt += parseInt(DB_ac_point[0]["pt"]);
 			}
 			if(it_point!="-"){
 				pt += it_point;
 			}
 			if(generation_point.length!=0){
 				if(generation_point[0][sql_selectitem]!="-"&&generation_point[0][sql_selectitem]!==undefined){
-					pt += generation_point[0][sql_selectitem];
+					pt += parseInt(generation_point[0][sql_selectitem]);
 				}
 			}
 			let Expt = 0;
 			if(DB_ac_point!="-"){
-				Expt = DB_ac_point[0]["Expt"];
+				Expt = parseInt(DB_ac_point[0]["Expt"]);
 			}
 			
 			let staff_id_check = $("#staff_id_inp").val();

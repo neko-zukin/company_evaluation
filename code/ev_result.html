@@ -328,8 +328,8 @@
 	
 	if(DB_staff[staff_check]["ac_history_cd"]!=null){
 		let ac_sum = DB.sql('select * from TC_ac_history where ac_history_cd="'+DB_staff[staff_check]["ac_history_cd"]+'"');
-		staff_sum_pt += ac_sum[0]["pt"];
-		staff_sum_Expt += ac_sum[0]["Expt"];
+		staff_sum_pt += parseInt(ac_sum[0]["pt"]);
+		staff_sum_Expt += parseInt(ac_sum[0]["Expt"]);
 	}
 	
 	//ポイントのアップデート
