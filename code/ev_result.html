@@ -171,8 +171,8 @@
 	let staff_society_history="-";
 	let DB_staff = DB.sql("select * from TM_staff");
 	let staff_id_check = localStorage.getItem("ev_staff_id_assess");
-	let DB_sumall = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and result=1;');
-	let DB_staff_cp_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_cp join tm_point on te_staff_cp.title_cd=tm_point.title_cd where staff_id="'+staff_id_check+'";')
+	let DB_sumall = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and result=1;');
+	let DB_staff_cp_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_cp join TM_point on TE_staff_cp.title_cd=TM_point.title_cd where staff_id="'+staff_id_check+'";')
 	if(DB_sumall[0]["pt"]!=null&&DB_sumall[0]["Expt"]!=null){
 		staff_sum_pt = parseInt(DB_sumall[0]["pt"]);
 		staff_sum_Expt = parseInt(DB_sumall[0]["Expt"]);
@@ -182,7 +182,7 @@
 		staff_sum_Expt += parseInt(DB_staff_cp_point[0]["Expt"]);
 	}
 	DB_staff = DB.sql("select * from TM_staff");
-	let salary_cp = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_cp join tm_point on te_staff_cp.title_cd=tm_point.title_cd where staff_id="'+staff_id_check+'";');
+	let salary_cp = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_cp join TM_point on TE_staff_cp.title_cd=TM_point.title_cd where staff_id="'+staff_id_check+'";');
 	let date = new Date();
 	let date_yyyymm = date.toISOString();
 	let ev_date = date_yyyymm.slice(0,7);
@@ -248,7 +248,7 @@
 	}else{
 		$("#staff_join_date").text("-");
 	}
-	let sc_name = DB.sql('select * from tc_ac_history where ac_history_cd="'+DB_staff[staff_check]["ac_history_cd"]+'"');
+	let sc_name = DB.sql('select * from TC_ac_history where ac_history_cd="'+DB_staff[staff_check]["ac_history_cd"]+'"');
 	$("#staff_society_history").text(staff_society_history);
 	if(DB_staff[staff_check]["ac_history_cd"]!=null){
 		$("#staff_ac_history").text(sc_name[0]["ac_history"]);
@@ -327,13 +327,13 @@
 	}
 	
 	if(DB_staff[staff_check]["ac_history_cd"]!=null){
-		let ac_sum = DB.sql('select * from tc_ac_history where ac_history_cd="'+DB_staff[staff_check]["ac_history_cd"]+'"');
+		let ac_sum = DB.sql('select * from TC_ac_history where ac_history_cd="'+DB_staff[staff_check]["ac_history_cd"]+'"');
 		staff_sum_pt += ac_sum[0]["pt"];
 		staff_sum_Expt += ac_sum[0]["Expt"];
 	}
 	
 	//ポイントのアップデート
-	DB.sql('update tm_staff set pt='+staff_sum_pt+',Expt='+staff_sum_Expt+' where staff_id="'+staff_id_check+'"');
+	DB.sql('update TM_staff set pt='+staff_sum_pt+',Expt='+staff_sum_Expt+' where staff_id="'+staff_id_check+'"');
 	DB_staff = DB.sql("select * from TM_staff");
 	$(staff_pt).text(DB_staff[staff_check]["pt"]);
 	$(staff_Expt).text(DB_staff[staff_check]["Expt"]);
@@ -348,12 +348,12 @@
 	let two_year = parseInt(year) - 2;
 	let three_year = parseInt(year) - 3;
 	if(parseInt(month)==9){
-		let year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+year+'-09-01" and result=1;');
-		let last_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+last_year+'-09-01" and result=1;');
-		let two_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+two_year+'-09-01" and result=1;');
-		let year_two_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+year+'-03-01" and result=1;');
-		let last_year_two_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+last_year+'-03-01" and result=1;');
-		let two_year_two_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+two_year+'-03-01" and result=1;');
+		let year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+year+'-09-01" and result=1;');
+		let last_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+last_year+'-09-01" and result=1;');
+		let two_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+two_year+'-09-01" and result=1;');
+		let year_two_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+year+'-03-01" and result=1;');
+		let last_year_two_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+last_year+'-03-01" and result=1;');
+		let two_year_two_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+two_year+'-03-01" and result=1;');
 		if(year_point[0]["pt"]!=null){
 			$("#year_pt").text(year_point[0]["pt"]);
 			$("#year_date").text(year+"-09");
@@ -417,13 +417,13 @@
 			$("#two_year_two_Expt").text("-");
 		}
 	}else{
-		let year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+year+'-09-01" and result=1;');
-		let last_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+last_year+'-09-01" and result=1;');
-		let two_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+two_year+'-09-01" and result=1;');
-		let year_two_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+year+'-03-01" and result=1;');
-		let last_year_two_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+last_year+'-03-01" and result=1;');
-		let two_year_two_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+two_year+'-03-01" and result=1;');
-		let three_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+three_year+'-09-01" and result=1;');
+		let year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+year+'-09-01" and result=1;');
+		let last_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+last_year+'-09-01" and result=1;');
+		let two_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+two_year+'-09-01" and result=1;');
+		let year_two_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+year+'-03-01" and result=1;');
+		let last_year_two_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+last_year+'-03-01" and result=1;');
+		let two_year_two_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+two_year+'-03-01" and result=1;');
+		let three_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date="'+three_year+'-09-01" and result=1;');
 		if(last_year_point[0]["pt"]!=null){
 			$("#year_pt").text(last_year_point[0]["pt"]);
 			$("#year_date").text(last_year+"-09");
@@ -501,7 +501,7 @@
 	
 	//過去三年間
 	if(parseInt(month)==9){
-		let DB_two_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date<"'+two_year+'-09-01" and result=1;');
+		let DB_two_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date<"'+two_year+'-09-01" and result=1;');
 		if(DB_two_year_point[0]["pt"]!=null){
 			$("#old3_pt").text(DB_two_year_point[0]["pt"]);
 		}else{
@@ -513,7 +513,7 @@
 			$("#old3_Expt").text("-");
 		}
 	}else{
-		let DB_three_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date<"'+three_year+'-09-01" and result=1;');
+		let DB_three_year_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date<"'+three_year+'-09-01" and result=1;');
 		if(DB_three_year_point[0]["pt"]!=null){
 			$("#old3_pt").text(DB_three_year_point[0]["pt"]);
 		}else{
@@ -525,7 +525,7 @@
 			$("#old3_Expt").text("-");
 		}
 	}
-	let DB_old3 = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from te_staff_sc join tm_self_check on te_staff_sc.sc_cd=tm_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date<"'+two_year+'-09-01" and result=1;');
+	let DB_old3 = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and  assess_date<"'+two_year+'-09-01" and result=1;');
 	//総合計
 	$("#allsum_pt").text(DB_sumall[0]["pt"]);
 	$("#allsum_Expt").text(DB_sumall[0]["Expt"]);

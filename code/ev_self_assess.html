@@ -65,7 +65,7 @@
 	//社員のIDを取得
 	let staff = localStorage.getItem("ev_staff_id_assess");
 	//社員の自己評価データ取得
-	let staff_data = DB.sql('SELECT * FROM te_staff_sc where staff_id="'+staff+'" and assess_date="'+year+'-'+month+'-01";');
+	let staff_data = DB.sql('SELECT * FROM TE_staff_sc where staff_id="'+staff+'" and assess_date="'+year+'-'+month+'-01";');
 	//チェックボックス用の配列を宣言
 	let self_check = new Array(DB_self.length);
 	for(i=0;i<self_check.length;i++){
@@ -103,8 +103,8 @@
 	//ポイントを計算
 	for(i=0;i<self_check.length;i++){
 		if(self_check[i][0]==true){
-			pt += DB_self[i]["pt"];
-			Expt += DB_self[i]["Expt"];
+			pt += parseInt(DB_self[i]["pt"]);
+			Expt += parseInt(DB_self[i]["Expt"]);
 		}
 	}
 	$("#pt").text(pt);
@@ -127,8 +127,8 @@
 		}
 		for(i=0;i<self_check.length;i++){
 			if(self_check[i][0]==true){
-				pt += DB_self[i]["pt"];
-				Expt += DB_self[i]["Expt"];
+				pt += parseInt(DB_self[i]["pt"]);
+				Expt += parseInt(DB_self[i]["Expt"]);
 			}
 		}
 		$("#pt").text(pt);
@@ -145,7 +145,7 @@
 	})
 	
 	$("#check_button").on("click",function(){
-		staff_data = DB.sql('SELECT * FROM te_staff_sc where staff_id="'+staff+'" and assess_date="'+year+'-'+month+'-01";');
+		staff_data = DB.sql('SELECT * FROM TE_staff_sc where staff_id="'+staff+'" and assess_date="'+year+'-'+month+'-01";');
 		for(i=0;i<self_check.length;i++){
 			let distinct_insert_check = true;
 			let distinct_delete_check = false;
@@ -160,20 +160,20 @@
 					if(self_check[i][0]==true){
 						change = 1;
 					}
-					DB.sql('insert into te_staff_sc value ("'+staff+'","'+self_check[i][1]+'","'+year+'-'+month+'-01",'+change+',"");');
+					DB.sql('insert into TE_staff_sc value ("'+staff+'","'+self_check[i][1]+'","'+year+'-'+month+'-01",'+change+',"");');
 				} else{
 					let change = 0;
 					if(self_check[i][0]==true){
 						change = 1;
 					}
-					DB.sql('update te_staff_sc set result='+change+' where staff_id="'+staff+'" and sc_cd="'+self_check[i][1]+'" and assess_date="'+year+'-'+month+'-01";');
+					DB.sql('update TE_staff_sc set result='+change+' where staff_id="'+staff+'" and sc_cd="'+self_check[i][1]+'" and assess_date="'+year+'-'+month+'-01";');
 				}
 			}else{
 				let change = 0;
 				if(self_check[i][0]==true){
 					change = 1;
 				}
-				DB.sql('insert into te_staff_sc value ("'+staff+'","'+self_check[i][1]+'","'+year+'-'+month+'-01",'+change+',"");');
+				DB.sql('insert into TE_staff_sc value ("'+staff+'","'+self_check[i][1]+'","'+year+'-'+month+'-01",'+change+',"");');
 			}
 		}
 		location.href='ev_result.html'

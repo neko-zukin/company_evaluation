@@ -213,8 +213,8 @@
 	//ポイントの計算
 	for(i=0;i<company_check.length;i++){
 		if(company_check[i][0]==true){
-			pt += DB_company_check[i]["pt"];
-			Expt += DB_company_check[i]["Expt"];
+			pt += parseInt(DB_company_check[i]["pt"]);
+			Expt += parseInt(DB_company_check[i]["Expt"]);
 		}
 	}
 	$("#sum_pt").text(pt);
@@ -281,8 +281,8 @@
 		//ポイントの計算
 		for(i=0;i<company_check.length;i++){
 			if(company_check[i][0]==true){
-				pt += DB_company_check[i]["pt"];
-				Expt += DB_company_check[i]["Expt"];
+				pt += parseInt(DB_company_check[i]["pt"]);
+				Expt += parseInt(DB_company_check[i]["Expt"]);
 			}
 		}
 		$("#sum_pt").text(pt);
@@ -304,11 +304,11 @@
 					}
 					if(distinct_insert_check){
 						console.log('insert into te_staff_cp value ("'+staff+'","'+company_check[i][1]+'","'+year+'-'+month+'-01","");');
-						DB.sql('insert into te_staff_cp value ("'+staff+'","'+company_check[i][1]+'","'+year+'-'+month+'-01","");');
+						DB.sql('insert into TE_staff_cp value ("'+staff+'","'+company_check[i][1]+'","'+year+'-'+month+'-01","");');
 					}
 				}else{
 					console.log('insert into te_staff_sc value ("'+staff+'","'+company_check[i][1]+'","'+year+'-'+month+'-01","");');
-					DB.sql('insert into te_staff_cp value ("'+staff+'","'+company_check[i][1]+'","'+year+'-'+month+'-01","");');
+					DB.sql('insert into TE_staff_cp value ("'+staff+'","'+company_check[i][1]+'","'+year+'-'+month+'-01","");');
 				}
 			}else{
 				for(j=0;j<DB_company_assess_staff.length;j++){
@@ -318,7 +318,7 @@
 				}
 				if(distinct_delete_check){
 					console.log('delete from te_staff_cp where staff_id="'+staff+'" and title_cd="'+company_check[i][1]+'"');
-					DB.sql('delete from te_staff_cp where staff_id="'+staff+'" and title_cd="'+company_check[i][1]+'"');
+					DB.sql('delete from TE_staff_cp where staff_id="'+staff+'" and title_cd="'+company_check[i][1]+'"');
 				}
 			}
 		}

@@ -19,7 +19,7 @@
 	<button id="back_button">戻る</button>
 </body>
 <script>
-	let DB_staff_date = DB.sql("SELECT TM_staff.staff_id,staff_name,max(assess_date) as assess_date FROM TM_staff join TE_staff_sc on TM_staff.staff_id=te_staff_sc.staff_id Group by TM_staff.staff_id");
+	let DB_staff_date = DB.sql("SELECT TM_staff.staff_id,staff_name,max(assess_date) as assess_date FROM TM_staff join TE_staff_sc on TM_staff.staff_id=TE_staff_sc.staff_id Group by TM_staff.staff_id");
 	let DB_staff = DB.sql("select staff_id,staff_name from TM_staff");
 	for(i=0;i<DB_staff.length;i++){
 		let DB_staff_check = true;

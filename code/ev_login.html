@@ -31,7 +31,7 @@
 			error=true;
 		}
 		if(error==false){
-			let DB_user = DB.sql("SELECT * FROM tm_user;")
+			let DB_user = DB.sql("SELECT * FROM TM_user;")
 			
 			for(i=0;i<DB_user.length;i++){
 				if(user_id==DB_user[i]["user_id"]&&password==DB_user[i]["password"]){
