@@ -42,9 +42,11 @@
 		}
 		if(location_id=="cm"){
 			localStorage.setItem("ev_staff_id_assess",staff_id);
+			localStorage.setItem("ev_assess_check","true");
 			location.href='ev_company_assess.html';
 		}else if(location_id=="sc"){
 			localStorage.setItem("ev_staff_id_assess",staff_id);
+			localStorage.setItem("ev_assess_check","false");
 			location.href='ev_self_assess.html';
 		}
 	});

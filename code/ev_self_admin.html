@@ -85,7 +85,7 @@
 	</div>
 </body>
 <script>
-
+	let ev_user_id = localStorage.getItem("ev_user_id");
 	//ブラウザのバックボタン押下時の警告メッセージ
 	window.addEventListener('load', function() {
 	  window.addEventListener('popstate', function(event) {
@@ -183,7 +183,7 @@
 			sql += sql_null("explanation_inp", "v")+', ';
 			//sql += $("#del_flg_inp").prop('checked')+', ';
 			sql += '"'+now+'", ';
-			sql += '"'+'iwata'+'");';// ログインID（あとで書き換える）
+			sql += '"'+ev_user_id+'");';// ログインID（あとで書き換える）
 			console.log(sql);
 			DB.sql(sql);
 			window.location.reload();
@@ -201,7 +201,7 @@
 			sql += 'explanation='+sql_null("explanation_inp", "v")+', ';
 			//sql += 'del_flg='+$("#del_flg_inp").prop('checked')+', ';
 			sql += 'update_date="'+now+'", ';
-			sql += 'update_id="'+'iwata'+'" ';// ログインID（あとで書き換える）
+			sql += 'update_id="'+ev_user_id+'" ';// ログインID（あとで書き換える）
 			sql += 'WHERE sc_cd="'+$("#sc_cd_inp").val()+'";';
 			console.log(sql);
 			DB.sql(sql);

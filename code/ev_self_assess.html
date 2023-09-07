@@ -41,6 +41,11 @@
 <script>
 	let pt=0;
 	let Expt=0;
+	let ev_assess_check = localStorage.getItem("ev_assess_check");
+	if(ev_assess_check=="true"){
+		$("#back_button").prop("disabled",true);
+		$("#company_assess_button").prop("disabled",true);
+	}
 	//日付を取得
 	let date = new Date();
 	let date_yyyymm = date.toISOString();
