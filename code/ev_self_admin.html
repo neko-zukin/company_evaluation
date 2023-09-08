@@ -10,11 +10,11 @@
 	<div class="self_c_admin">
 		<table border="1" id="self_c_tb">
 			<tr>
-				<th class="pk_th0">自己評価<br>コード</th>
-				<th>評価項目</th>
-				<th>pt</th>
-				<th>Expt</th>
-				<th>説明</th>
+				<th class="pk_th0 sca_cd_th">自己評価<br>コード</th>
+				<th class="sca_pt_th">pt</th>
+				<th class="sca_pt_th">Expt</th>
+				<th class="sca_sc_th">評価項目</th>
+				<th class="sca_ex_th">説明</th>
 			</tr>
 			<!--ここにデータを挿入-->
 		</table>
@@ -111,9 +111,9 @@
 	for(let i=0; i<self_c.length; i++){
 		$("#self_c_tb").append('<tr id="tr'+i+'"></tr>');
 		$("#tr"+i).append('<td id="sc_cd_'+i+'" class="pk_td0">'+self_c[i]["sc_cd"]+'</td>');
-		$("#tr"+i).append('<td id="self_check_'+i+'">'+self_c[i]["self_check"]+'</td>');
 		$("#tr"+i).append('<td id="pt_'+i+'">'+self_c[i]["pt"]+'</td>');
 		$("#tr"+i).append('<td id="Expt_'+i+'">'+self_c[i]["Expt"]+'</td>');
+		$("#tr"+i).append('<td id="self_check_'+i+'">'+self_c[i]["self_check"]+'</td>');
 		tb_null(i, "explanation", self_c[i]["explanation"]);
 	}
 	

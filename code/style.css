@@ -213,6 +213,12 @@ p{
 	display: inline-block;
 	vertical-align: top;
 }
+.staff_input input[type="text"], .com_p_input input[type="text"], .self_c_input input[type="text"]{
+	width: 177px;
+}
+.staff_input input[type="number"], .com_p_input input[type="number"], .self_c_input input[type="number"]{
+	width: 177px;
+}
 .staff_input select, .com_p_input select{
 	width: 177px;
 }
@@ -283,6 +289,18 @@ p{
 /* 自己評価管理 */
 #self_c_tb{
 	width: 800px;
+}
+.sca_cd_th{
+	width: 10%;
+}
+.sca_pt_th{
+	min-width: 40px;
+}
+.sca_sc_th{
+	width: 50%;
+}
+.sca_ex_th{
+	width: 40%;
 }
 #explanation_inp, #self_check_inp{
 	resize: none;
@@ -497,7 +515,10 @@ p{
 }
 #sc_assess_table{
 	margin: 0 auto 80px auto;
-	width: 80vw;
+	/* width: 80vw; */
+}
+#sc_assess_table th{
+	background-color: #ffcc99;
 }
 .scass_self_check_th{
 	width: 350px;

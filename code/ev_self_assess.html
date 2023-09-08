@@ -11,12 +11,12 @@
 		<tr>
 			<th></th>
 			<th class="scass_self_check_th">評価</th>
-			<th class="scass_explanation_th">説明</th>
+			<!-- <th class="scass_explanation_th">説明</th> -->
 			<th class="scass_pt_th">pt</th>
 			<th class="scass_pt_th">Expt</th>
 		</tr>
 	</table>
-	<table border="1" class="sum_table">
+	<!-- <table border="1" class="sum_table">
 		<tr>
 			<th colspan="2">合計</th>
 		</tr>
@@ -28,7 +28,7 @@
 			<th>Expt</th>
 			<td id="Expt"></td>
 		</tr>
-	</table>
+	</table> -->
 	<div class="sc_ass_btn">
 		<button id="back_button">社員を選びなおす</button>
 		<button id="company_assess_button">会社評価</button>
@@ -84,8 +84,10 @@
 		// 	explanation = DB_self[i]["explanation"];
 		// }
 		// $("#sc_assess_table").append('<tr><td><input type="checkbox" id="'+DB_self[i]["sc_cd"]+'" class="assess_check_box"></td><td>'+DB_self[i]["self_check"]+'</td><td>'+DB_self[i]["explanation"]+'</td><td>[pt]'+DB_self[i]["pt"]+'\n[Expt]'+DB_self[i]["Expt"]+'</td></tr>')
-		$("#sc_assess_table").append('<tr><td><input type="checkbox" id="'+DB_self[i]["sc_cd"]+'" class="assess_check_box"></td><td>'+DB_self[i]["self_check"]+'</td><td>'+DB_self[i]["explanation"]+'</td><td class="scass_pt_td">'+DB_self[i]["pt"]+'</td><td class="scass_pt_td">'+DB_self[i]["Expt"]+'</td></tr>')
+		// $("#sc_assess_table").append('<tr><td><input type="checkbox" id="'+DB_self[i]["sc_cd"]+'" class="assess_check_box"></td><td>'+DB_self[i]["self_check"]+'</td><td>'+DB_self[i]["explanation"]+'</td><td class="scass_pt_td">'+DB_self[i]["pt"]+'</td><td class="scass_pt_td">'+DB_self[i]["Expt"]+'</td></tr>')
+		$("#sc_assess_table").append('<tr><td><input type="checkbox" id="'+DB_self[i]["sc_cd"]+'" class="assess_check_box"></td><td>'+DB_self[i]["self_check"]+'</td><td class="scass_pt_td">'+DB_self[i]["pt"]+'</td><td class="scass_pt_td">'+DB_self[i]["Expt"]+'</td></tr>')
 	}
+	$("#sc_assess_table").append('<tr><th colspan="2">合計</th><td id="pt" class="scass_pt_td"></td><td id="Expt" class="scass_pt_td"></td></tr>')
 	
 	//すでに記入したものを反映
 	for(i=0;i<staff_data.length;i++){
