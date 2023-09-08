@@ -284,7 +284,7 @@ p{
 #self_c_tb{
 	width: 800px;
 }
-#explanation_inp{
+#explanation_inp, #self_check_inp{
 	resize: none;
 	width: 380px;
 	height: 100px;
