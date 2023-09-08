@@ -171,16 +171,7 @@
 	let staff_society_history="-";
 	let DB_staff = DB.sql("select * from TM_staff");
 	let staff_id_check = localStorage.getItem("ev_staff_id_assess");
-	let DB_sumall = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and result=1;');
-	let DB_staff_cp_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_cp join TM_point on TE_staff_cp.title_cd=TM_point.title_cd where staff_id="'+staff_id_check+'";')
-	if(DB_sumall[0]["pt"]!=null&&DB_sumall[0]["Expt"]!=null){
-		staff_sum_pt = parseInt(DB_sumall[0]["pt"]);
-		staff_sum_Expt = parseInt(DB_sumall[0]["Expt"]);
-	}
-	if(DB_staff_cp_point[0]["pt"]!=null&&DB_staff_cp_point[0]["Expt"]!=null){
-		staff_sum_pt += parseInt(DB_staff_cp_point[0]["pt"]);
-		staff_sum_Expt += parseInt(DB_staff_cp_point[0]["Expt"]);
-	}
+	let DB_sumall=0;
 	DB_staff = DB.sql("select * from TM_staff");
 	let salary_cp = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_cp join TM_point on TE_staff_cp.title_cd=TM_point.title_cd where staff_id="'+staff_id_check+'";');
 	let date = new Date();
@@ -194,6 +185,20 @@
 		month="09";
 	}else{
 		month="03";
+	}
+	if(month==3){
+		DB_sumall = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and result=1;');
+	}else{
+		DB_sumall = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and result=1 and assess_date<>"'+year+'-9-01";')
+	}
+	let DB_staff_cp_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_cp join TM_point on TE_staff_cp.title_cd=TM_point.title_cd where staff_id="'+staff_id_check+'";')
+	if(DB_sumall[0]["pt"]!=null&&DB_sumall[0]["Expt"]!=null){
+		staff_sum_pt = parseInt(DB_sumall[0]["pt"]);
+		staff_sum_Expt = parseInt(DB_sumall[0]["Expt"]);
+	}
+	if(DB_staff_cp_point[0]["pt"]!=null&&DB_staff_cp_point[0]["Expt"]!=null){
+		staff_sum_pt += parseInt(DB_staff_cp_point[0]["pt"]);
+		staff_sum_Expt += parseInt(DB_staff_cp_point[0]["Expt"]);
 	}
 	let staff_check = "";
 	for(i=0;i<DB_staff.length;i++){

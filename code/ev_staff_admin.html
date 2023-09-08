@@ -106,6 +106,7 @@
 				<p id="error_12" hidden>※その社員番号は登録されていません。</p>
 				<p id="error_13" hidden>※生年月日と入社日を入力してください。</p>
 				<p id="error_14" hidden>※入社日が今日よりも後のデータは入力できません。</p>
+
 			</div>
 		</div>
 	</div>
@@ -553,8 +554,12 @@
 			}
 			
 			let staff_id_check = $("#staff_id_inp").val();
-			
-			let DB_sumall = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and result=1;');
+			let DB_sumall = 0;
+			if(new_month==3){
+				DB_sumall = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and result=1;');
+			}else{
+				DB_sumall = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_sc join TM_self_check on TE_staff_sc.sc_cd=TM_self_check.sc_cd where staff_id="'+staff_id_check+'" and result=1 and assess_date<>"'+year+'-9-01";')
+			}
 			let DB_staff_cp_point = DB.sql('select sum(pt) as pt ,sum(Expt) as Expt from TE_staff_cp join TM_point on TE_staff_cp.title_cd=TM_point.title_cd where staff_id="'+staff_id_check+'";')
 			if(DB_sumall[0]["pt"]!=null&&DB_staff_cp_point[0]["pt"]!=null&&DB_sumall[0]["Expt"]!=null&&DB_staff_cp_point[0]["Expt"]!=null){
 				pt += parseInt(DB_sumall[0]["pt"]) + parseInt(DB_staff_cp_point[0]["pt"]);
@@ -714,6 +719,7 @@
 			document.getElementById("error_14").hidden = false;
 			error_check = false;
 		}
+
 		
 		return error_check;
 	}

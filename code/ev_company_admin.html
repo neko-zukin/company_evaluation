@@ -68,6 +68,7 @@
 				<p id="error_7" hidden>※Exptを入力してください。</p>
 				<p id="error_8" hidden>※技菅区分を会社貢献系に変更してください。</p>
 				<p id="error_9" hidden>※業資区分を会社貢献系に変更してください。</p>
+				<p id="error_15" hidden>※ptまたはExptに0以外の数値を入力してください。</p>
 			</div>
 		</div>
 	</div>
@@ -253,6 +254,7 @@
 		document.getElementById("error_7").hidden = true;
 		document.getElementById("error_8").hidden = true;
 		document.getElementById("error_9").hidden = true;
+		document.getElementById("error_15").hidden = true;
 
 		// 内容が入力されていない場合
 		if($("#detail_inp").val() == ""){
@@ -299,6 +301,13 @@
 			document.getElementById("error_9").hidden = false;
 			error_check = false;
 		}
+		
+		//ptとExptが0の時
+		if(0 == $("#pt_inp").val()|| $("#Expt_inp").val() == 0){
+			document.getElementById("error_15").hidden = false;
+			error_check = false;		
+		}
+		
 		return error_check;
 	}
 
