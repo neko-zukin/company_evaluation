@@ -107,7 +107,7 @@
 		</table>
 	</div>
 
-	<table border="1" class="sum_table">
+	<!-- <table border="1" class="sum_table">
 		<tr>
 			<th colspan="2">合計</th>
 		</tr>
@@ -119,10 +119,21 @@
 			<th>Expt</th>
 			<td id="sum_Expt"></td>
 		</tr>
-	</table>
+	</table> -->
 
 	<div class="com_ass_btn">
 		<button id="back_button">社員を選びなおす</button>
+		<table border="1" class="ca_sum_table">
+			<tr>
+				<th colspan="4">合計</th>
+			</tr>
+			<tr>
+				<th class="ca_tb_th">pt</th>
+				<td id="sum_pt" class="ca_tb_td"></td>
+				<th class="ca_tb_th">Expt</th>
+				<td id="sum_Expt" class="ca_tb_td"></td>
+			</tr>
+		</table>
 		<div>
 			<label>※保存されます</label>
 			<button id="sc_button">自己評価</button>
@@ -152,9 +163,6 @@
 	let DB_company_assess_CC = DB.sql('SELECT title_cd,detail,note,pt,Expt FROM TM_point where tm_kbn = "C" and jq_kbn = "C" and del_flg=0;');
 	let DB_company_check = DB.sql('SELECT * FROM TM_point;');
 	let company_check = new Array(DB_company_check.length);
-	for(i=0;i<DB_company_check;i++){
-		
-	}
 	for(i=0;i<company_check.length;i++){
 		company_check[i] = new Array(2);
 		company_check[i][0] = false;
@@ -303,7 +311,7 @@
 						}
 					}
 					if(distinct_insert_check){
-						console.log('insert into te_staff_cp value ("'+staff+'","'+company_check[i][1]+'","'+year+'-'+month+'-01","");');
+						console.log('insert into TE_staff_cp value ("'+staff+'","'+company_check[i][1]+'","'+year+'-'+month+'-01","");');
 						DB.sql('insert into TE_staff_cp value ("'+staff+'","'+company_check[i][1]+'","'+year+'-'+month+'-01","");');
 					}
 				}else{

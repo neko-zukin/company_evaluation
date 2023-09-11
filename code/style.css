@@ -12,12 +12,12 @@ h1{
 	display: flex;
 }
 
-.sum_table{
+/* .sum_table{
 	position: fixed;
 	top: 100;
 	right: 35;
 	background-color: white;
-}
+} */
 
 .center{
 	width: fit-content;
@@ -502,6 +502,19 @@ p{
 	width: 75vw;
 	min-width: 1000px;
 	margin: 0 auto 80px auto;
+}
+.ca_tb_th{
+	width: 50px;
+}
+.ca_tb_td{
+	text-align: center;
+	width: 40px;
+}
+.ca_sum_table{
+	margin: 10px auto 0 auto;
+}
+.ca_sum_table th{
+	background-color: #c489ff;
 }
 
 /* 自己評価 */
