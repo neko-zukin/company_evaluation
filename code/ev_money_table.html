@@ -41,7 +41,7 @@
 			<table border="1">
 				<tr>
 					<th>時間給</th>
-					<td colspan="2" ><input id="min_money" type="number" disabled></td>
+					<td colspan="2" ><input id="min_money" type="text" disabled></td>
 				</tr>
 				<tr>
 					<th>日給</th>
@@ -98,6 +98,7 @@
 	let min_m = db_min[0]["min_money"];
 	let mon_m = min_m * 160;
 	$("#min_money").val(parseInt(min_m).toLocaleString());
+	console.log(parseInt(min_m).toLocaleString());
 	$("#day_money").text(parseInt(min_m*8).toLocaleString());
 	$("#month_money").text(parseInt(mon_m).toLocaleString());
 
@@ -153,9 +154,10 @@
 	});
 	
 	$("#min_money_chenge").on("click",function(){
-		let min_money_chenge_number = $("#min_money").val();
-		if(min_money_chenge_number!=null||min_money_chenge_number!=""){
+		let min_money_chenge_number = $("#min_money").val().replace(",","");
+		if(min_money_chenge_number!=null && min_money_chenge_number!="" && !isNaN(min_money_chenge_number) && min_money_chenge_number.toString().length<8){
 			DB.sql('update TM_min_money set min_money='+min_money_chenge_number);
+			window.location.reload();
 		}
 	})
 	
