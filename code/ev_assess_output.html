@@ -29,7 +29,7 @@
 		color_check[i][1] = DB_staff[i]["staff_id"];
 	}
 	for(i=0;i<DB_staff.length;i++){
-		$("#table").append('<tr><td id="row0_'+i+'">'+DB_staff[i]["staff_id"]+'</td><td id="row1_'+i+'">'+DB_staff[i]["staff_name"]+'</td><td id="row2_'+i+'">'+DB_staff[i]["assess_date"]+'</td><td id="no"><button id="'+i+'">確認</button></td></tr>');
+		$("#table").append('<tr><td id="row0_'+i+'">'+DB_staff[i]["staff_id"]+'</td><td id="row1_'+i+'">'+DB_staff[i]["staff_name"]+'</td><td id="row2_'+i+'">'+DB_staff[i]["assess_date"]+'</td><td id="no"><button id="'+i+'" class="ao_conf">確認</button></td></tr>');
 	}
 	
 	$("td").click(function(){

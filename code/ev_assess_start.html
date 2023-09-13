@@ -25,12 +25,12 @@
 		let DB_staff_check = true;
 		for(j=0;j<DB_staff_date.length;j++){
 			if(DB_staff_date[j]["staff_id"]==DB_staff[i]["staff_id"]){
-				$("#table").append('<tr><td>'+DB_staff_date[j]["staff_id"]+'</td><td>'+DB_staff_date[j]["staff_name"]+'</td><td>'+DB_staff_date[j]["assess_date"]+'</td><td><button id="cm'+DB_staff_date[j]["staff_id"]+'">会社評価</button></td><td><button id="sc'+DB_staff_date[j]["staff_id"]+'">自己評価</button></td></tr>');
+				$("#table").append('<tr><td>'+DB_staff_date[j]["staff_id"]+'</td><td>'+DB_staff_date[j]["staff_name"]+'</td><td>'+DB_staff_date[j]["assess_date"]+'</td><td><button id="cm'+DB_staff_date[j]["staff_id"]+'" class="asa_cp_st">会社評価</button></td><td><button id="sc'+DB_staff_date[j]["staff_id"]+'" class="asa_sc_st">自己評価</button></td></tr>');
 				DB_staff_check = false;
 			}
 		}
 		if(DB_staff_check){
-			$("#table").append('<tr><td>'+DB_staff[i]["staff_id"]+'</td><td>'+DB_staff[i]["staff_name"]+'</td><td>未実施</td><td><button id="cm'+DB_staff[i]["staff_id"]+'">会社評価</button></td><td><button id="sc'+DB_staff[i]["staff_id"]+'">自己評価</button></td></tr>');
+			$("#table").append('<tr><td>'+DB_staff[i]["staff_id"]+'</td><td>'+DB_staff[i]["staff_name"]+'</td><td>未実施</td><td><button id="cm'+DB_staff[i]["staff_id"]+'" class="asa_cp_st">会社評価</button></td><td><button id="sc'+DB_staff[i]["staff_id"]+'" class="asa_sc_st">自己評価</button></td></tr>');
 		}
 	}
 	$("button").click(function(){

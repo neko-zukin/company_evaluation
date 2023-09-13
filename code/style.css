@@ -1,4 +1,25 @@
 /*ここはみんなで使うところだよ*/
+body{
+	font-size: 18px;
+}
+table{
+	font-size: 18px;
+}
+input{
+	font-size: 18px;
+}
+input[type="date"]{
+	font-size: 18px;
+}
+select{
+	font-size: 18px;
+}
+textarea{
+	font-size: 18px;
+}
+button{
+	font-size: 18px;
+}
 span{
 	color: red;
 }
@@ -209,7 +230,7 @@ p{
 }
 .staff_input label, .com_p_input label, .self_c_input label{
 	margin: 0 0 auto 30px;
-	width: 112px;
+	width: 130px;
 	display: inline-block;
 	vertical-align: top;
 }
@@ -282,8 +303,8 @@ p{
 }
 .com_p_input textarea{
 	resize: none;
-	width: 177px;
-	height: 140px;
+	width: 527px;
+	height: 100px;
 }
 
 /* 自己評価管理 */
@@ -346,11 +367,12 @@ p{
 	margin-left: 50px;
 }
 #min_money{
-	font-size: 16px;
+	font-size: 18px;
 }
 #min_money_chenge{
 	margin: 10px auto 0 auto;
 	display: block;
+	width: 150px;
 }
 
 /* 評価実施 */
@@ -365,6 +387,9 @@ p{
 	position: sticky;
 	top: 0;
 	background-color: #bcddff;
+}
+.asa_cp_st, .asa_sc_st{
+	width: 100px;
 }
 
 /* 評価出力 */
@@ -389,9 +414,12 @@ p{
 }
 #all_select_button{
 	width: 100;
-	font-size:15;
+	font-size:18px;
 	display: block;
 	margin: 10px 400px 10px auto;
+}
+.ao_conf{
+	width: 80px;
 }
 
 /* 会社評価,自己評価 共通 */
@@ -418,11 +446,11 @@ p{
 
 /*会社評価*/
 .assess_check_detail{
-	width: 500;
+	width: 58%;
 	height: 50;
 }
 .assess_check_note{
-	width: 350;
+	width: 30%;
 	height: 50;
 }
 .assess_check_box{
@@ -541,7 +569,8 @@ p{
 	background-color: #ffcc99;
 }
 .scass_self_check_th{
-	width: 350px;
+	/* width: 350px; */
+	max-width: 70vw;
 }
 .scass_pt_th{
 	width: 40px;
