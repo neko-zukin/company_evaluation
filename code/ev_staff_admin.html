@@ -158,10 +158,6 @@
 	let ev_date = date_yyyymm.slice(0,7);
 	let year = ev_date.slice(0,4);
 	let month = ev_date.slice(5,7);
-	let birthday = staff[9]["birthday"].slice(0,4);
-	let job_history = staff[9]["join_date"].slice(0,4);
-	let staff_old = parseInt(year)-parseInt(birthday);
-	let staff_society_history = parseInt(year)-parseInt(job_history);
 
 	console.log(staff);
 	for(let i=0; i<staff.length; i++){
@@ -193,7 +189,8 @@
 	
 	// nullの場合、-(ハイフン)を返す(table用)
 	function tb_null(i, col, data, del){
-		if(data==null){
+
+		if(data==null || data=="-"){
 			// nullの場合
 			if(del=="del"){
 				$("#tr_del"+i).append('<td id="'+col+i+'" class="tb_null">-</td>');
@@ -348,10 +345,10 @@
 			
 			//入った年代
 			if(staff_birthday!="yyyy/mm/dd"&&staff_join_date!="yyyy/mm/dd"){
-				generation = parseInt(job_history.slice(0,4))-parseInt(staff_birthday.slice(0,4));
-				if(parseInt(job_history.slice(5,7))-parseInt(staff_birthday.slice(5,7))<=0){
-					if(parseInt(job_history.slice(5,7))-parseInt(staff_birthday.slice(5,7))==0){
-						if(parseInt(job_history.slice(8,10))-parseInt(staff_birthday.slice(8,10))<0){
+				generation = parseInt(staff_join_date.slice(0,4))-parseInt(staff_birthday.slice(0,4));
+				if(parseInt(staff_join_date.slice(5,7))-parseInt(staff_birthday.slice(5,7))<=0){
+					if(parseInt(staff_join_date.slice(5,7))-parseInt(staff_birthday.slice(5,7))==0){
+						if(parseInt(staff_join_date.slice(8,10))-parseInt(staff_birthday.slice(8,10))<0){
 							generation = generation - 1;
 						}
 					}else{
@@ -375,6 +372,11 @@
 			}
 			
 			let noit_his = $("#noit_history_inp").val();
+			
+			if(noit_his==null||noit_his==""){
+				noit_his=0;
+			}
+			
 			let generation_point = "-";
 			if(generation!="-"&&noit_his!=null&&noit_his!=0&&sql_selectitem!=""){
 				generation_point=DB.sql('SELECT '+sql_selectitem+' FROM TM_noit_point where generation='+generation+' and not_it = '+noit_his);
@@ -390,9 +392,13 @@
 			
 			let it_point="-";
 			//ITポイント取得
-			if($("#it_history_inp").val()!=""){
-				it_point = parseInt($("#it_history_inp").val())*4;
+			let it_history = $("#it_history_inp").val();
+			if(it_history==null||it_history==""){
+				it_history=0;
 			}
+			
+			
+			it_point = parseInt(it_history)*4;
 			
 			let pt=0;
 			if(DB_ac_point!="-"){
@@ -401,7 +407,7 @@
 			if(it_point!="-"){
 				pt += it_point;
 			}
-			if(generation_point.length!=0){
+			if(generation_point.length!=0&&generation_point!="-"){
 				if(generation_point[0][sql_selectitem]!="-"){
 					pt += generation_point[0][sql_selectitem];
 				}
@@ -422,7 +428,7 @@
 			sql += sql_null("join_date_inp", "d")+', ';
 			sql += sql_null("pt_inp", "i")+', ';
 			sql += sql_null("Expt_inp", "i")+', ';
-			sql += sql_null("ac_history_cd_inp", "v")+', ';
+			sql += sql_null("ac_history_cd_inp", "ac")+', ';
 			sql += sql_null("society_history_inp", "i")+', ';
 			sql += sql_null("it_history_inp", "i")+', ';
 			sql += sql_null("noit_history_inp", "i")+', ';
@@ -490,10 +496,10 @@
 			
 			//入った年代
 			if(staff_birthday!="yyyy/mm/dd"&&staff_join_date!="yyyy/mm/dd"){
-				generation = parseInt(job_history.slice(0,4))-parseInt(staff_birthday.slice(0,4));
-				if(parseInt(job_history.slice(5,7))-parseInt(staff_birthday.slice(5,7))<=0){
-					if(parseInt(job_history.slice(5,7))-parseInt(staff_birthday.slice(5,7))==0){
-						if(parseInt(job_history.slice(8,10))-parseInt(staff_birthday.slice(8,10))<0){
+				generation = parseInt(staff_join_date.slice(0,4))-parseInt(staff_birthday.slice(0,4));
+				if(parseInt(staff_join_date.slice(5,7))-parseInt(staff_birthday.slice(5,7))<=0){
+					if(parseInt(staff_join_date.slice(5,7))-parseInt(staff_birthday.slice(5,7))==0){
+						if(parseInt(staff_join_date.slice(8,10))-parseInt(staff_birthday.slice(8,10))<0){
 							generation = generation - 1;
 						}
 					}else{
@@ -517,6 +523,11 @@
 			}
 			
 			let noit_his = $("#noit_history_inp").val();
+			
+			if(noit_his==null||noit_his==""){
+				noit_his=0;
+			}
+			
 			let generation_point = "-";
 			if(generation!="-"&&noit_his!=null&&noit_his!=0&&sql_selectitem!=""){
 				generation_point=DB.sql('SELECT '+sql_selectitem+' FROM TM_noit_point where generation='+generation+' and not_it = '+noit_his);
@@ -532,9 +543,13 @@
 			
 			let it_point="-";
 			//ITポイント取得
-			if($("#it_history_inp").val()!=""){
-				it_point = parseInt($("#it_history_inp").val())*4;
+			let it_history = $("#it_history_inp").val();
+			if(it_history==null||it_history==""){
+				it_history=0;
 			}
+			
+			
+			it_point = parseInt(it_history)*4;
 			
 			let pt=0;
 			if(DB_ac_point!="-"){
@@ -543,7 +558,7 @@
 			if(it_point!="-"){
 				pt += it_point;
 			}
-			if(generation_point.length!=0){
+			if(generation_point.length!=0&&generation_point!="-"){
 				if(generation_point[0][sql_selectitem]!="-"&&generation_point[0][sql_selectitem]!==undefined){
 					pt += parseInt(generation_point[0][sql_selectitem]);
 				}

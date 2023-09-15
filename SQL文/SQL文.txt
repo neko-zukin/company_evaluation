@@ -27,6 +27,10 @@ update TM_staff set ac_history_cd=null
 update TC_ac_history set ac_history="大卒(文系)" where ac_history_cp="ac_uh";
 update TC_ac_history set ac_history="大卒(理系)" where ac_history_cd="ac_us";
 
+【社員全員削除フラグON】
+update TM_staff set del_flg=true;
+
+
 ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
 【データベース作成】

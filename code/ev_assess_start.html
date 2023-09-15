@@ -19,13 +19,14 @@
 	<button id="back_button">戻る</button>
 </body>
 <script>
-	let DB_staff_date = DB.sql("SELECT TM_staff.staff_id,staff_name,max(assess_date) as assess_date FROM TM_staff join TE_staff_sc on TM_staff.staff_id=TE_staff_sc.staff_id Group by TM_staff.staff_id");
+	// let DB_staff_date = DB.sql("SELECT TM_staff.staff_id,staff_name,max(assess_date) as assess_date FROM TM_staff join TE_staff_sc on TM_staff.staff_id=TE_staff_sc.staff_id Group by TM_staff.staff_id");
+	let DB_staff_date = DB.sql("SELECT TM_staff.staff_id,staff_name,max(assess_date) as assess_date,DATE_FORMAT(max(assess_date),'%Y年%c月分') as date_str FROM TM_staff join TE_staff_sc on TM_staff.staff_id=TE_staff_sc.staff_id Group by TM_staff.staff_id");
 	let DB_staff = DB.sql("select staff_id,staff_name from TM_staff");
 	for(i=0;i<DB_staff.length;i++){
 		let DB_staff_check = true;
 		for(j=0;j<DB_staff_date.length;j++){
 			if(DB_staff_date[j]["staff_id"]==DB_staff[i]["staff_id"]){
-				$("#table").append('<tr><td>'+DB_staff_date[j]["staff_id"]+'</td><td>'+DB_staff_date[j]["staff_name"]+'</td><td>'+DB_staff_date[j]["assess_date"]+'</td><td><button id="cm'+DB_staff_date[j]["staff_id"]+'" class="asa_cp_st">会社評価</button></td><td><button id="sc'+DB_staff_date[j]["staff_id"]+'" class="asa_sc_st">自己評価</button></td></tr>');
+				$("#table").append('<tr><td>'+DB_staff_date[j]["staff_id"]+'</td><td>'+DB_staff_date[j]["staff_name"]+'</td><td>'+DB_staff_date[j]["date_str"]+'</td><td><button id="cm'+DB_staff_date[j]["staff_id"]+'" class="asa_cp_st">会社評価</button></td><td><button id="sc'+DB_staff_date[j]["staff_id"]+'" class="asa_sc_st">自己評価</button></td></tr>');
 				DB_staff_check = false;
 			}
 		}

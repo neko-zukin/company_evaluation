@@ -3,7 +3,7 @@ header("Content-type: text/plain; charset=UTF-8");
 
 try{
 	// 接続
-	$db = new PDO('mysql:host=localhost;dbname=company_evaluation', 'root', 'P@ssw0rd');
+	$db = new PDO('mysql:host=localhost;dbname=company_evaluation', 'root', 'Cielj@p@n-2019');
 
 	$sql = $_POST['sql'];
 	$result = $db->query($sql);

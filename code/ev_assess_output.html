@@ -21,7 +21,8 @@
 </body>
 <script>
 	let all_select_check=false;
-	let DB_staff = DB.sql("SELECT TM_staff.staff_id,staff_name,max(assess_date) as assess_date FROM TM_staff join TE_staff_sc on TM_staff.staff_id=TE_staff_sc.staff_id Group by TM_staff.staff_id")
+	// let DB_staff = DB.sql("SELECT TM_staff.staff_id,staff_name,max(assess_date) as assess_date FROM TM_staff join TE_staff_sc on TM_staff.staff_id=TE_staff_sc.staff_id Group by TM_staff.staff_id")
+	let DB_staff = DB.sql("SELECT TM_staff.staff_id,staff_name,max(assess_date) as assess_date,DATE_FORMAT(max(assess_date),'%Y年%c月分') as date_str FROM TM_staff join TE_staff_sc on TM_staff.staff_id=TE_staff_sc.staff_id Group by TM_staff.staff_id")
 	let color_check = [DB_staff.length];
 	for(i=0;i<DB_staff.length;i++){
 		color_check[i] = new Array(2);
@@ -29,7 +30,7 @@
 		color_check[i][1] = DB_staff[i]["staff_id"];
 	}
 	for(i=0;i<DB_staff.length;i++){
-		$("#table").append('<tr><td id="row0_'+i+'">'+DB_staff[i]["staff_id"]+'</td><td id="row1_'+i+'">'+DB_staff[i]["staff_name"]+'</td><td id="row2_'+i+'">'+DB_staff[i]["assess_date"]+'</td><td id="no"><button id="'+i+'" class="ao_conf">確認</button></td></tr>');
+		$("#table").append('<tr><td id="row0_'+i+'">'+DB_staff[i]["staff_id"]+'</td><td id="row1_'+i+'">'+DB_staff[i]["staff_name"]+'</td><td id="row2_'+i+'">'+DB_staff[i]["date_str"]+'</td><td id="no"><button id="'+i+'" class="ao_conf">確認</button></td></tr>');
 	}
 	
 	$("td").click(function(){

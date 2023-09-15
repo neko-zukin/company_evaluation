@@ -553,10 +553,10 @@ p{
 	text-align: center;
 	width: 40px;
 }
-.ca_sum_table{
-	margin: 10px auto 0 auto;
+.ca_sum_table, .sa_staff_name_table{
+	margin: 5px auto 0 auto;
 }
-.ca_sum_table th{
+.ca_sum_table th, .sa_staff_name_table th{
 	background-color: #c489ff;
 }
 

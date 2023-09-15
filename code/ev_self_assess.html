@@ -32,6 +32,14 @@
 	<div class="sc_ass_btn">
 		<button id="back_button">社員を選びなおす</button>
 		<button id="company_assess_button">会社評価</button>
+		<table border="1" class="sa_staff_name_table">
+			<tr>
+				<th>氏名</th>
+			</tr>
+			<tr>
+				<td id="sa_staff_name_td"></td>
+			</tr>
+		</table>
 		<div>
 			<label>※保存されます</label>
 			<button id="check_button">結果</button>
@@ -136,6 +144,10 @@
 		$("#pt").text(pt);
 		$("#Expt").text(Expt);
 	})
+
+	// 氏名表示
+	let DB_staff_name = DB.sql('SELECT * FROM TM_staff WHERE staff_id="'+staff+'";');
+	$("#sa_staff_name_td").text(DB_staff_name[0]["staff_name"]);
 	
 	
 	$("#back_button").on("click",function(){
