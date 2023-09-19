@@ -35,9 +35,14 @@
 		<table border="1" class="sa_staff_name_table">
 			<tr>
 				<th>氏名</th>
+				<th colspan="4">合計</th>
 			</tr>
 			<tr>
 				<td id="sa_staff_name_td"></td>
+				<th class="ca_tb_th">pt</th>
+				<td id="pt" class="scass_pt_td"></td>
+				<th class="ca_tb_th">Expt</th>
+				<td id="Expt" class="scass_pt_td"></td>
 			</tr>
 		</table>
 		<div>
@@ -95,7 +100,7 @@
 		// $("#sc_assess_table").append('<tr><td><input type="checkbox" id="'+DB_self[i]["sc_cd"]+'" class="assess_check_box"></td><td>'+DB_self[i]["self_check"]+'</td><td>'+DB_self[i]["explanation"]+'</td><td class="scass_pt_td">'+DB_self[i]["pt"]+'</td><td class="scass_pt_td">'+DB_self[i]["Expt"]+'</td></tr>')
 		$("#sc_assess_table").append('<tr><td><input type="checkbox" id="'+DB_self[i]["sc_cd"]+'" class="assess_check_box"></td><td>'+DB_self[i]["self_check"]+'</td><td class="scass_pt_td">'+DB_self[i]["pt"]+'</td><td class="scass_pt_td">'+DB_self[i]["Expt"]+'</td></tr>')
 	}
-	$("#sc_assess_table").append('<tr><th colspan="2">合計</th><td id="pt" class="scass_pt_td"></td><td id="Expt" class="scass_pt_td"></td></tr>')
+	// $("#sc_assess_table").append('<tr><th colspan="2">合計</th><td id="pt" class="scass_pt_td"></td><td id="Expt" class="scass_pt_td"></td></tr>')
 	
 	//すでに記入したものを反映
 	for(i=0;i<staff_data.length;i++){
