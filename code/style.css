@@ -627,58 +627,60 @@ p{
 	margin-right: 10px;
 }
 #staff_status_table{
-	/* position: absolute;
-	left:100; */
 	margin: 0 auto 15px auto;
+}
+#staff_status_table th, .check_result th{
+	background-color: #c6e2ff;
+}
+.ch_re_staff_id_th, .ch_re_join_year_th{
+	min-width: 70px;
+}
+.ch_re_staff_name_th{
+	min-width: 300px;
+}
+.ch_re_day_th, .ch_re_ac_th{
+	min-width: 100px;
+}
+.ch_re_age_th{
+	min-width: 35px;
+}
+.ch_re_salary_th{
+	min-width: 80px;
+}
+.ch_re_sumpt_th{
+	min-width: 72px;
+}
+.ch_re_pt_th{
+	min-width: 40px;
 }
 #staff_status_table td, #staff_sc_table td, #staff_sal_history_table td, #staff_sal_math_table td, .ch_re_pt{
 	text-align: center;
 }
-/* #staff_hisotory_table{
-	position: absolute;
-	left:800;
-} */
-/* #staff_point_table{
-	position: absolute;
-	left:1050;
-} */
 #cp_table{
 	display: block;
-	/* position: absolute;
-	top:175;
-	left:100; */
 	height: calc(100vh - 390px);
 	width: 650px;
 	overflow-y: scroll;
 }
-/* #staff_sal_history_table{
-	position: absolute;
-	top: 175;
-	left:800;
-} */
+.ch_re_assday_th{
+	min-width: 75px;
+}
+.ch_re_yyyymm_th{
+	min-width: 90px;
+}
 #staff_sal_it_table{
-	/* position: absolute;
-	top: 175;
-	left:1050; */
 	margin-top: 30px;
 }
-/* #staff_sal_noit_table{
-	position: absolute;
-	top: 375;
-	left:800;
-
-} */
+.sal_his_th{
+	min-width: 80px;
+}
+.sal_his_td{
+	min-width: 68px;
+	text-align: center;
+}
 #staff_sal_math_table{
-	/* position: absolute;
-	top:375;
-	left:1050; */
 	margin-top: 80px;
 }
-/* #staff_sc_table{
-	position: absolute;
-	top: 385;
-	left:100;
-} */
 #table_bar{
 	position: sticky;
 	top: 0;
@@ -694,25 +696,16 @@ p{
 	width:40;
 }
 #right_arrow1{
-	/* position: absolute;
-	top: 175;
-	left:965; */
 	margin-top: 15px;
 	color:#ff1414;
 	font-size:50;
 }
 #right_arrow2{
-	/* position: absolute;
-	top: 355;
-	left:950; */
 	margin-top: 77px;
 	color:#00ff00;
 	font-size:50;
 }
 #bottom_arrow{
-	/* position: absolute;
-	top: 285;
-	left:810; */
 	margin-left: 20px;
 	color:#00ff00;
 	font-size:50;

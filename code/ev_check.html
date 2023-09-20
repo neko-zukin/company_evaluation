@@ -9,17 +9,17 @@
 	<h1>個人成績評価表</h1>
 	<table border="1" id="staff_status_table">
 		<tr>
-			<th style="background-color:#c6e2ff; min-width:70px;">社員番号</th>
-			<th style="background-color:#c6e2ff; min-width:300px;">氏名</th>
-			<th style="background-color:#c6e2ff; min-width:100px;">生年月日</th>
-			<th style="background-color:#c6e2ff; min-width:35px;">年齢</th>
-			<th style="background-color:#c6e2ff; min-width:100px;">入社日</th>
-			<th style="background-color:#c6e2ff; min-width:70px;">勤続年数</th>
-			<th style="background-color:#c6e2ff; min-width:100px;">学歴</th>
-			<th style="background-color:#c6e2ff; min-width:80px;">基本給</th>
-			<th rowspan="2" style="background-color:#c6e2ff">ポイント<br>総合計</th>
-			<th style="background-color:#c6e2ff; width: 40px;">pt</th>
-			<th style="background-color:#c6e2ff">Expt</th>
+			<th class="ch_re_staff_id_th">社員番号</th>
+			<th class="ch_re_staff_name_th">氏名</th>
+			<th class="ch_re_day_th">生年月日</th>
+			<th class="ch_re_age_th">年齢</th>
+			<th class="ch_re_day_th">入社日</th>
+			<th class="ch_re_join_year_th">勤続年数</th>
+			<th class="ch_re_ac_th">学歴</th>
+			<th class="ch_re_salary_th">基本給</th>
+			<th rowspan="2" class="ch_re_sumpt_th">ポイント<br>総合計</th>
+			<th class="ch_re_pt_th">pt</th>
+			<th>Expt</th>
 		</tr>
 		<tr>
 			<td id="staff_id"></td>
@@ -37,95 +37,85 @@
 	
 	<div class="check_result">
 		<div class="check_result_1">
-				<table border="1" id="cp_table">
+			<table border="1" id="cp_table">
 				<tr id="table_bar">
-					<th id="th_title" style="background-color:#c6e2ff">取得タイトル</th>
-					<th id="th_pt" style="background-color:#c6e2ff">pt</th>
-					<th id="th_Expt" style="background-color:#c6e2ff">Expt</th>
+					<th id="th_title">取得タイトル</th>
+					<th id="th_pt">pt</th>
+					<th id="th_Expt">Expt</th>
 				</tr>
 			</table>
 			<table border="1"id="staff_sc_table">
 				<tr>
-					<th rowspan="2" style="background-color:#c6e2ff"></th>
-					<th colspan="3" style="background-color:#c6e2ff">前々年度</th>
-					<th colspan="3" style="background-color:#c6e2ff">前年度</th>
-					<th colspan="3" style="background-color:#c6e2ff">今年度</th>
+					<th rowspan="2"></th>
+					<th colspan="3">前々年度</th>
+					<th colspan="3">前年度</th>
+					<th colspan="3">今年度</th>
 				</tr>
 				<tr>
-					<th style="background-color:#c6e2ff">年月</th>
-					<th style="background-color:#c6e2ff; width:40px;">pt</th>
-					<th style="background-color:#c6e2ff">Expt</th>
-					<th style="background-color:#c6e2ff">年月</th>
-					<th style="background-color:#c6e2ff; width:40px;">pt</th>
-					<th style="background-color:#c6e2ff">Expt</th>
-					<th style="background-color:#c6e2ff">年月</th>
-					<th style="background-color:#c6e2ff; width:40px;">pt</th>
-					<th style="background-color:#c6e2ff">Expt</th>
+					<th class="ch_re_yyyymm_th">年月</th>
+					<th class="ch_re_pt_th">pt</th>
+					<th>Expt</th>
+					<th class="ch_re_yyyymm_th">年月</th>
+					<th class="ch_re_pt_th">pt</th>
+					<th>Expt</th>
+					<th class="ch_re_yyyymm_th">年月</th>
+					<th class="ch_re_pt_th">pt</th>
+					<th>Expt</th>
 				</tr>
 				<tr>
-					<th style="background-color:#c6e2ff">前期</th>
-					<th id="two_year_date">-</th>
+					<th class="ch_re_assday_th">前期</th>
+					<td id="two_year_date">-</td>
 					<td id="two_year_pt">pt</td>
 					<td id="two_year_Expt">Expt</td>
-					<th id="last_year_date">-</th>
+					<td id="last_year_date">-</td>
 					<td id="last_year_pt">pt</td>
 					<td id="last_year_Expt">Expt</td>
-					<th id="year_date">-</th>
+					<td id="year_date">-</td>
 					<td id="year_pt">pt</td>
 					<td id="year_Expt">Expt</td>
 				</tr>
 				<tr>
-					<th style="background-color:#c6e2ff">後期</th>
-					<th id="two_year_two_date">-</th>
-					<td id="two_year_two_pt" >pt</td>
-					<td id="two_year_two_Expt" >Expt</td>
-					<th id="last_year_two_date">-</th>
-					<td id="last_year_two_pt" >pt</td>
-					<td id="last_year_two_Expt" >Expt</td>
-					<th id="year_two_date">-</th>
-					<td id="year_two_pt" >pt</td>
-					<td id="year_two_Expt" >Expt</td>
+					<th class="ch_re_assday_th">後期</th>
+					<td id="two_year_two_date">-</td>
+					<td id="two_year_two_pt">pt</td>
+					<td id="two_year_two_Expt">Expt</td>
+					<td id="last_year_two_date">-</td>
+					<td id="last_year_two_pt">pt</td>
+					<td id="last_year_two_Expt">Expt</td>
+					<td id="year_two_date">-</td>
+					<td id="year_two_pt">pt</td>
+					<td id="year_two_Expt">Expt</td>
 				</tr>
 				<tr>
-					<th colspan="2" style="background-color:#c6e2ff">過去三年以前の合計</th>
-					<td id="old3_pt" >pt</td>
-					<td id="old3_Expt" >Expt</td>
-					<th colspan="4" style="background-color:#c6e2ff">総合計</th>
-					<td id="allsum_pt" >pt</td>
-					<td id="allsum_Expt" >Expt</td>
+					<th colspan="2">過去三年以前の合計</th>
+					<td id="old3_pt">pt</td>
+					<td id="old3_Expt">Expt</td>
+					<th colspan="4">総合計</th>
+					<td id="allsum_pt">pt</td>
+					<td id="allsum_Expt">Expt</td>
 				</tr>
 			</table>	
 		</div>
 
 		<div class="check_result_2">
-			<!-- <table border="1" id="staff_hisotory_table">
-				<tr>
-					<th style="background-color:#c6e2ff">学歴</th>
-					<th style="background-color:#c6e2ff">基本給</th>
-				</tr>
-				<tr>
-					<td id="staff_ac_history"></td>
-					<td id="staff_money"></td>
-				</tr>
-			</table> -->
 			<table border="1" id="staff_sal_history_table">
 				<tr>
-					<th colspan="2" style="background-color:#c6e2ff">社会人歴(中途)</th>
+					<th colspan="2">社会人歴(中途)</th>
 				</tr>
 				<tr>
-					<th style="background-color:#ffc1c1" >IT経験</th>
-					<td id="staff_ithistory"></td>
+					<th class="sal_his_th" style="background-color:#ffc1c1">IT経験</th>
+					<td id="staff_ithistory" class="sal_his_td"></td>
 				</tr>
 				<tr>
-					<th  style="background-color:#a3ffa3">IT以外</th>
-					<td id="staff_noithistory"></td>
+					<th class="sal_his_th" style="background-color:#a3ffa3">IT以外</th>
+					<td id="staff_noithistory" class="sal_his_td"></td>
 				</tr>
 			</table>
 			<div id="bottom_arrow">⇩</div>
 			<table border="1"id="staff_sal_noit_table">
 				<tr>
-					<th style="background-color:#a3ffa3">IT以外</th>
-					<td id="staff_noitpoint"></td>
+					<th class="sal_his_th" style="background-color:#a3ffa3">IT以外</th>
+					<td id="staff_noitpoint" class="sal_his_td"></td>
 				</tr>
 			</table>	
 		</div>
@@ -136,34 +126,23 @@
 		</div>
 
 		<div class="check_result_4">
-			<!-- <table border="1" id="staff_point_table">
-				<tr>
-					<th rowspan="2" style="background-color:#c6e2ff">総合計</th>
-					<th style="background-color:#c6e2ff; width: 40px;">pt</th>
-					<th style="background-color:#c6e2ff">Expt</th>
-				</tr>
-				<tr>
-					<td id="staff_pt"></td>
-					<td id="staff_Expt"></td>
-				</tr>
-			</table> -->
 			<table border="1"id="staff_sal_it_table">
 				<tr>
-					<th style="background-color:#ffc1c1" >IT経験</th>
-					<td id="staff_itpoint"></td>
+					<th class="sal_his_th" style="background-color:#ffc1c1" >IT経験</th>
+					<td id="staff_itpoint" class="sal_his_td"></td>
 				</tr>
 			</table>
 			<table border="1"id="staff_sal_math_table">
 				<tr>
-					<th colspan="2" style="background-color:#c6e2ff">現在</th>
+					<th colspan="2">現在</th>
 				</tr>
 				<tr>
 					<th style="background-color:#a3ffa3">入社</th>
 					<th id="n_day" style="background-color:#a3ffa3"></th>
 				</tr>
 				<tr>
-					<th id="n_old" style="background-color:#a3ffa3"></th>
-					<td id="noit_point"></td>
+					<th id="n_old" class="sal_his_th" style="background-color:#a3ffa3"></th>
+					<td id="noit_point" class="sal_his_td"></td>
 				</tr>
 			</table>	
 		</div>
