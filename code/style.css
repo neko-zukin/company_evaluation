@@ -721,7 +721,7 @@ p{
 }
 
 /* 個人成績表結果 */
-#right_move{
+/* #right_move{
 	position: absolute;
 	bottom:10;
 	left:650;
@@ -736,11 +736,23 @@ p{
 	width:200;
 	height:40;
 	font-size:20;
+} */
+.check_move{
+	width: fit-content;
+	margin: 0 auto;
+}
+#right_move, #left_move{
+	width:200;
+	height:40;
+	font-size:20;
+}
+#left_move{
+	margin-right: 20px;
 }
 #check_csv_button{
 	position: absolute;
 	bottom:10;
-	right:175;
+	right:100;
 	width:200;
 	height:40;
 }
@@ -761,14 +773,14 @@ p{
 #result_back_button{
 	position: absolute;
 	bottom:10;
-	right:175;
+	right:100;
 	width:200;
 	height:40;
 }
 #result_csv_button{
 	position: absolute;
 	bottom:10;
-	right:390;
+	right:310;
 	width:400;
 	height:40;
 }
