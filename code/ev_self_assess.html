@@ -30,8 +30,8 @@
 		</tr>
 	</table> -->
 	<div class="sc_ass_btn">
-		<button id="back_button">社員を選びなおす</button>
-		<button id="company_assess_button">会社評価</button>
+		<button id="back_button">戻る</button>
+		<button id="company_assess_button">会社評価へ戻る</button>
 		<table border="1" class="sa_staff_name_table">
 			<tr>
 				<th>氏名</th>
@@ -47,11 +47,19 @@
 		</table>
 		<div>
 			<label>※保存されます</label>
-			<button id="check_button">結果</button>
+			<button id="check_button">結果を表示</button>
 		</div>
 	</div>
 </body>
 <script>
+	let ev_user_id = localStorage.getItem("ev_user_id");
+	//ブラウザのバックボタン押下時の警告メッセージ
+	window.addEventListener('load', function() {
+		window.addEventListener('popstate', function(event) {
+			alert('もう一度このボタンを押すと保存していないデータは消えてしまいます😱');
+		});
+		history.pushState(null, null, null);
+	});
 	let pt=0;
 	let Expt=0;
 	let ev_assess_check = localStorage.getItem("ev_assess_check");

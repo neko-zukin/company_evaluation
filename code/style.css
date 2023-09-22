@@ -159,12 +159,21 @@ p{
 
 /*選択画面*/
 .select_row1{
-	margin: 40px 10px 0 10px;
+	margin: 10px 10px 20px 10px;
 	width:291px;
 	font-size: 20;
 }
+#select_menu{
+	margin: 10px auto;
+	display: block;
+	border-radius: 100%;
+	border: 1px solid #696969;
+	color: #404040;
+	width: 35px;
+	height: 35px;
+}
 .select_row2{
-	margin: 30px 10px;
+	margin: 70px 10px 30px 10px;
 	width:450px;
 	font-size: 20;
 }
@@ -218,9 +227,11 @@ p{
 .staff_tb, #com_p_tb, #self_c_tb{
 	/* table-layout: fixed; */
 	display: block;
-	height: calc(100vh - 180px);
 	white-space: nowrap;
 	overflow: scroll;
+}
+#com_p_tb, #self_c_tb{
+	height: calc(100vh - 150px);
 }
 .staff_tb th, #com_p_tb th, #self_c_tb th{
 	/* letter-spacing: normal;
@@ -289,6 +300,7 @@ p{
 /* 社員管理 */
 .staff_tb{
 	width: calc(100vw - 700px);
+	height: calc(100vh - 180px);
 }
 .staff_th_id{
 	width: 70px;
@@ -367,21 +379,27 @@ p{
 .money{
 	width: 80px;
 }
-#salary_tb{
+#salary_tb, #salary_tb_time{
 	margin: 0 auto;
 	display: block;
 	width: fit-content;
 	height: calc(100vh - 300px);
 	overflow-y: scroll;
 }
-#salary_tb th{
+#salary_tb th, #salary_tb_time th{
 	position: sticky;
 	top: 0;
 	background-color: #bcddff;
 }
-#salary_tb .tr2{
+#salary_tb .tr2, #salary_tb_time .time_tr2{
 	position: sticky;
 	top: 28;
+}
+#salary_tb{
+	min-width: 938px;
+}
+#salary_tb_time{
+	min-width: 1223px;
 }
 .class{
 	background-color: #ffddbc;
@@ -394,7 +412,11 @@ p{
 .salary_bottom th{
 	background-color: #bcddff;
 }
+.min_money_tb{
+	min-width: 308px
+}
 .level_tb{
+	min-width: 304px;
 	margin-left: 50px;
 }
 #min_money{
@@ -411,7 +433,7 @@ p{
 	display: block;
 	margin: 0 auto;
 	width: fit-content;
-	height: 80%;
+	height: calc(100vh - 130px);
 	overflow-y: scroll;
 }
 .ass_start_tb th{
@@ -428,7 +450,7 @@ p{
 	display: block;
 	margin: 0 auto;
 	width: fit-content;
-	height: 70%;
+	height: calc(100vh - 180px);
 	overflow-y: scroll;
 }
 .ass_out_tb th{
@@ -443,11 +465,15 @@ p{
 	right: 30;
 	bottom: 15;
 }
+.ass_output{
+	width: fit-content;
+	margin: 0 auto;
+}
 #all_select_button{
 	width: 100;
 	font-size: 17px;
 	display: block;
-	margin: 10px 400px 10px auto;
+	margin: 0 0 20px auto;
 }
 .ao_conf{
 	width: 80px;
