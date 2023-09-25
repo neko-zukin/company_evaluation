@@ -6,6 +6,8 @@ DROP TABLE TM_salary;
 
 【テーブルデータ削除】
 SET SQL_SAFE_UPDATES = 0;
+DELETE FROM TE_staff_cp;
+DELETE FROM TE_staff_sc;
 DELETE FROM TM_salary;
 
 【カラム名変更】
