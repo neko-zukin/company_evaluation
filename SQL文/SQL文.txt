@@ -32,6 +32,14 @@ update TC_ac_history set ac_history="大卒(理系)" where ac_history_cd="ac_us"
 【社員全員削除フラグON】
 update TM_staff set del_flg=true;
 
+【ログインテーブルに削除フラグ列追加】
+ALTER TABLE TM_user ADD COLUMN del_flg BOOLEAN  NOT NULL  DEFAULT false;
+
+【create_idの値をsystemに変更】
+update TM_staff set create_id="system";
+update TM_self_check set create_id="system";
+update TM_point set create_id="system";
+
 
 ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
@@ -124,6 +132,7 @@ CREATE TABLE TM_user(
         user_name     VARCHAR(20)  NOT NULL,
         password     VARCHAR(10)  NOT NULL,
         user_kbn     VARCHAR(10),
+        del_flg     BOOLEAN  NOT NULL  DEFAULT false,
     PRIMARY KEY (user_id)
 );
 ＜確認＞
